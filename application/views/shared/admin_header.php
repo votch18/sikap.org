@@ -28,21 +28,39 @@
     
     <link href="<?=base_url()?>assets/admin/main/css/switch.css" id="theme" rel="stylesheet">
 
-   
-    
+    <style>
+        #sidebarnav > li.active {
+            border: 1px solid #0099ff;
+            border-width: 0 0 0 5px!important;
+        }
+    </style>
     <script src="<?=base_url()?>assets/admin/assets/plugins/jquery/jquery.min.js"></script>
+
+    <script src="<?=base_url()?>assets/admin/assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="<?=base_url()?>assets/admin/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="<?=base_url()?>assets/admin/assets/plugins/perfect-scrollbar/perfect-scrollbar.jquery.min.js"></script>
+
+    <script src="<?=base_url()?>assets/admin/vendor/datatables/datatables.js"></script>
+    <script src="<?=base_url()?>assets/admin/vendor/sweetalert2/sweetalert2.all.min.js"></script>
+    <!--Wave Effects -->
+    <script src="<?=base_url()?>assets/admin/main/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="<?=base_url()?>assets/admin/main/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="<?=base_url()?>assets/admin/main/js/custom.min.js"></script>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
+    <!-- ============================================================== 
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
             <p class="loader__label">Admin Pro</p>
         </div>
-    </div>
+    </div>-->
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -158,22 +176,24 @@
                         <!-- Profile -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?=base_url()?>assets/admin/assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php
+                                    $photo = !empty($admin['photo']) ? base_url().'assets/admin/images/'.$admin['photo'] : base_url().'assets/admin/images/avatar.png';
+                                ?>
+                                
+                                <img src="<?=base_url()?>assets/admin/images/avatar.png" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
-                                            <div class="u-img"><img src="<?=base_url()?>assets/admin/assets/images/users/1.jpg" alt="user"></div>
+                                            <div class="u-img"><img src="<?=base_url()?>assets/admin/images/avatar.png" alt="user"></div>
                                             <div class="u-text">
-                                                <h4>Steave Jobs</h4>
-                                                <p class="text-muted"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a6c7b686f745a7d777b737634797577">[email&#160;protected]</a></p><a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                                <h4><?=ucwords($admin['fname'].' '.$admin['lname'])?></h4>
+                                                <p class="text-muted"><?=$admin['email']?></p>
+                                                <a href="<?=base_url()?>admin/users/<?=$admin['username']?>" class="btn btn-rounded btn-warning btn-sm">View Profile</a></div>
                                         </div>
                                     </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                                    <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                                    <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                                    <li role="separator" class="divider"></li>
+                                    <li role="separator" class="divider"></li>                                  
                                     <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="<?=base_url()?>admin/logout"><i class="fa fa-power-off"></i> Logout</a></li>
@@ -197,30 +217,54 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">                        
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/#/" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/#/news" aria-expanded="false"><i class="mdi mdi-file-document"></i><span class="hide-menu">News</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/news" aria-expanded="false"><i class="mdi mdi-file-document"></i><span class="hide-menu">News</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/#/announcements" aria-expanded="false"><i class="mdi mdi-bullhorn"></i><span class="hide-menu">Announcements</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/announcements" aria-expanded="false"><i class="mdi mdi-bullhorn"></i><span class="hide-menu">Announcements</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/#/publications" aria-expanded="false"><i class="mdi mdi-library-books"></i><span class="hide-menu">Publications</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/publications" aria-expanded="false"><i class="mdi mdi-library-books"></i><span class="hide-menu">Publications</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/#/awards" aria-expanded="false"><i class="mdi mdi-trophy"></i><span class="hide-menu">Awards</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/awards" aria-expanded="false"><i class="mdi mdi-trophy"></i><span class="hide-menu">Awards</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/#/projects" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Projects</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/projects" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Projects</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/#/gallery" aria-expanded="false"><i class="mdi mdi-image"></i><span class="hide-menu">Gallery</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/gallery" aria-expanded="false"><i class="mdi mdi-image"></i><span class="hide-menu">Gallery</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/#/slider" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Slider</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/slider" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Slider</span></a>
                         </li>
-                       
+                        <li class="nav-small-cap">SETTINGS</li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Themes</span></a>
+                            <ul aria-expanded="true" class="collapse in">
+                                <li><a href="<?=base_url()?>admin/themes/pages">Pages</a></li>
+                                <li><a href="<?=base_url()?>admin/themes/templates">Templates</a></li>
+                                <li><a href="<?=base_url()?>admin/themes/widgets">Widgets</a></li>
+                                <li><a href="<?=base_url()?>admin/themes">Themes</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/pages" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Pages</span></a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/templates" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Templates</span></a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/widgets" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Widgets</span></a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/themes" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Themes</span></a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/themes" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Users</span></a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -234,8 +278,20 @@
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-            
+            <div class="modal fade" id="dialogFilemanager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <button id="modal-close" class="btn btn-danger" data-dismiss="modal" style="position: absolute;top:10px;right:10px;z-index:1"><span style="font-size: 18px;">&times;</span></button>
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content p-0">
+                        <div class="modal-body p-0">
+                            <iframe src="<?php echo base_url()?>filemanager/iframe" style="width: 100%; height: 420px!important; border:none;background: transparent; z-index: 999;"></iframe>
+                        </div>
+                    </div>       
+                </div>
+            </div>
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid" id="main">
+
+
+            

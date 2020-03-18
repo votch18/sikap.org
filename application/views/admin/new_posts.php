@@ -49,7 +49,7 @@
                 <div class="col-md-12" style="background:#e9e9e9; height: 200px;">
                     <div class="row">
                     <?php
-                         $photo = !empty($post['photo']) ? base_url().'filemanager/'.$post['photo'] : base_url().'assets/admin/images/noimage.png';
+                         $photo = !empty($post['photo']) ? $post['photo'] : base_url().'assets/admin/images/noimage.png';
                     ?>
                         <img id="img-uploader" class="img-responsive" src="<?=$photo?>" style="display:block;margin:auto; width: 100%; height: 200px;max-height: 200px"/>
                     </div>
@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<div class="row m-t-0">
+<div class="row m-t-0 <?=in_array($url, array('gallery', 'slider')) ? 'd-none' : ''?>">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -81,16 +81,6 @@
 
 </form>
 
-<div class="modal fade" id="dialogFilemanager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <button id="modal-close" class="btn btn-danger" data-dismiss="modal" style="position: absolute;top:10px;right:10px;z-index:1"><span style="font-size: 18px;">&times;</span></button>
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content p-0">
-            <div class="modal-body p-0">
-                <iframe src="<?php echo base_url()?>filemanager/iframe" style="width: 100%; height: 420px!important; border:none;background: transparent; z-index: 999;"></iframe>
-            </div>
-        </div>       
-    </div>
-</div>
 
 
 <div class="d-none">
@@ -363,6 +353,7 @@ ClassicEditor
     })
 
     $('#dialogFilemanager').on('hidden.bs.modal', function () {
+        console.log('sample');
         savePosts();
     });
 

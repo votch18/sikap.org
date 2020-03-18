@@ -25,7 +25,7 @@
             }
             ,getFileCallback: function(file){             
                 $("#dialogFilemanager", window.parent.document).trigger('click');
-                $('input[name=image]', window.parent.document).val(file.url.replace(file.baseUrl, '')); 
+                $('input[name=image]', window.parent.document).val(file.url); 
                 $('#img-uploader', window.parent.document).attr('src', file.url);    
             }
             // bootCalback calls at before elFinder boot up 

@@ -53,7 +53,37 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+//news
+$route['admin/news']                = 'admin/posts';
+$route['admin/news/create']         = 'admin/create_posts';
+$route['admin/news/edit/(:any)']    = 'admin/edit_posts/$1';
 
-$route['admin/news']                = 'admin/news';
-$route['admin/news/create']         = 'admin/create_news';
-$route['admin/news/edit/(:any)']    = 'admin/edit_news/$1';
+//publications
+$route['admin/publications']                = 'admin/posts';
+$route['admin/publications/create']         = 'admin/create_posts';
+$route['admin/publications/edit/(:any)']    = 'admin/edit_posts/$1';
+
+//announcements
+$route['admin/announcements']                = 'admin/posts';
+$route['admin/announcements/create']         = 'admin/create_posts';
+$route['admin/announcements/edit/(:any)']    = 'admin/edit_posts/$1';
+
+//awards
+$route['admin/awards']                = 'admin/posts';
+$route['admin/awards/create']         = 'admin/create_posts';
+$route['admin/awards/edit/(:any)']    = 'admin/edit_posts/$1';
+
+//projects
+$route['admin/projects']                = 'admin/posts';
+$route['admin/projects/create']         = 'admin/create_posts';
+$route['admin/projects/edit/(:any)']    = 'admin/edit_posts/$1';
+
+//gallery
+$route['admin/gallery']                = 'admin/posts';
+$route['admin/gallery/create']         = 'admin/create_posts';
+$route['admin/gallery/edit/(:any)']    = 'admin/edit_posts/$1';
+
+//gallery
+$route['admin/slider']                = 'admin/posts';
+$route['admin/slider/create']         = 'admin/create_posts';
+$route['admin/slider/edit/(:any)']    = 'admin/edit_posts/$1';

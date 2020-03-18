@@ -105,17 +105,24 @@ class Posts_model extends CI_Model{
         return $query->row_array();
     }
 
+    public function get_posts_type($url){
+        $sql = "SELECT 
+                lid
+                FROM t_posts_type a               
+                WHERE a.url = ? 
+        ";
+
+        $query = $this->db->query($sql, array($url));      
+        return $query->row_array()['lid'];
+    }
+
     public function publish(){
 
         $postid = $this->input->post('postid');
         $status = $this->input->post('status') == 1 ? 1 : 0;
 
-        $data = array(
-            'status' => $status,         
-        );
-        
-        $this->db->where('postid', $postid);
-        $this->db->update('posts', $data);
+        $sql = "UPDATE `t_posts` SET `status` = ? WHERE `postid` = ?";
+        $this->db->query($sql, array($status, $postid));
 
         return "success";
     }
@@ -166,12 +173,13 @@ class Posts_model extends CI_Model{
 
 
 
-    public function delete($id){
-        $this->db->where('id', $id);
-        $this->db->delete('posts');
-
-        $this->db->where('postid', $id);
-        $this->db->delete('comments');
+    public function delete($postid){
+        $data = array(
+            'isactive' => 0,         
+        );
+        
+        $this->db->where('postid', $postid);
+        $this->db->update('posts', $data);
 
         return true;
     }

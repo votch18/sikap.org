@@ -28,38 +28,71 @@ class Admin extends CI_Controller {
     }
 
     public function dashboard(){
+        $data['admin'] = $this->session->userdata('admin');          
+        $data["url"] = "dashboard";
+
+        $this->load->view('shared/admin_header', $data);       
         $this->load->view('admin/dashboard');
+        $this->load->view('shared/admin_footer');
     }
 
+    public function posts(){
+        $data['admin'] = $this->session->userdata('admin');    
+        $url = $this->uri->segment(2);
+        $type = $this->posts_model->get_posts_type($url);
 
-    public function news(){
-        $data['posts'] = $this->posts_model->get_posts(1);
-        $data['title'] = 'news';
-        $data['url'] = 'news';
-        $data['action'] = 'news/create';
+        $data['posts'] = $this->posts_model->get_posts($type);
+        $data['title'] = $url;
+        $data['url'] = $url;
+        $data['action'] = $url.'/create';
 
-        $this->load->view('admin/posts', $data);
+        $this->load->view('shared/admin_header', $data);  
+        if ($url == 'gallery'){
+            $this->load->view('admin/gallery', $data);
+        }else{
+            $this->load->view('admin/posts', $data);
+        }
+        $this->load->view('shared/admin_footer');
+        
     }
 
-    public function create_news(){   
-        $data['title'] = 'create news';   
-        $data['url'] = 'news';      
-        $data['type'] = '1';    
+    public function create_posts(){   
+        $data['admin'] = $this->session->userdata('admin');    
+        $url = $this->uri->segment(2);
+        $type = $this->posts_model->get_posts_type($url);
+
+        $data['title'] = 'create '.$url;   
+        $data['url'] =  $url;      
+        $data['type'] = $type;    
+
+        $this->load->view('shared/admin_header', $data);  
         $this->load->view('admin/new_posts', $data);
+        $this->load->view('shared/admin_footer');
     }
 
-    public function edit_news(){   
+    public function edit_posts(){   
+        $data['admin'] = $this->session->userdata('admin');    
+        $url = $this->uri->segment(2);
         $id = $this->uri->segment(4);
-
-        $data['title'] = 'edit news';   
-        $data['url'] = 'news';       
-        $data['type'] = '1';    
+        $type = $this->posts_model->get_posts_type($url);
+        
+        $data['title'] = 'edit '.$url; ;   
+        $data['url'] = $url;       
+        $data['type'] = $type;    
         $data['post'] = $this->posts_model->get_posts_by_id($id);  
+
+        $this->load->view('shared/admin_header', $data);  
         $this->load->view('admin/new_posts', $data);
+        $this->load->view('shared/admin_footer');
     }
+
 
     public function filemanager(){
+        $data['admin'] = $this->session->userdata('admin');    
+        
+        $this->load->view('shared/admin_header', $data);  
         $this->load->view('filemanager/filemanager');
+        $this->load->view('shared/admin_footer');
     }
 
     
@@ -90,17 +123,7 @@ class Admin extends CI_Controller {
         $this->load->view('admin/users', $data);
         $this->load->view('shared/admin_footer');
     }
-    
-    public function posts(){
-        $data['admin'] = $this->session->userdata('admin');         
-        $data['posts'] = $this->posts_model->get_posts(); 
-        $data["url"] = "posts";
-
-        $this->load->view('shared/admin_header', $data);       
-        $this->load->view('admin/posts', $data);
-        $this->load->view('shared/admin_footer');
-    }
-
+  
     public function profile(){
         if ( !$this->session->has_userdata('admin') ) redirect(base_url());
 
