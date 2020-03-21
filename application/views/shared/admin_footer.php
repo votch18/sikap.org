@@ -2,19 +2,9 @@
             
         
         </div>
-        <footer class="footer"> © 2019 Admin Pro by wrappixel.com </footer>
+        <footer class="footer text-center"> © <?=date('Y')?> <a href="<?=base_url()?>">sikap.org</a> </footer>
     </div>
 </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-  
-    <!-- Bootstrap popper Core JavaScript -->
-  
-    <!-- ============================================================== -->
 
     <script>
         $(function(){
@@ -102,7 +92,7 @@
             });
 
 
-            $('body').on('click', '.btn-danger', function(e){
+            $('body').on('click', '.btn_remove', function(e){
                 e.preventDefault();
 
                     let url = '<?=base_url()?>posts/delete';
@@ -111,7 +101,7 @@
                         id: id
                     }
 
-                let $row = $(this).parent('.con_' + id);
+                let $row = $(this).closest('.con_' + id);
 
                 Swal.fire({
                     title: 'Delete?',

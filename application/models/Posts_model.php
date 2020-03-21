@@ -94,6 +94,69 @@ class Posts_model extends CI_Model{
         return $query->row_array();
     }
 
+    public function get_published_post($type){
+        $sql = "SELECT 
+            a.id,
+            a.postid,
+            a.title,
+            a.description,
+            a.post,
+            a.slug,
+            a.date,
+            a.photo as featured_img, 
+            a.status,
+            b.id as userid,
+            b.username,
+            b.photo,              
+            CONCAT(b.fname, ' ', b.lname) as name,
+            TIME_TO_SEC(TIMEDIFF(NOW(), a.date)) as seconds
+            FROM t_posts a
+            INNER JOIN t_users b ON a.userid = b.id
+            WHERE a.isactive = 1 AND a.status = 1 AND a.type = ?
+            ORDER BY a.date DESC
+        ";
+        
+        $query = $this->db->query($sql, array($type));    
+        return $query->result_array();
+    }
+
+    public function get_featured(){
+        $sql = "SELECT 
+            a.id,
+                a.id,
+                a.postid,
+                a.title,
+                a.description,
+                a.post,
+                a.slug,
+                a.date,
+                a.photo as featured_img, 
+                a.status,
+                b.id as userid,
+                b.username,
+                b.photo,              
+                CONCAT(b.fname, ' ', b.lname) as name,
+                TIME_TO_SEC(TIMEDIFF(NOW(), a.date)) as seconds
+                FROM t_posts a
+                INNER JOIN t_users b ON a.userid = b.id
+                WHERE a.isactive = 1 AND a.is_featured = 1
+        ";
+
+        $query = $this->db->query($sql);      
+        return $query->row_array();
+    }
+
+    public function set_featured($postid){
+        $this->db->set('is_featured', 0);
+        $this->db->update('posts');
+
+        $this->db->set('is_featured', 1);
+        $this->db->where('postid', $postid);
+        $this->db->update('posts');
+
+        return true;
+    }
+
     public function get_posts_by_id($id){
         $sql = "SELECT 
                 *

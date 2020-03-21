@@ -21,9 +21,9 @@ class auth
 	public function is_logged_in($url = null)
 	{
 		
-		if( $this->ci->session->has_userdata('login') == null &&  $url != 'login' ){
+		if( $this->ci->session->has_userdata('admin') == null &&  $url != 'login' ){
 			redirect(base_url());
-		}else if ( $this->ci->session->has_userdata('login') != null &&  $url == 'login' ){
+		}else if ( $this->ci->session->has_userdata('admin') != null &&  $url == 'login' ){
 			redirect(base_url());
 		}
 
@@ -31,7 +31,7 @@ class auth
 	}
 
 	public function get_users(){
-		return $this->ci->session->userdata('login');
+		return $this->ci->session->userdata('admin');
     }
     
     //admin

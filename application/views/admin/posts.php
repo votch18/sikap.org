@@ -52,7 +52,7 @@
                                 </label>
                             </div>
                             <a href="<?=base_url()?>admin/<?=$url?>/edit/<?=$post['postid']?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
-                            <a href="" class="btn btn-danger btn-sm" data-id="<?=$post['postid']?>"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+                            <a href="" class="btn btn-danger btn_remove btn-sm" data-id="<?=$post['postid']?>"><i class="fa fa-trash"></i>&nbsp;Delete</a>
                         </td>
                     </tr>
                   

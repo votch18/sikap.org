@@ -3,6 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
 
+    private $image_size = array(
+            'news' => '754 x 390',
+            'announcements' => '754 x 390',
+            'projects' => '754 x 390',
+            'awards' => '754 x 390',
+            'programs' => '754 x 390',
+            'gallery' => '754 x 390',
+            'slider' => '754 x 390',
+        );
+        
     function __construct()
 	{
 		parent::__construct();

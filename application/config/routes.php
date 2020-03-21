@@ -53,6 +53,24 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['news']                      = 'home/posts/1/';
+$route['preview/news/(:any)']       = 'home/view/1/$1';
+
+$route['announcements']                      = 'home/posts/2/';
+$route['preview/announcements/(:any)']       = 'home/view/2/$1';
+
+$route['publications']                      = 'home/posts/3/';
+$route['preview/publications/(:any)']       = 'home/view/3/$1';
+
+$route['awards']                      = 'home/posts/4/';
+$route['preview/awards/(:any)']       = 'home/view/4/$1';
+
+$route['programs']                      = 'home/posts/5/';
+$route['preview/programs/(:any)']       = 'home/view/5/$1';
+
+$route['gallery']                      = 'home/posts/6/';
+$route['preview/gallery/(:any)']       = 'home/view/6/$1';
+
 //news
 $route['admin/news']                = 'admin/posts';
 $route['admin/news/create']         = 'admin/create_posts';
@@ -74,9 +92,9 @@ $route['admin/awards/create']         = 'admin/create_posts';
 $route['admin/awards/edit/(:any)']    = 'admin/edit_posts/$1';
 
 //projects
-$route['admin/projects']                = 'admin/posts';
-$route['admin/projects/create']         = 'admin/create_posts';
-$route['admin/projects/edit/(:any)']    = 'admin/edit_posts/$1';
+$route['admin/programs']                = 'admin/posts';
+$route['admin/programs/create']         = 'admin/create_posts';
+$route['admin/programs/edit/(:any)']    = 'admin/edit_posts/$1';
 
 //gallery
 $route['admin/gallery']                = 'admin/posts';

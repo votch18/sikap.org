@@ -219,6 +219,7 @@
                         <li>
                             <a class="waves-effect waves-dark" href="<?=base_url()?>admin/" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
+                        <li class="nav-small-cap">POSTS</li>
                         <li>
                             <a class="waves-effect waves-dark" href="<?=base_url()?>admin/news" aria-expanded="false"><i class="mdi mdi-file-document"></i><span class="hide-menu">News</span></a>
                         </li>
@@ -232,7 +233,7 @@
                             <a class="waves-effect waves-dark" href="<?=base_url()?>admin/awards" aria-expanded="false"><i class="mdi mdi-trophy"></i><span class="hide-menu">Awards</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/projects" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Projects</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/programs" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Programs</span></a>
                         </li>
                         <li>
                             <a class="waves-effect waves-dark" href="<?=base_url()?>admin/gallery" aria-expanded="false"><i class="mdi mdi-image"></i><span class="hide-menu">Gallery</span></a>

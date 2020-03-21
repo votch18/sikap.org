@@ -56,12 +56,12 @@
                     <a href="#" data-toggle="modal" data-target="#dialogFilemanager">
                         <div style="display: block; margin-top: -180px; text-align: center; width: 100%;">
                             <span class="fa fa-cloud-upload" style="font-size: 45px;"></span><br/><br/>
-                            <span style="display: block">Choose from File Manager <br>(1200w x 628h)</span>
+                            <span style="display: block">Choose from File Manager <br>(754w x 390h)</span>
                         </div>
                         <input type="hidden" name="image" value="<?=!empty($post['photo']) ? $post['photo'] : ''?>"/>
                     </a>                    
                 </div>
-                <sub>Ideal image size (1200w x 628h)</sub>
+                <sub>Ideal image size (754w x 390h)</sub>
             </div>
         </div>
     </div>
