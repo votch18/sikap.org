@@ -159,24 +159,13 @@ class Posts_model extends CI_Model{
 
     public function get_posts_by_id($id){
         $sql = "SELECT 
-                *
+                a.*
                 FROM t_posts a               
                 WHERE a.postid = ? 
         ";
 
         $query = $this->db->query($sql, array($id));      
         return $query->row_array();
-    }
-
-    public function get_posts_type($url){
-        $sql = "SELECT 
-                lid
-                FROM t_posts_type a               
-                WHERE a.url = ? 
-        ";
-
-        $query = $this->db->query($sql, array($url));      
-        return $query->row_array()['lid'];
     }
 
     public function publish(){
@@ -190,40 +179,6 @@ class Posts_model extends CI_Model{
         return "success";
     }
 
-    public function search_posts($q){
-
-        //escape string for sql injection
-        $q = $this->db->escape_str("%".$q."%");
-
-        $sql = "SELECT 
-                a.id as postid,
-                a.title,            
-                a.post,
-                a.slug,
-                a.date,
-                b.id as userid,
-                b.username,
-                d.photo,
-                IFNULL(e.vote, 0) as vote,
-                TIME_TO_SEC(TIMEDIFF(NOW(), a.date)) as seconds,
-                IFNULL(c.comments, 0) as comments
-                FROM t_posts a
-                INNER JOIN t_users b ON a.userid = b.id
-                LEFT JOIN (SELECT x.postid, COUNT(x.id) as comments FROM t_comments x GROUP BY x.postid) as c ON a.id = c.postid
-                LEFT JOIN t_avatar d ON d.userid = b.id
-                LEFT JOIN (SELECT z.userid, z.primary_id, 
-                            SUM(CASE WHEN z.vote = 1 THEN 1 ELSE 0 END) as upvote,
-                            SUM(CASE WHEN z.vote = 2 THEN 1 ELSE 0 END) as downvote,
-                            (SUM(CASE WHEN z.vote = 1 THEN 1 ELSE 0 END) -
-                            SUM(CASE WHEN z.vote = 2 THEN 1 ELSE 0 END))  as vote
-                            FROM t_votes z WHERE z.type = 1 GROUP BY z.primary_id, z.userid) as e ON e.primary_id = a.id
-                WHERE a.title LIKE ?
-        ";
-        
-        $query = $this->db->query($sql, array($q));    
-        return $query->result_array();
-    }
-
     public function validate($slug, $type){
         $query = $this->db->get_where('posts', array('slug' => $slug, 'type' => $type));
         return $query->num_rows();
@@ -233,7 +188,6 @@ class Posts_model extends CI_Model{
         $query = $this->db->get_where('posts', array('postid' => $postid));
         return $query->num_rows();
     }
-
 
 
     public function delete($postid){

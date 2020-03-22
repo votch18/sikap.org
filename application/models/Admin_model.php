@@ -30,7 +30,16 @@ class Admin_model extends CI_Model{
 
         $salt = $this->get_salt($username);
 
-        $query = $this->db->get_where('users', array('username' => $username, 'password' => md5($password.$salt)));
+        $sql = "SELECT 
+            a.*,
+            c.description as role_desc
+            FROM t_users a          
+            LEFT JOIN t_roles c ON a.role = c.id
+            WHERE a.username = ? AND a.password = ?
+            LIMIT 1
+        ";
+
+        $query = $this->db->query($sql, array($username, md5($password.$salt)));
         return $query->row_array();
 
     }
@@ -42,7 +51,16 @@ class Admin_model extends CI_Model{
                 return $query->result_array();
         }
 
-        $query = $this->db->get_where('users', array('username' => $username));
+        $sql = "SELECT 
+                a.*,
+                c.description as role_desc
+                FROM t_users a
+                LEFT JOIN t_roles c ON a.role = c.id
+                WHERE a.username = ?
+                LIMIT 1
+            ";
+  
+        $query = $this->db->query($sql, array($username));
         return $query->row_array();
     }
 

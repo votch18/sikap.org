@@ -53,8 +53,13 @@
 
                     let hash = $( this ).attr('href').replace(base_url, '').split('/')[0];
                     let controller = window.location.href.replace(base_url, '').split('/')[0];
+                    
+                   
 
-                    if ( $( this ).attr('href') == window.location.href || controller == hash){
+                    if ( controller.trim() == hash.trim()){
+                        console.log(controller)
+                        console.log(hash)
+
                         $( this ).addClass('active');
                         $( this ).parent().addClass('active');
                     }
@@ -89,6 +94,7 @@
                 "bLengthChange": false,
                 "bInfo": false,
                 "bSortable": false,
+                "ordering": false
             });
 
 

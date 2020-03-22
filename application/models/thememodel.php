@@ -11,14 +11,14 @@ class thememodel extends CI_Model{
 
 	public function get()
 	{
-		$this->db->select('*');
+		$this->db->select('themes.*');
 		$this->db->from('themes');
 		return $this->db->get()->result_array();
 	}
 
 	public function get_theme()
 	{
-		$this->db->select('*');
+		$this->db->select('themes.*');
 		$this->db->from('themes');
 		$this->db->where('isactive', 1);
 		$this->db->limit(1);

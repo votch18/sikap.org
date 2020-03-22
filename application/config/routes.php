@@ -53,55 +53,34 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['news']                      = 'home/posts/1/';
-$route['preview/news/(:any)']       = 'home/view/1/$1';
 
-$route['announcements']                      = 'home/posts/2/';
-$route['preview/announcements/(:any)']       = 'home/view/2/$1';
+$route['filemanager/(:any)']            = 'filemanager/$1';
+$route['posts/(:any)']                  = 'posts/$1';
+$route['themes/(:any)']                 = 'themes/$1';
+$route['users/(:any)']                  = 'users/$1';
 
-$route['publications']                      = 'home/posts/3/';
-$route['preview/publications/(:any)']       = 'home/view/3/$1';
+$route['admin']                         = 'admin';
+$route['admin/filemanager']             = 'admin/filemanager';
+$route['admin/pages']                   = 'admin/pages';
+$route['admin/pages/create']            = 'admin/pages_create/';
+$route['admin/pages/edit/(:any)']       = 'admin/pages_create/$1';
+$route['admin/templates']               = 'admin/templates';
+$route['admin/settings']                = 'admin/settings';
+$route['admin/users']                   = 'admin/users';
+$route['admin/dashboard']               = 'admin/dashboard';
+$route['admin/logout']                  = 'admin/logout';
+$route['admin/login']                   = 'admin/login';
+$route['admin/profile']                 = 'admin/profile';
+$route['admin/update_info']             = 'admin/update_info';
+$route['admin/do_upload']               = 'admin/do_upload';
 
-$route['awards']                      = 'home/posts/4/';
-$route['preview/awards/(:any)']       = 'home/view/4/$1';
 
-$route['programs']                      = 'home/posts/5/';
-$route['preview/programs/(:any)']       = 'home/view/5/$1';
+//admin page posts
+$route['admin/(:any)']                  = 'admin/posts/$1';
+$route['admin/(:any)/create']           = 'admin/create_posts/$1';
+$route['admin/(:any)/edit/(:any)']      = 'admin/edit_posts/$1/$2';
 
-$route['gallery']                      = 'home/posts/6/';
-$route['preview/gallery/(:any)']       = 'home/view/6/$1';
-
-//news
-$route['admin/news']                = 'admin/posts';
-$route['admin/news/create']         = 'admin/create_posts';
-$route['admin/news/edit/(:any)']    = 'admin/edit_posts/$1';
-
-//publications
-$route['admin/publications']                = 'admin/posts';
-$route['admin/publications/create']         = 'admin/create_posts';
-$route['admin/publications/edit/(:any)']    = 'admin/edit_posts/$1';
-
-//announcements
-$route['admin/announcements']                = 'admin/posts';
-$route['admin/announcements/create']         = 'admin/create_posts';
-$route['admin/announcements/edit/(:any)']    = 'admin/edit_posts/$1';
-
-//awards
-$route['admin/awards']                = 'admin/posts';
-$route['admin/awards/create']         = 'admin/create_posts';
-$route['admin/awards/edit/(:any)']    = 'admin/edit_posts/$1';
-
-//projects
-$route['admin/programs']                = 'admin/posts';
-$route['admin/programs/create']         = 'admin/create_posts';
-$route['admin/programs/edit/(:any)']    = 'admin/edit_posts/$1';
-
-//gallery
-$route['admin/gallery']                = 'admin/posts';
-$route['admin/gallery/create']         = 'admin/create_posts';
-$route['admin/gallery/edit/(:any)']    = 'admin/edit_posts/$1';
-
-//gallery
-$route['admin/slider']                = 'admin/posts';
-$route['admin/slider/create']         = 'admin/create_posts';
-$route['admin/slider/edit/(:any)']    = 'admin/edit_posts/$1';
+//public page
+$route['(:any)']                      = 'home/posts/$1/';
+$route['(:any)/(:any)']               = 'home/view/$1/$2';
+$route['preview/(:any)/(:any)']       = 'home/view/$1/$2/true';

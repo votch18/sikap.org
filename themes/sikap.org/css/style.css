@@ -42,7 +42,7 @@ a:hover, a:active {
 # Header Bar
 --------------------------------*/
 .top-header-bar {
-    background: #ff4800;
+    background: #e0b9a3;
     color: #fff;
 }
 
@@ -81,7 +81,7 @@ a:hover, a:active {
 .donate-btn a {
     display: inline-block;
     padding: 20px 40px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 1;
     color: #fff;
@@ -188,7 +188,7 @@ a:hover, a:active {
 }
 
 .site-navigation ul li {
-    margin: 0 7px;
+    margin: 0 15px;
 }
 .site-navigation ul li a {
     display: block;
@@ -360,7 +360,7 @@ a:hover, a:active {
     }
 
     .hero-content-overlay p {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .hero-slider .pagination-wrap {
@@ -417,7 +417,7 @@ a:hover, a:active {
     padding: 18px 40px;
     border: 2px solid #262626;
     border-radius: 24px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 1;
     color: #262626;
@@ -456,7 +456,7 @@ a:hover, a:active {
     margin-bottom: 15px;
     border-radius: 30px;
     background: #f3f3f3;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: #262626;
     cursor: pointer;
@@ -489,7 +489,7 @@ a:hover, a:active {
 
 .accordion-wrap .entry-content p {
     padding: 18px 38px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 2;
     color: #929191;
 }
@@ -508,7 +508,7 @@ ul.tabs-nav .tab-nav {
     margin-right: 6px;
     border-radius: 30px;
     background: #f3f3f3;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: #262626;
     cursor: pointer;
@@ -537,7 +537,7 @@ ul.tabs-nav .tab-nav.active {
 
 .tab-content p {
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 2;
     color: #929191;
 }
@@ -604,7 +604,7 @@ ul.tabs-nav .tab-nav.active {
 
 .counter-box .entry-title {
     margin-top: 16px;
-    font-size: 14px;
+    font-size: 16px;
     color: #595858;
 }
 
@@ -663,7 +663,7 @@ ul.tabs-nav .tab-nav.active {
 
 .icon-box .entry-content p {
     margin: 0;
-    font-size: 14px;
+    font-size: 16px;
     color: #595858;
 }
 
@@ -766,7 +766,7 @@ ul.tabs-nav .tab-nav.active {
 }
 
 .welcome-content .entry-content {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 2;
     color: #b7b7b7;
 }
@@ -853,7 +853,7 @@ ul.tabs-nav .tab-nav.active {
     padding-right: 14px;
     margin-right: 14px;
 }
-
+/* 
 .event-content-wrap .posted-date a::after {
     content: '';
     position: absolute;
@@ -862,19 +862,19 @@ ul.tabs-nav .tab-nav.active {
     width: 1px;
     height: 100%;
     background: #262626;
-}
+} */
 
 .event-content-wrap .entry-content {
     margin-top: 12px;
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 16px;
     color: #929191;
 }
 
 .event-content-wrap .entry-footer a {
     display: block;
     margin-top: 10px;
-    font-size: 14px;
+    font-size: 16px;
     color: #e0b9a3;
     text-decoration: none;
 }
@@ -931,7 +931,7 @@ ul.tabs-nav .tab-nav.active {
     margin-right: 14px;
 }
 
-.cause-content-wrap .posted-date a::after {
+/* .cause-content-wrap .posted-date a::after {
     content: '';
     position: absolute;
     top: 0;
@@ -939,12 +939,12 @@ ul.tabs-nav .tab-nav.active {
     width: 1px;
     height: 100%;
     background: #262626;
-}
+} */
 
 .cause-content-wrap .entry-content {
     margin-top: 28px;
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 16px;
     color: #929191;
 }
 
@@ -953,7 +953,7 @@ ul.tabs-nav .tab-nav.active {
 }
 
 .fund-raised-details {
-    font-size: 14px;
+    font-size: 16px;
     color: #929191;
 }
 
@@ -1081,11 +1081,6 @@ ul.tabs-nav .tab-nav.active {
     line-height: 1.6;
 }
 
-.home-page-limestone .section-heading p {
-    font-size: 14px;
-    color: #595858;
-}
-
 /*--------------------------------------------------------------
 # About Page
 --------------------------------------------------------------*/
@@ -1125,10 +1120,6 @@ ul.tabs-nav .tab-nav.active {
     height: 4px;
     border-radius: 2px;
     background: #e0b9a3;
-}
-
-.about-page .page-header {
-    /* background: url(images/about-bg.jpg) no-repeat center; */
 }
 
 .about-page .welcome-wrap {
@@ -1223,7 +1214,7 @@ ul.tabs-nav .tab-nav.active {
 
 .testimonial-cont .entry-footer h4 {
     margin-left: 20px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: #595858;
 }
@@ -1301,7 +1292,7 @@ ul.tabs-nav .tab-nav.active {
 }
 
 .causes-page .highlighted-cause .entry-content {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 2;
     color: #edf3f5;
 }
@@ -1373,7 +1364,7 @@ ul.tabs-nav .tab-nav.active {
 
 .short-content p {
     margin-top: 40px;
-    font-size: 14px;
+    font-size: 16px;
     color: #929191;
 }
 
@@ -1435,7 +1426,7 @@ ul.tabs-nav .tab-nav.active {
 .donation-form .payment-type label {
     position: relative;
     margin-right: 40px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1;
     color: #6a6a6a;
 }
@@ -1476,7 +1467,7 @@ ul.tabs-nav .tab-nav.active {
     padding: 12px 30px;
     margin-top: 28px;
     border: 1px solid #e0e0e0;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1;
 }
 
@@ -1538,7 +1529,7 @@ ul.tabs-nav .tab-nav.active {
 
 .portfolio-cont h4 {
     margin-top: 10px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: #e0b9a3;
 }
@@ -1587,7 +1578,7 @@ ul.tabs-nav .tab-nav.active {
 }
 
 .news-content .posted-date {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: #e0b9a3;
 }
@@ -1618,7 +1609,7 @@ ul.tabs-nav .tab-nav.active {
 
 .news-content .entry-content {
     margin-top: 32px;
-    font-size: 14px;
+    font-size: 16px;
     color: #929191;
 }
 
@@ -1669,7 +1660,7 @@ ul.tabs-nav .tab-nav.active {
     height: 52px;
     padding: 10px 20px;
     border: 1px solid #e0e0e0;
-    font-size: 14px;
+    font-size: 16px;
     outline: none;
 }
 
@@ -1682,7 +1673,7 @@ ul.tabs-nav .tab-nav.active {
     height: 54px;
     border: 0;
     margin-left: -5px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     background: #e0b9a3;
     color: #fff;
@@ -1726,7 +1717,7 @@ ul.tabs-nav .tab-nav.active {
 }
 
 .popular-posts h3 {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -1811,7 +1802,7 @@ ul.tabs-nav .tab-nav.active {
 .sidebar .upcoming-events p {
     margin-top: 16px;
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 16px;
     color: #929191;
 }
 
@@ -1866,7 +1857,7 @@ ul.tabs-nav .tab-nav.active {
 
 .contact-page-wrap .entry-content p {
     margin-top: 20px;
-    font-size: 14px;
+    font-size: 16px;
     color: #929191;
 }
 
@@ -1879,11 +1870,11 @@ ul.tabs-nav .tab-nav.active {
 .contact-page-wrap .entry-content ul.contact-social li {
     margin-right: 28px;
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .contact-page-wrap .entry-content ul.contact-social li a {
-    color: #ff3700;
+    color: #e0b9a3;
 }
 
 .contact-page-wrap .entry-content ul.contact-info {
@@ -1894,7 +1885,7 @@ ul.tabs-nav .tab-nav.active {
     display: flex;
     align-items: baseline;
     margin-bottom: 15px;
-    font-size: 14px;
+    font-size: 16px;
     color: #9b9a9a;
 }
 
@@ -1919,7 +1910,7 @@ ul.tabs-nav .tab-nav.active {
     padding: 12px 24px;
     margin-bottom: 18px;
     border: 1px solid #e0e0e0;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1;
 }
 
@@ -2000,7 +1991,7 @@ ul.tabs-nav .tab-nav.active {
 
 .footer-widgets ul li {
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .footer-widgets ul li a {
@@ -2013,7 +2004,7 @@ ul.tabs-nav .tab-nav.active {
 }
 
 .foot-about p {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 2;
     color: #929191;
 }
@@ -2032,7 +2023,7 @@ ul.tabs-nav .tab-nav.active {
 }
 
 .foot-latest-news ul li h3 {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .foot-latest-news ul li .posted-date {

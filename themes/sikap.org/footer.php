@@ -13,8 +13,8 @@
                                 <li><a href="#"><i class="fa fa-youtube"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
-                        </div><!-- .foot-about -->
-                    </div><!-- .col -->
+                        </div>
+                    </div>
 
                     <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
                         <h2>Site Map</h2>
@@ -30,42 +30,36 @@
                             ?>
 
                         </ul>
-                    </div><!-- .col -->
+                    </div>
 
                     <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
                         <div class="foot-contact">
                             <h2>Contact</h2>
 
                             <ul>
-                                <li><i class="fa fa-phone"></i><span>+63 946 525 5166</span></li>
-                                <li><i class="fa fa-envelope"></i><span>email@sikap.com</span></li>
-                                <li><i class="fa fa-map-marker"></i><span>Door 3,4 & 5, Pulvera Apartment, Barangay 5, San Francisco, Agusan del Sur</span></li>
+                                <li><i class="fa fa-phone"></i><span><?=$settings['contactno']?></span></li>
+                                <li><i class="fa fa-envelope"></i><span><?=$settings['email']?></span></li>
+                                <li><i class="fa fa-map-marker"></i><span><?=$settings['address']?></span></li>
                             </ul>
-                        </div><!-- .foot-contact -->
+                        </div>
 
-                        <div class="subscribe-form">
-                            <form class="d-flex flex-wrap align-items-center">
-                                <input type="email" placeholder="Your email">
-                                <input type="submit" value="send">
-                            </form><!-- .flex -->
-                        </div><!-- .search-widget -->
-                    </div><!-- .col -->
-                </div><!-- .row -->
-            </div><!-- .container -->
-        </div><!-- .footer-widgets -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="footer-bar">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <p class="m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p class="m-0">
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | SIKAP, Inc.
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    </div><!-- .col-12 -->
-                </div><!-- .row -->
-            </div><!-- .container -->
-        </div><!-- .footer-bar -->
-    </footer><!-- .site-footer -->
+</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script type='text/javascript' src='<?= BASE_URL_THEME ?>js/jquery.collapsible.min.js'></script>
     <script type='text/javascript' src='<?= BASE_URL_THEME ?>js/swiper.min.js'></script>

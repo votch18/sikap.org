@@ -50,7 +50,7 @@ class theme
 	public function templates($excludes="", $includes="")
 	{
 
-		$files = array_diff( scandir( 'bm-content/themes/' . self::$theme_folder ), $excludes );
+		$files = array_diff( scandir( 'themes/' . self::$theme_folder ), $excludes );
 
 		$a = array();
 		if(!empty($includes)){

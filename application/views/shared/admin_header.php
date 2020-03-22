@@ -10,10 +10,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url()?>assets/admin/assets/images/favicon.png">
-    <title>Admin Pro Admin Template - The Ultimate Bootstrap 4 Admin Template</title>
-	<link rel="canonical" href="https://www.wrappixel.com/templates/adminpro/" />
-    <!-- Bootstrap Core CSS -->
+    <link rel='icon' href='<?=base_url()?>filemanager/<?=$settings['site_favicon']?>' type='image/x-icon' >
+    <title><?=$settings['site_name']?></title>
+	
     <link href="<?=base_url()?>assets/admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?=base_url()?>assets/admin/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
     <!-- This page CSS -->  
@@ -52,34 +51,25 @@
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== 
-    <div class="preloader">
-        <div class="loader">
-            <div class="loader__figure"></div>
-            <p class="loader__label">Admin Pro</p>
-        </div>
-    </div>-->
-    <!-- ============================================================== -->
+    
     <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
+    
     <div id="main-wrapper">
-        <!-- ============================================================== -->
+        
         <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
+        
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                <!-- ============================================================== -->
+                
                 <!-- Logo -->
-                <!-- ============================================================== -->
+                
                 <div class="navbar-header">
                     <span class="navbar-brand" href="<?=base_url()?>admin">
                     
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="<?=base_url()?>assets/admin/images/logo.jpg" alt="homepage" class="dark-logo" style="width: 50px; height: 50px;"/>
+                            <img src="<?=base_url()?>filemanager/<?=$settings['site_logo']?>" alt="homepage" class="dark-logo" style="width: 50px; height: 50px;"/>
         
                         </b>
                         <!--End Logo icon -->
@@ -89,92 +79,25 @@
                         </span>
                        
                 </div>
-                <!-- ============================================================== -->
+                
                 <!-- End Logo -->
-                <!-- ============================================================== -->
+                
                 <div class="navbar-collapse">
-                    <!-- ============================================================== -->
+                    
                     <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
+                    
                     <ul class="navbar-nav mr-auto">
                         <!-- This is  -->
                         <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                         <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                         <li class="nav-item"> <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><span class="status text-success m-l-20"></span></a> </li>
                     </ul>
-                    <!-- ============================================================== -->
+                    
                     <!-- User profile and search -->
-                    <!-- ============================================================== -->
+                    
                     <ul class="navbar-nav my-lg-0">
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- Comment -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"></i>
-                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title">Notifications</div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center">
-                                            <!-- Message -->
-                                            <a href="#">
-                                                <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Luanch Admin</h5> <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span> </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="#">
-                                                <div class="btn btn-success btn-circle"><i class="ti-calendar"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Event today</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span> </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="#">
-                                                <div class="btn btn-info btn-circle"><i class="ti-settings"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Settings</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span> </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="#">
-                                                <div class="btn btn-primary btn-circle"><i class="ti-user"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span> </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- End Comment -->
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                  
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                        <!-- Language -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-us"></i></a>
-                            <div class="dropdown-menu dropdown-menu-right animated bounceInDown"> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-in"></i> India</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> China</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> Dutch</a> </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- Profile -->
-                        <!-- ============================================================== -->
+                        
+                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php
@@ -204,12 +127,12 @@
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
+        
         <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        
+        
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+        
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
@@ -241,43 +164,35 @@
                         <li>
                             <a class="waves-effect waves-dark" href="<?=base_url()?>admin/slider" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Slider</span></a>
                         </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/filemanager" aria-expanded="false"><i class="mdi mdi-inbox"></i><span class="hide-menu">Filemanager</span></a>
+                        </li>
                         <li class="nav-small-cap">SETTINGS</li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Themes</span></a>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="<?=base_url()?>admin/pages" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Themes</span></a>
                             <ul aria-expanded="true" class="collapse in">
-                                <li><a href="<?=base_url()?>admin/themes/pages">Pages</a></li>
-                                <li><a href="<?=base_url()?>admin/themes/templates">Templates</a></li>
-                                <li><a href="<?=base_url()?>admin/themes/widgets">Widgets</a></li>
-                                <li><a href="<?=base_url()?>admin/themes">Themes</a></li>
+                                <li><a href="<?=base_url()?>admin/pages">Pages</a></li>
+                                <li><a href="<?=base_url()?>admin/templates">Templates</a></li>
                             </ul>
                         </li>
-
-                        <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/pages" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Pages</span></a>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="<?=base_url()?>admin/settings" aria-expanded="false"><i class="mdi mdi-settings"></i><span class="hide-menu">Maintenance</span></a>
+                            <ul aria-expanded="true" class="collapse in">
+                                <li><a href="<?=base_url()?>admin/settings">Site Settings</a></li>
+                                <li><a href="<?=base_url()?>admin/users">Users</a></li>                                
+                            </ul>
                         </li>
-                        <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/templates" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Templates</span></a>
-                        </li>
-                        <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/widgets" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Widgets</span></a>
-                        </li>
-                        <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/themes" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Themes</span></a>
-                        </li>
-                        <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/themes" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Users</span></a>
-                        </li>
+                       
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>
-        <!-- ============================================================== -->
+        
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        
+        
         <!-- Page wrapper  -->
-        <!-- ============================================================== -->
+        
         <div class="page-wrapper">
             <div class="modal fade" id="dialogFilemanager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <button id="modal-close" class="btn btn-danger" data-dismiss="modal" style="position: absolute;top:10px;right:10px;z-index:1"><span style="font-size: 18px;">&times;</span></button>
@@ -289,9 +204,9 @@
                     </div>       
                 </div>
             </div>
-            <!-- ============================================================== -->
+            
             <!-- Container fluid  -->
-            <!-- ============================================================== -->
+            
             <div class="container-fluid" id="main">
 
 

@@ -114,15 +114,27 @@ class Users_model extends CI_Model{
     public function get_users($username = FALSE){       
         if ($username === FALSE)
         {
-                $query = $this->db->get('users');
-                return $query->result_array();
+            $sql = "SELECT 
+                a.*,
+                b.photo,
+                c.description as role_desc
+                FROM t_users a
+                LEFT JOIN t_avatar b ON a.id = b.userid
+                LEFT JOIN t_roles c ON a.role = c.id
+                WHERE a.username = ?
+            ";
+
+            $query = $this->db->query($sql, array($username));
+            return $query->result_array();
         }
 
         $sql = "SELECT 
                 a.*,
-                b.photo
+                b.photo,
+                c.description as role_desc
                 FROM t_users a
                 LEFT JOIN t_avatar b ON a.id = b.userid
+                LEFT JOIN t_roles c ON a.role = c.id
                 WHERE a.username = ?
                 LIMIT 1
             ";

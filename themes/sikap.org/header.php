@@ -3,31 +3,36 @@
 <head>
     <title>SIKAP, Inc.</title>
 
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel='icon' href='<?=base_url()?>filemanager/<?=$settings['site_favicon']?>' type='image/x-icon' >
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/bootstrap.min.css">
-
-    <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/font-awesome.min.css">
-
-    <!-- ElegantFonts CSS -->
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/elegant-fonts.css">
-
-    <!-- themify-icons CSS -->
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/themify-icons.css">
-
-    <!-- Swiper CSS -->
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/swiper.min.css">
-
-    <!-- Styles -->
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/style.css">
-	
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>vendor/leaflet/leaflet.css" />
 
+    <style>
+        
+       /* width */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            /*box-shadow: inset 0 0 5px grey;*/
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #e0b9a3;
+        }
+
+    </style>
      	
     <script type='text/javascript' src='<?= BASE_URL_THEME ?>js/jquery.js'></script>
     <script src="<?= BASE_URL_THEME ?>vendor/leaflet/leaflet.js"></script>
@@ -37,11 +42,24 @@
 		<div class="top-border"></div>
         <div class="top-header-bar">
             <div class="container">
-                <div class="row flex-wrap justify-content-center justify-content-lg-between align-items-lg-center">
-                    
-                </div><!-- .row -->
-            </div><!-- .container -->
-        </div><!-- .top-header-bar -->
+                <div class="row ">
+                    <?php                        
+                        if ( !empty($flash) ){
+                            ?>
+                                <div class="col-md-12 text-center">
+                                        <h5 class="mb-0 text-center">
+                                            <?=$flash['title']?>
+                                        </h5>
+                                        <span>
+                                            <?=$flash['message']?>
+                                        </span>
+                                    </div>
+                            <?php
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
 
         <div class="nav-bar">
             <div class="container">
@@ -52,7 +70,7 @@
 						   <img class="d-inline-block" src="<?=base_url().'filemanager/'.$settings['site_logo']?>" style="height: 80px; width: 80px; vertical-align: middle;" alt="logo">
 						   <h3 class="d-inline-block m-0" style="vertical-align: middle; font-weight: bold;">SIKAP, Inc.</h3>
 						   </a>
-                        </div><!-- .site-branding -->
+                        </div>
 
                         <nav class="site-navigation d-flex justify-content-end align-items-center">
                             <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-content-center">
@@ -67,16 +85,16 @@
                                 ?>
                                 
                             </ul>
-                        </nav><!-- .site-navigation -->
+                        </nav>
 
                         <div class="hamburger-menu d-lg-none">
                             <span></span>
                             <span></span>
                             <span></span>
                             <span></span>
-                        </div><!-- .hamburger-menu -->
-                    </div><!-- .col -->
-                </div><!-- .row -->
-            </div><!-- .container -->
-        </div><!-- .nav-bar -->
-    </header><!-- .site-header -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>

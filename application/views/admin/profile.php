@@ -1,33 +1,67 @@
-<!-- BEGIN: Content-->
-<div class="app-content content">
-    <div class="content-wrapper">
-        <div class="content-header row">
-        </div>
-        <div class="content-body">          
-            <!--Content -->           
-            <div class="row">
-                <div class="col-lg-4">
-                <?php
-                $photo = empty($admin['photo']) ?  'assets/images/user.png' : 'uploads/admin/'.$admin['photo'].'?'.strtotime("now");
-                ?>
-<script src="<?=base_url()?>assets/vendors/dropzone/dropzone.js"></script>
-
-<div class="card profile-card-with-cover rounded">
-    <div class="card-content">
-        <div class="card-img-top img-fluid bg-cover height-100 bg-blue" style="border-radius: 5px 5px 0 0;"></div>
-        <div class="card-profile-image" style="margin-top: -50px; text-align: center;">
-            <a href="" class="btn_upload">
-                <img src="<?=base_url().$photo?>" class="rounded-circle img-border box-shadow-1" alt="Card image" style="height: 100px; width: 100px;">
-            </a>
-        </div>
-        <div class="profile-card-with-cover-content text-center">
-            <div class="profile-details mt-2">
-                <h4 class="card-title"><?=ucwords($admin['fname'].' '.$admin['lname'])?></h4>
-             
-            </div>         
+<?php
+    $photo = !empty($admin['photo']) ? base_url().'uploads/users/'.$admin['photo'] : base_url().'assets/admin/images/avatar.png';
+    ?>
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="m-t-30 text-center">
+                    <a class="btn_upload" href="">
+                        <img src="<?=$photo?>" class="img-circle" width="150">
+                    </a>
+                    
+                    <h4 class="card-title m-t-10"><?=ucwords($admin['fname'].' '.$admin['lname'])?></h4>
+                    <h6 class="card-subtitle"><?=ucwords($admin['role_desc'])?></h6>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-8 col-xlg-9 col-md-7">
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-pane pt-1" id="settings" aria-labelledby="settings-tab" role="tabpanel">
+                    <h3>User Profile</h3>
+                    <hr/>
+                    <form method="post" id="frmUserInfo">
+                        <input type="hidden" name="id" value="<?=$admin['id']?>">
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label class="small">FIRST NAME</label>
+                                <input type="text" name="fname" class="form-control static-label" value="<?=$admin['fname']?>">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small">LAST NAME</label>
+                                <input type="text" name="lname" class="form-control static-label" value="<?=$admin['lname']?>">
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <label class="small">EMAIL</label>
+                            <input type="email" name="email" class="form-control static-label" value="<?=$admin['email']?>">                                 
+                        </div>
+                        <div class="form-group">
+                            <label class="small">Contact No.</label>
+                            <input type="email" name="contactno" class="form-control static-label" value="<?=$admin['email']?>">                                 
+                        </div>
+                        <hr/>
+                        <div class="text-right">
+                            <input type="submit" class="btn btn-primary " value="Save Changes">
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
 </div>
+
+
+               
+            <script src="<?=base_url()?>assets/vendors/dropzone/dropzone.js"></script>
+
+
 
 <!-- Drop Zone -->
 <div class="hidden" id="dropzone">   
@@ -78,57 +112,6 @@
             myDropzone.hiddenFileInput.click();
         })
 
-    })
-
-</script>
-                </div>
-                <div class="col-lg-8">
-                    <div class="card rounded" style="margin-bottom: 10px!important;">   
-                        <div class="card-content">
-                            <div class="card-body" style="vertical-align: middle;">
-                              
-                                    <div class="tab-pane pt-1" id="settings" aria-labelledby="settings-tab" role="tabpanel">
-                                        <h3>User Profile</h3>
-                                        <hr/>
-                                        <form method="post" id="frmUserInfo">
-                                            <input type="hidden" name="id" value="<?=$admin['id']?>">
-                                            <div class="row form-group">
-                                                <div class="col-md-6">
-                                                    <label class="small">FIRST NAME</label>
-                                                    <input type="text" name="fname" class="form-control static-label" value="<?=$admin['fname']?>">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="small">LAST NAME</label>
-                                                    <input type="text" name="lname" class="form-control static-label" value="<?=$admin['lname']?>">
-                                                </div>
-                                            </div> 
-                                            <div class="form-group">
-                                                <label class="small">EMAIL</label>
-                                                <input type="email" name="email" class="form-control static-label" value="<?=$admin['email']?>">                                 
-                                            </div>
-                                          
-                                            <hr/>
-                                            <div class="text-right">
-                                                <input type="submit" class="btn btn-primary " value="Save Changes">
-                                            </div> 
-                                        </form>
-                                               
-                               
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               
-            </div>        
-        </div>
-    </div>
-</div>
-<!-- END: Content-->
-
-<script>
-    $(function(){       
-       
       
         $('#frmUserInfo').on('submit', function(e){
             e.preventDefault();
