@@ -43,7 +43,8 @@
         <div class="top-header-bar">
             <div class="container">
                 <div class="row ">
-                    <?php                        
+                    <?php          
+                        $flash = array('title' => 'Welcome to sikap.org!', 'message' => 'The following contents are dummies only, and is intended for testing purposes. All contents can be found at facebook.com SIKAP Caraga Region page.');              
                         if ( !empty($flash) ){
                             ?>
                                 <div class="col-md-12 text-center">

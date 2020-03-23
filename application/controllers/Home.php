@@ -8,6 +8,7 @@ class Home extends CI_Controller {
 		parent::__construct();
         $this->load->library('auth');        
         $this->load->library('util');
+        $this->load->library('theme');
         $this->load->model('users_model');
         $this->load->model('posts_model');
         $this->load->model('settings_model');
