@@ -83,6 +83,7 @@
                
                 ajax(url, data).done(function(results){
                     if (results.action == "success"){
+
                         Swal.fire(
                             'Success!',
                             'Welcome to sikap.org admin page!',

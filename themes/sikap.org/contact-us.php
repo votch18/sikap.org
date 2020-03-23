@@ -1,4 +1,4 @@
-    <div class="page-header">
+<div class="page-header" style="background: url('<?=$banner?>')">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -54,19 +54,20 @@
     </div>
 
     
-	<script>
+<script>
 
-//--Start map init
-var map = L.map('mapid').setView([8.502448, 125.978988], 15);
+    //--Start map init
+    var map = L.map('mapid').setView([8.502448, 125.978988], 15);
 
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoidm90Y2gxOCIsImEiOiJjazM2dHhucmQwNTMzM2NubmR3dHduZHh2In0.CXezVIToRZsnx42HZJNQVw', {
-    maxZoom: 15,
-    id: 'mapbox.streets',
-    accessToken: 'pk.eyJ1Ijoidm90Y2gxOCIsImEiOiJjazM2dHhucmQwNTMzM2NubmR3dHduZHh2In0.CXezVIToRZsnx42HZJNQVw',       
-}).addTo(map);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoidm90Y2gxOCIsImEiOiJjazM2dHhucmQwNTMzM2NubmR3dHduZHh2In0.CXezVIToRZsnx42HZJNQVw', {
+        scrollWheelZoom: false,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1Ijoidm90Y2gxOCIsImEiOiJjazM2dHhucmQwNTMzM2NubmR3dHduZHh2In0.CXezVIToRZsnx42HZJNQVw',       
+    }).addTo(map);
 
-L.marker([8.502448, 125.978988]).addTo(map)
-.bindPopup('<div style="text-align: center;"><img src="<?=base_url().'filemanager/'.$settings['site_logo']?>" style="height: 40px; width: 40px;" alt="SIKAP logo"><br><?=$settings['site_name']?><br> <?=$settings['address']?></div>')
-.openPopup();
+    L.marker([8.502448, 125.978988]).addTo(map)
+    .bindPopup('<div style="text-align: center;"><img src="<?=base_url().'filemanager/'.$settings['site_logo']?>" style="height: 40px; width: 40px;" alt="SIKAP logo"><br><?=$settings['site_name']?><br> <?=$settings['address']?></div>')
+    .openPopup();
 
+    map.scrollWheelZoom.disable();
 </script>

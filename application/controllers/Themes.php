@@ -32,8 +32,7 @@ class themes extends CI_Controller
 
 	public function load_files()
 	{
-		//$this->webify->ajax_only();
-		//$this->webify->is_logged_in();
+		$this->auth->is_logged_in();
 
 		$excludes = array('.', '..', 'includes', 'plugins');
 		$this->webify->response['data'] = $this->theme->templates($excludes);
@@ -42,46 +41,37 @@ class themes extends CI_Controller
 
 	public function templates()
 	{
-		// $this->webify->ajax_only();
-		// $this->webify->is_logged_in();
+		$this->auth->is_logged_in();
 
 		$excludes = array('.', '..', 'includes', 'plugins', 'header.php', 'footer.php', 'function.php', 'template-blog.php');
 		$includes = array('.php');
-		// $this->webify->response['data'] = $this->theme->templates($excludes, $includes);
-		// $this->webify->output();
-
 		
 	}
 
 	public function get()
 	{
-		//$this->webify->ajax_only();
-		//$this->webify->is_logged_in();
+		$this->auth->is_logged_in();
+
 		$this->webify->response['data'] = array('data'=>$this->thememodel->get());
-		//$this->webify->output();
+		
 	}
 
 	public function read($file)
 	{
-		//$this->webify->ajax_only();
-		//$this->webify->is_logged_in();
+		$this->auth->is_logged_in();
 
-		// avoid using base_url() if you are disallowing direct access to some files.
-		// see /bm-content/themes/.htaccess
 		echo file_get_contents( theme::$theme_path . $file );
 	}
 
 	public function write()
 	{
-		//$this->webify->ajax_only();
-		//$this->webify->is_logged_in();
+		$this->auth->is_logged_in();
 
 		$file = $this->input->post('file');
 		$text = $this->input->post('text');
 
 		file_put_contents( theme::$theme_path . $file, $text );
-		//$this->webify->response['data'] = array('message'=>'success');
-		//$this->webify->output();
+				
 		header('Content-Type: application/json; charset=utf-8;');			
         echo json_encode( array("message" =>  "success") );
         exit;	

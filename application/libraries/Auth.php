@@ -34,24 +34,7 @@ class auth
 		return $this->ci->session->userdata('admin');
     }
     
-    //admin
-
-    public function admin_is_logged_in()
-	{		
-		if( $this->ci->session->has_userdata('admin') == null &&  $url != 'login' ){
-			redirect(base_url());
-		}else if ( $this->ci->session->has_userdata('login') != null &&  $url == 'login' ){
-			redirect(base_url());
-		}
-
-		return true;
-	}
-    public function get_admin(){
-		return $this->ci->session->userdata('admin');
-	}
-
-
-	
+    
 }
 
 ?>

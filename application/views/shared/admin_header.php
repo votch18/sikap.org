@@ -101,23 +101,22 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php
-                                    $photo = !empty($admin['photo']) ? base_url().'assets/admin/images/'.$admin['photo'] : base_url().'assets/admin/images/avatar.png';
+                                    $photo = !empty($admin['photo']) ? base_url().'uploads/users/'.$admin['photo'] : base_url().'assets/admin/images/avatar.png';
                                 ?>
                                 
-                                <img src="<?=base_url()?>assets/admin/images/avatar.png" alt="user" class="profile-pic" /></a>
+                                <img src="<?=$photo?>" alt="<?=$admin['username']?>" class="profile-pic"  style="height: 30px; width: 30px;" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <ul class="dropdown-user">
                                     <li>
-                                        <div class="dw-user-box">
-                                            <div class="u-img"><img src="<?=base_url()?>assets/admin/images/avatar.png" alt="user"></div>
-                                            <div class="u-text">
+                                        <div class="dw-user-box">                                        
+                                            <div class="u-text mt-1">
                                                 <h4><?=ucwords($admin['fname'].' '.$admin['lname'])?></h4>
                                                 <p class="text-muted"><?=$admin['email']?></p>
                                                 <a href="<?=base_url()?>admin/users/<?=$admin['username']?>" class="btn btn-rounded btn-warning btn-sm">View Profile</a></div>
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>                                  
-                                    <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+                                    <li><a href="#changePassModal" data-toggle="modal" data-target="#changePassModal" data-backdrop="static"><i class="ti-settings"></i> Change password</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="<?=base_url()?>admin/logout"><i class="fa fa-power-off"></i> Logout</a></li>
                                 </ul>
@@ -176,7 +175,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="<?=base_url()?>admin/settings" aria-expanded="false"><i class="mdi mdi-settings"></i><span class="hide-menu">Maintenance</span></a>
                             <ul aria-expanded="true" class="collapse in">
-                                <li><a href="<?=base_url()?>admin/settings">Site Settings</a></li>
+                                <li><a href="<?=base_url()?>admin/settings">Site Settings</a></li>  
                                 <li><a href="<?=base_url()?>admin/users">Users</a></li>                                
                             </ul>
                         </li>

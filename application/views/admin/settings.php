@@ -3,7 +3,7 @@
         <h3 class="text-themecolor">Settings</h3>
     </div>
     <div class="col-md-7 align-self-center">
-        <a href="#" class="btn btn-success float-right btn_save">Save changes</a>
+        
     </div>   
 </div>
 
@@ -23,23 +23,27 @@
                     </thead>
               
                 <tbody>
-                    <form method="POST">
+                  
                     <?php
                         foreach($data as $row){
                             ?> 
-                            <tr>
-                                <td><?=$row['description']?></td>
-                                <td><?=$row['key_word']?></td>
-                                <td>
-                                    <input type="hidden" name="id" value="<?=$row['id']?>" class="form-control">
-                                    <input type="text" name="value" value="<?=$row['value']?>" class="form-control">
-                                </td>
-                                
-                            </tr>
+                            <form method="POST">
+                                <tr>
+                                    <td><?=$row['description']?></td>
+                                    <td><?=$row['key_word']?></td>
+                                    <td>
+                                        <input type="hidden" name="keyword" value="<?=$row['key_word']?>" class="form-control">
+                                        <textarea name="value" class="form-control"><?=$row['value']?></textarea>
+                                    </td>
+                                    <td style="width: 100px;">
+                                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
+                                    </td>
+                                </tr>
+                            </form>
                             <?php
                         }
                     ?>
-                    </form>
+                  
                 </tbody>
                 </table>
             </div>
@@ -51,6 +55,46 @@
 
 <script>
     $(function(){
-        
+
+        $('body').on('click', '.btn_save', function(e){
+            $("form").submit();
+        })
+
+
+        $("form").submit(function(e){
+            e.preventDefault();
+
+            let data = $(this).serialize();
+
+            console.log(data);
+
+            $.ajax({
+                type: 'POST',
+                url: '<?=base_url()?>admin/save_settings',
+                data: data,
+                dataType: 'json',
+                crossDomain: true,
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+                error: function(res){
+                    console.log('error')
+                    console.log(res)
+                },
+                beforeSend: function(){
+                    $('.status').html('Saving changes...')
+                },
+                success: function(res){
+                    
+                    if(res.message == 'success'){
+                        setTimeout(function(){                           
+                            $('.status').html('')
+                            Swal.fire("Success!", "Changes successfully saved!", "success");
+                        }, 1500)
+                    }
+                    else{
+                        $('.status').switchClass('text-success', 'text-danger').html('[error]')
+                    }
+                }
+            })
+        })
     })
 </script>

@@ -57,5 +57,17 @@ class Settings_model extends CI_Model{
 
         return $this->db->insert('flash', $data) ? "success" : "An error occured while saving your message!";
     }
+
+     
+    public function save(){
+        $keyword =$this->input->post("keyword");
+        $value =  $this->input->post("value");
+
+        $this->db->set('value', $value);
+        $this->db->where('key_word', $keyword);
+        if ( ! $this->db->update('settings')  ) return "failed";
+
+        return "success";
+    }
   
 }

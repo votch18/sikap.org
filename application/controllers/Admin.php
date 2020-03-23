@@ -8,7 +8,6 @@ class Admin extends CI_Controller {
 		parent::__construct();
         $this->load->library('auth');        
         $this->load->helper('url_helper');
-        $this->load->model('admin_model');
         $this->load->model('posts_model');
         $this->load->model('users_model');
         $this->load->model('settings_model');
@@ -128,23 +127,62 @@ class Admin extends CI_Controller {
     public function pages(){
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');    
-        $data['pages'] 	= $this->pages_model->get();   
+        $data['pages'] 	= $this->pages_model->get_all();   
         $data['url'] =  'pages';     
-
+      
         $this->load->view('shared/admin_header', $data);  
         $this->load->view('admin/pages');
         $this->load->view('shared/admin_footer');
     }
 
     public function pages_create(){
+
         $data['settings'] 	= $this->settings_model->get();
-        $data['admin'] = $this->session->userdata('admin');    
-        $data['pages'] 	= $this->pages_model->get();   
+        $data['admin'] = $this->session->userdata('admin');  
         $data['url'] =  'pages';     
+        $data['title'] = 'create page';  
+        $excludes = array('.', '..', 'js', 'plugins', 'footer.php', 'header.php' );
+		$includes = array('.php');
+        $data['templates'] 	= $this->theme->templates($excludes, $includes);
 
         $this->load->view('shared/admin_header', $data);  
-        $this->load->view('admin/pages');
+        $this->load->view('admin/new_page');
         $this->load->view('shared/admin_footer');
+    }
+
+    public function pages_edit($id){
+        $data['settings'] 	= $this->settings_model->get();
+        $data['admin'] = $this->session->userdata('admin');    
+        $data['page'] 	= $this->pages_model->get_by_id($id);   
+        $data['url'] =  'pages';     
+        $data['title'] = 'Edit page';  
+        $excludes = array('.', '..', 'js', 'plugins', 'footer.php', 'header.php' );
+		$includes = array('.php');
+        $data['templates'] 	= $this->theme->templates($excludes, $includes);
+
+        $this->load->view('shared/admin_header', $data);  
+        $this->load->view('admin/new_page');
+        $this->load->view('shared/admin_footer');
+    }
+
+    public function pages_delete()
+	{				
+        $this->auth->is_logged_in();	
+
+        header('Content-Type: application/json; charset=utf-8;');			
+        echo json_encode( array("message" =>  $this->pages_model->delete()) );
+        exit;	
+    }
+    
+    public function pages_save()
+	{				
+        $this->auth->is_logged_in();	
+
+        $userid =  $this->auth->get_users()['id'];
+
+        header('Content-Type: application/json; charset=utf-8;');			
+        echo json_encode( array("message" =>  $this->pages_model->set_page( $userid )) );
+        exit;	
     }
 
     public function templates()
@@ -164,7 +202,8 @@ class Admin extends CI_Controller {
 		$this->load->view('shared/admin_header', $data);
 		$this->load->view('admin/templates', $data);
 		$this->load->view('shared/admin_footer');
-	}
+    }
+    
 
     public function settings(){
         $data['settings'] 	= $this->settings_model->get();
@@ -177,11 +216,19 @@ class Admin extends CI_Controller {
         $this->load->view('admin/settings');
         $this->load->view('shared/admin_footer');
     }
+
+    public function save_settings()
+	{
+        header('Content-Type: application/json; charset=utf-8;');			
+        echo json_encode( array("message" =>  $this->settings_model->save() ) );
+        exit;
+    }	
+
     
     public function login()
 	{				        
         $data['settings'] 	= $this->settings_model->get();
-        $data = $this->admin_model->login_admin();
+        $data = $this->users_model->login_user();
 
         if ( $data == null ){
             header('Content-Type: application/json; charset=utf-8;');			
@@ -200,8 +247,9 @@ class Admin extends CI_Controller {
     public function users($username = FALSE){
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin'); 
-        $data['users'] = $this->users_model->get_users(); 
+        $data['users'] = $this->users_model->get_users($username); 
         $data["url"] = "users";
+       
 
         $this->load->view('shared/admin_header', $data);       
 
@@ -214,17 +262,6 @@ class Admin extends CI_Controller {
         $this->load->view('shared/admin_footer');
     }
   
-    public function profile(){
-        $data['settings'] 	= $this->settings_model->get();
-        if ( !$this->session->has_userdata('admin') ) redirect(base_url());
-
-        $data['admin'] = $this->session->userdata('admin'); 
-
-        $this->load->view('shared/admin_header', $data);
-        $this->load->view('admin/profile', $data);
-        $this->load->view('shared/admin_footer');
-    }
-
     public function update_info(){
 
         if ( $this->admin_model->update_info() == "success" ) {
@@ -246,6 +283,7 @@ class Admin extends CI_Controller {
         exit;
     }	
 
+ 
     public function do_upload()
 	{				
         if ($this->admin_model->upload()){

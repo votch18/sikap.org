@@ -1,4 +1,4 @@
-<div class="page-header">
+<div class="page-header" style="background: url('<?=$banner?>')">
     <div class="container">
         <div class="row">
             <div class="col-12">

@@ -3,7 +3,7 @@
         <h3 class="text-themecolor">Users</h3>
     </div>
     <div class="col-md-7 align-self-center">
-        <button class="btn btn-success float-right">Add user</button>
+        <button class="btn btn-success float-right btn_add">Add user</button>
     </div>   
 </div>
 
@@ -26,7 +26,7 @@
                 <tbody>
                     <?php
                         foreach($users as $row){
-                            $photo = !empty($admin['photo']) ? base_url().'assets/uploads/users/'.$row['photo'] : base_url().'assets/admin/images/avatar.png';
+                            $photo = !empty($row['photo']) ? base_url().'uploads/users/'.$row['photo'] : base_url().'assets/admin/images/avatar.png';
                     ?>
                         <tr>
                             <td>
@@ -46,8 +46,8 @@
                             <td><?=$row['email']?></td>
                             <td><?=$row['contactno']?></td>
                             <td style="width: 160px; text-align: right;">
-                                <button class="btn btn-primary btn-sm" data-id="<?=$row['id']?>" ><i class="fa fa-edit"></i>&nbsp;Edit</button>
-                                <button class="btn btn-danger btn-sm" data-id="<?=$row['id']?>" ><i class="fa fa-trash"></i>&nbsp;Delete</button>
+                                <button class="btn btn-primary btn-sm btn_edit" data-id="<?=$row['id']?>" ><i class="fa fa-edit"></i>&nbsp;Edit</button>
+                                <button class="btn btn-danger btn-sm btn_delete" data-id="<?=$row['id']?>" ><i class="fa fa-trash"></i>&nbsp;Delete</button>
                             </td>
                         </tr>
                     <?php
@@ -60,9 +60,10 @@
     </div>
 </div>
 
+
 <script>
    $(function(){
-       $('body').on('click', '.btn-danger', function(e){
+       $('body').on('click', '.btn_delete', function(e){
            e.preventDefault();
 
             let data = {
@@ -100,13 +101,14 @@
                             if(res.message == 'success'){
                             
                                 Swal.fire("Success!", "Deleted successfully!", "success");
-                                $row.remove();
+                                $row.remove();     
                                 setTimeout(function(){                           
                                     $('.status').html('')
-                                }, 1500)
+                                }, 1500)                           
                             }
                             else{
                                 $('.status').switchClass('text-success', 'text-danger').html('[error]')
+                                Swal.fire("Error!", res.message, "error");          
                             }
                         }
                     })
@@ -114,6 +116,96 @@
                 } 
             })
 
+       })
+
+       $('body').on('click', '.btn_add', function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '<?=base_url()?>users/add_user',
+                data: null,
+                dataType: 'html',
+                crossDomain: true,
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+                error: function(res){
+                    console.log('error')
+                    console.log(res)
+                },
+                beforeSend: function(){
+                    
+                },
+                success: function(res){
+                    $('#modalAddUser').remove();
+                    $('body').append(res);
+                    $('#modalAddUser').modal('show');
+                }
+            })
+       })
+
+
+       $('body').on('click', '.btn_edit', function(e){
+            e.preventDefault();
+
+            var id = $(this).attr('data-id');
+
+            $.ajax({
+                type: 'POST',
+                url: '<?=base_url()?>users/add_user',
+                data: { id: id },
+                dataType: 'html',
+                crossDomain: true,
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+                error: function(res){
+                    console.log('error')
+                    console.log(res)
+                },
+                beforeSend: function(){
+                    
+                },
+                success: function(res){
+                    
+                    $('#modalEditUser').remove();
+                    $('body').append(res);
+                    $('#modalEditUser').modal('show');
+                }
+            })
+       })
+
+
+       $('body').on('submit', 'form', function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '<?=base_url()?>users/save_user',
+                data: $(this).serialize(),
+                dataType: 'json',
+                crossDomain: true,
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+                error: function(res){
+                    console.log('error')
+                    console.log(res)
+                },
+                beforeSend: function(){
+                    $('.status').html('Saving record...')
+                },
+                success: function(res){
+                    
+                    if(res.message == 'success'){
+                    
+                        Swal.fire("Success!", "User successfully saved!", "success");
+                       
+                        setTimeout(function(){                           
+                            $('.status').html('')
+                            window.location.reload();
+                        }, 1500)
+                    }
+                    else{
+                        Swal.fire("Error!", res.message, "error");
+                    }
+                }
+            })
        })
    })
    </script>

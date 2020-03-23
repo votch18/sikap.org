@@ -53,8 +53,8 @@
                         </div>
 
                         <?php
-                            $featured_news = array_slice($news, 0, 1)[0];
-                            $news =  array_slice($news, 1, 3);
+                            $featured_news = @array_slice($news, 0, 1)[0];
+                            $news =  @array_slice($news, 1, 3);
                             foreach($news as $row) {
                         ?>
                         <div class="event-wrap d-flex flex-wrap justify-content-between">
@@ -220,8 +220,8 @@
 		var map = L.map('mapid').setView([8.502448, 125.978988], 15);
 
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoidm90Y2gxOCIsImEiOiJjazM2dHhucmQwNTMzM2NubmR3dHduZHh2In0.CXezVIToRZsnx42HZJNQVw', {
-			maxZoom: 15,
             zoomControl: false, 
+            scrollWheelZoom: false,
 			id: 'mapbox.streets',
 			accessToken: 'pk.eyJ1Ijoidm90Y2gxOCIsImEiOiJjazM2dHhucmQwNTMzM2NubmR3dHduZHh2In0.CXezVIToRZsnx42HZJNQVw',       
 		}).addTo(map);
@@ -230,5 +230,6 @@
 		.bindPopup('<div style="text-align: center;"><img src="<?=base_url().'filemanager/'.$settings['site_logo']?>" style="height: 40px; width: 40px;" alt="SIKAP logo"><br><?=$settings['site_name']?><br> <?=$settings['address']?></div>')
 		.openPopup();
 
+        map.scrollWheelZoom.disable();
 	</script>
 	

@@ -4,8 +4,10 @@ class Users_model extends CI_Model{
 
     public function set_user(){
        
-        //validate password
-        if ($this->input->post('password') != $this->input->post('confirm_password')) return "Password does not matched!";
+        //update user info
+        if (!empty( $this->input->post('id') ) && $this->input->post('id') != 0 ){
+            return ($this->update_users())  ? "success" : "An error occured while saving your data!";
+        }
 
         //validate username
         if ( $this->validate('username', $this->input->post('username')) > 0) return "Username is already taken!";
@@ -13,7 +15,7 @@ class Users_model extends CI_Model{
         //validate email
         if ( $this->validate('email', $this->input->post('email')) > 0 ) return "Email address is already taken!";
 
-        $this->load->library('util');
+        //$this->load->library('util');
         $salt = $this->util->generate_random_code();
 
         $data = array(
@@ -21,15 +23,17 @@ class Users_model extends CI_Model{
             'email' => $this->input->post('email'),
             'password' =>  md5($this->input->post('password').$salt),
             'salt' => $salt,
-            'role' =>  1,
+            'role' =>   $this->input->post('role'),
             'lname' =>  $this->input->post('lname'),
             'fname' =>  $this->input->post('fname'),
+            'contactno' =>  $this->input->post('contactno'),
             'is_active' => '1'
         );
         
         return ( $this->db->insert('users', $data) ) ? "success" : "An error occured while saving your data!";
 
     }
+
 
     public function update_users(){
       
@@ -41,6 +45,7 @@ class Users_model extends CI_Model{
             'role' =>  $this->input->post('role'),
             'lname' =>  $this->input->post('lname'),
             'fname' =>  $this->input->post('fname'),
+            'contactno' =>  $this->input->post('contactno'),
             'is_active' => '1'
         );
     
@@ -89,23 +94,23 @@ class Users_model extends CI_Model{
     }
 
 
-    public function login_user($username = FALSE, $password = FALSE){
+    public function login_user(){
 
-        $username = ($username != FALSE) ? $username :  $this->input->post('username');
-        $password = ($password != FALSE) ? $password :  $this->input->post('password');
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
 
-        if (empty($username) || empty($password)) return "failed";
+        if (empty($username) || empty($password)) return;
 
         $salt = $this->get_salt($username);
 
         $sql = "SELECT 
-                a.*,
-                b.photo
-                FROM t_users a
-                LEFT JOIN t_avatar b ON a.id = b.userid
-                WHERE a.username = ? AND a.password = ?
-                LIMIT 1
-            ";
+            a.*,
+            c.description as role_desc
+            FROM t_users a          
+            LEFT JOIN t_roles c ON a.role = c.id
+            WHERE a.username = ? AND a.password = ?
+            LIMIT 1
+        ";
 
         $query = $this->db->query($sql, array($username, md5($password.$salt)));
         return $query->row_array();
@@ -116,12 +121,9 @@ class Users_model extends CI_Model{
         {
             $sql = "SELECT 
                 a.*,
-                b.photo,
                 c.description as role_desc
                 FROM t_users a
-                LEFT JOIN t_avatar b ON a.id = b.userid
                 LEFT JOIN t_roles c ON a.role = c.id
-                WHERE a.username = ?
             ";
 
             $query = $this->db->query($sql, array($username));
@@ -130,10 +132,8 @@ class Users_model extends CI_Model{
 
         $sql = "SELECT 
                 a.*,
-                b.photo,
                 c.description as role_desc
                 FROM t_users a
-                LEFT JOIN t_avatar b ON a.id = b.userid
                 LEFT JOIN t_roles c ON a.role = c.id
                 WHERE a.username = ?
                 LIMIT 1
@@ -175,11 +175,22 @@ class Users_model extends CI_Model{
         return $query->num_rows();
     }
 
-    public function delete($id){
-        $this->db->where('id', $id);
-        $this->db->delete('users');
+    
+    public function get_roles(){
+       
+        $this->db->select('roles.*');
+        $this->db->from('roles');
+       
+        return $this->db->get()->result_array();
+    }
 
-        redirect('users');
+    public function delete(){
+        $id = $this->input->post('id');
+
+        $this->db->where('id', $id);
+        return ($this->db->delete('users')) ? "success" : "An error occured while deleting your record.";
+
+        
     }
 
     public function upload(){
@@ -198,7 +209,6 @@ class Users_model extends CI_Model{
             }else{
 
                 $data = array (
-                    'userid' => $id,
                     'photo' => $filename
                 );
 
@@ -213,13 +223,8 @@ class Users_model extends CI_Model{
                 $this->load->library('image_lib', $config);
                 $this->image_lib->resize();
 
-                if ($this->check_photo($id) > 0){
-                    $this->db->where('userid', $id);
-                    $this->db->update('avatar', $data);
-                    return true;
-                }
-
-                $this->db->insert('avatar', $data);
+                $this->db->where('id', $id);
+                $this->db->update('users', $data);
                 return true;
             }
         }

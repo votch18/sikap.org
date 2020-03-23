@@ -57,15 +57,23 @@ $route['translate_uri_dashes'] = FALSE;
 $route['filemanager/(:any)']            = 'filemanager/$1';
 $route['posts/(:any)']                  = 'posts/$1';
 $route['themes/(:any)']                 = 'themes/$1';
+
+$route['users/delete/(:any)']           = 'users/delete/$1';
+$route['users/do_upload/(:any)']        = 'users/do_upload';
+$route['users/update_info/(:any)']      = 'users/update_info';
+$route['users/change_password/(:any)']  = 'users/change_password';
 $route['users/(:any)']                  = 'users/$1';
 
 $route['admin']                         = 'admin';
 $route['admin/filemanager']             = 'admin/filemanager';
 $route['admin/pages']                   = 'admin/pages';
+$route['admin/pages/save']              = 'admin/pages_save';
 $route['admin/pages/create']            = 'admin/pages_create/';
-$route['admin/pages/edit/(:any)']       = 'admin/pages_create/$1';
+$route['admin/pages/edit/(:any)']       = 'admin/pages_edit/$1';
+$route['admin/pages/delete']            = 'admin/pages_delete';
 $route['admin/templates']               = 'admin/templates';
 $route['admin/settings']                = 'admin/settings';
+$route['admin/save_settings']           = 'admin/save_settings';
 $route['admin/users']                   = 'admin/users';
 $route['admin/dashboard']               = 'admin/dashboard';
 $route['admin/logout']                  = 'admin/logout';
