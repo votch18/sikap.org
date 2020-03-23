@@ -48,31 +48,30 @@
                                 <button type="submit" class="flex justify-content-center align-items-center">GO</button>
                             </form>
                         </div>
-
                         <?php
-                        if (count($news) > 0 ) {
+                        if (count($news) > 0) {
                         ?>
                         <div class="popular-posts">
-                            <h2>Announcements</h2>
+                            <h2>Related news</h2>
 
                             <ul class="p-0 m-0">
 
                             <?php
+
+                            $news = count($news) > 5 ? array_slice($news, 0, 5) : $news;
                             foreach($news as $row) {
-                                if (!$row['slug'] == $slug) {
                             ?>
                                 <li class="d-flex flex-wrap justify-content-between align-items-center">
                                     <figure><a href="#"><img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>" style="width: 72px; height: auto;"></a></figure>
 
                                     <div class="entry-content">
-                                        <h3 class="entry-title"><a href="<?=base_url().'annoucements/'.$row['slug']?>"><?=$row['title']?></a></h3>
+                                        <h3 class="entry-title"><a href="<?=base_url().'news/'.$row['slug']?>"><?=$row['title']?></a></h3>
 
                                         <div class="posted-date"><?= date_format(new DateTime($row['date']), 'F d, Y'); ?></div>
                                     </div>
                                 </li>
                                 <?php
                                 }
-                            }
                             ?>
                                
                             </ul>
@@ -82,9 +81,9 @@
                             }
                         ?>
 
-
                         <?php
-                        if (count($announcements) > 0 ) {
+                        
+                        if (count($announcements) > 0 && $url != 'announcements') {
                         ?>
                         <div class="popular-posts">
                             <h2>Announcements</h2>
@@ -92,8 +91,8 @@
                             <ul class="p-0 m-0">
 
                             <?php
+                            $announcements = count($announcements) > 5 ? array_slice($announcements, 0, 5) : $announcements;
                             foreach($announcements as $row) {
-                                if (!$row['slug'] == $slug) {
                             ?>
                                 <li class="d-flex flex-wrap justify-content-between align-items-center">
                                     <figure><a href="#"><img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>" style="width: 72px; height: auto;"></a></figure>
@@ -106,7 +105,6 @@
                                 </li>
                                 <?php
                                 }
-                            }
                             ?>
                                
                             </ul>
@@ -117,7 +115,7 @@
                         ?>
 
                         <?php
-                        if (count($publications) > 0) {
+                        if (count($publications) > 0 && $url != 'publications') {
                         ?>
                         <div class="popular-posts">
                             <h2>Publications</h2>
@@ -125,9 +123,8 @@
                             <ul class="p-0 m-0">
 
                             <?php
+                            $publications = count($publications) > 5 ? array_slice($publications, 0, 5) : $publications;
                             foreach($publications as $row) {
-                                
-                            if (!$row['slug'] == $slug) {
                             ?>
                                 <li class="d-flex flex-wrap justify-content-between align-items-center">
                                     <figure><a href="#"><img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>" style="width: 72px; height: auto;"></a></figure>
@@ -140,7 +137,6 @@
                                 </li>
                                 <?php
                                 }
-                            }
                             ?>
                                
                             </ul>
@@ -151,7 +147,7 @@
                         ?>
 
 <?php
-                        if (count($awards) > 0) {
+                        if (count($awards) > 0 && $url != 'awards') {
                         ?>
                         <div class="popular-posts">
                             <h2>Awards</h2>
@@ -159,8 +155,8 @@
                             <ul class="p-0 m-0">
 
                             <?php
+                            $awards = count($awards) > 5 ? array_slice($awards, 0, 5) : $awards;
                             foreach($awards as $row) {
-                                if (!$row['slug'] == $slug) {
                             ?>
                                 <li class="d-flex flex-wrap justify-content-between align-items-center">
                                     <figure><a href="#"><img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>" style="width: 72px; height: auto;"></a></figure>
@@ -173,7 +169,6 @@
                                 </li>
                                 <?php
                                 }
-                            }
                             ?>
                                
                             </ul>

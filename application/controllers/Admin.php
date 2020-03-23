@@ -40,6 +40,9 @@ class Admin extends CI_Controller {
     }
 
     public function dashboard(){
+
+        $this->auth->is_logged_in();
+
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');          
         $data["url"] = "dashboard";
@@ -59,6 +62,8 @@ class Admin extends CI_Controller {
     }
 
     public function posts($url){
+        $this->auth->is_logged_in();
+
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');   
         $type = $this->pages_model->get_type_by_url($url);
@@ -82,6 +87,8 @@ class Admin extends CI_Controller {
     }
 
     public function create_posts($url){   
+        $this->auth->is_logged_in();
+
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin'); 
         $type = $this->pages_model->get_type_by_url($url);
@@ -96,6 +103,8 @@ class Admin extends CI_Controller {
     }
 
     public function edit_posts($url, $id){   
+        $this->auth->is_logged_in();
+
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');
         $type = $this->pages_model->get_type_by_url($url);
@@ -114,6 +123,8 @@ class Admin extends CI_Controller {
 
 
     public function filemanager(){
+        $this->auth->is_logged_in();
+
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');    
         $data['url'] =  'filemanager';     
@@ -125,6 +136,9 @@ class Admin extends CI_Controller {
 
     
     public function pages(){
+
+        $this->auth->is_logged_in();
+
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');    
         $data['pages'] 	= $this->pages_model->get_all();   
@@ -136,6 +150,8 @@ class Admin extends CI_Controller {
     }
 
     public function pages_create(){
+
+        $this->auth->is_logged_in();
 
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');  
@@ -151,6 +167,9 @@ class Admin extends CI_Controller {
     }
 
     public function pages_edit($id){
+
+        $this->auth->is_logged_in();
+
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');    
         $data['page'] 	= $this->pages_model->get_by_id($id);   
@@ -187,6 +206,9 @@ class Admin extends CI_Controller {
 
     public function templates()
 	{
+
+        $this->auth->is_logged_in();
+
 		$data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');    
         $data['pages'] 	= $this->pages_model->get();   
@@ -206,6 +228,9 @@ class Admin extends CI_Controller {
     
 
     public function settings(){
+
+        $this->auth->is_logged_in();
+
         $data['settings'] 	= $this->settings_model->get();
         $data['data'] 	= $this->settings_model->get_all();
         $data['admin'] = $this->session->userdata('admin');    
@@ -245,12 +270,14 @@ class Admin extends CI_Controller {
     }
 
     public function users($username = FALSE){
+
+        $this->auth->is_logged_in();
+
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin'); 
         $data['users'] = $this->users_model->get_users($username); 
         $data["url"] = "users";
        
-
         $this->load->view('shared/admin_header', $data);       
 
         if ($username != FALSE){
@@ -263,6 +290,8 @@ class Admin extends CI_Controller {
     }
   
     public function update_info(){
+
+        $this->auth->is_logged_in();
 
         if ( $this->admin_model->update_info() == "success" ) {
             $data = $this->admin_model->get_admin_by_id();
@@ -278,6 +307,8 @@ class Admin extends CI_Controller {
     
 	public function change_password()
 	{
+        $this->auth->is_logged_in();
+        
         header('Content-Type: application/json; charset=utf-8;');			
         echo json_encode( array("message" =>  $this->admin_model->change_password() ) );
         exit;

@@ -8,10 +8,10 @@
                             <h2><a class="foot-logo" href="#"><img src="<?=base_url().'filemanager/'.$settings['site_logo']?>" alt="" style="height: 100px; width: 100px;"></a></h2>
                             <ul class="d-flex flex-wrap align-items-center">
                                
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="<?=$settings['facebook']?>"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="<?=$settings['twitter']?>"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="<?=$settings['youtube']?>"><i class="fa fa-youtube"></i></a></li>
+                                <li><a href="<?=$settings['linkedin']?>"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>

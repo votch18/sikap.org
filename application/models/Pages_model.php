@@ -8,11 +8,9 @@ class Pages_model extends CI_Model{
     
         $id = $this->input->post('id');
 
-        $url = url_title($this->input->post('name'), 'dash', TRUE);
-
         $template = $this->input->post('template');
         //create new template
-        if ($this->input->post('template') == 0){
+        if ($this->input->post('template') == "0"){
             $template = $url.'.php';
 
             $this->load->model('thememodel');
@@ -26,7 +24,7 @@ class Pages_model extends CI_Model{
      
         $data = array(            
             'name' => $this->input->post('name'),
-            'url' => $url,
+            'url' => $this->input->post('url'),
             'template' => $template,        
             'banner' => $this->input->post('banner'),       
             'status' => $this->input->post('status'),     

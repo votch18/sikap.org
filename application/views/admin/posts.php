@@ -43,7 +43,7 @@
                             </div>
                            
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" style="width: 200px;">
                             <div class="m-b-15">
                                 <h6 class="d-inline small">Publish?</h6>
                                 <label class="switch m-0 p-0" style="vertical-align: middle;">

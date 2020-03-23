@@ -72,7 +72,7 @@
                                 </header>
 
                                 <div class="entry-content">
-                                    <p class="m-0"><?=substr(strip_tags($row['post']), 0, 250)?></p>
+                                    <p class="m-0"><?=substr(strip_tags($row['post']), 0, 160)?></p>
                                 </div>
 
                                 <div class="entry-footer">
@@ -113,7 +113,7 @@
                                         </header>
 
                                         <div class="entry-content">
-                                            <p class="m-0"><?=substr(strip_tags($featured_news['post']), 0, 250)?></p>
+                                            <p class="m-0"><?=substr(strip_tags($featured_news['post']), 0, 160)?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@
                                         </header>
 
                                         <div class="entry-content">
-                                            <p class="m-0"><?=substr(strip_tags($row['post']), 0, 250)?></p>
+                                            <p class="m-0"><?=substr(strip_tags($row['post']), 0, 160)?></p>
                                         </div>
 
                                     </div>

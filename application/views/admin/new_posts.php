@@ -6,7 +6,7 @@
         <h3 class="text-themecolor"><?=ucwords($title)?></h3>
     </div>
     <div class="col-md-7 align-self-center">
-        
+        <a id="preview" href="<?=base_url()?>preview/<?=$url?>/<?=!empty($post['slug']) ? $post['slug'] :''?>" class="float-right" target="_blank">Preview</a>
     </div>   
 </div>
 
@@ -56,12 +56,12 @@
                     <a href="#" data-toggle="modal" data-target="#dialogFilemanager">
                         <div style="display: block; margin-top: -180px; text-align: center; width: 100%;">
                             <span class="fa fa-cloud-upload" style="font-size: 45px;"></span><br/><br/>
-                            <span style="display: block">Choose from File Manager <br>(754w x 390h)</span>
+                            <span style="display: block">Choose from File Manager <br>(<?=$url == 'slider' ? '1920w x 832h' : '754w x 390h'?>)</span>
                         </div>
                         <input type="hidden" name="image" value="<?=!empty($post['photo']) ? $post['photo'] : ''?>"/>
                     </a>                    
                 </div>
-                <sub>Ideal image size (754w x 390h)</sub>
+                <sub>Ideal image size (<?=$url == 'slider' ? '1920w x 832h' : '754w x 390h'?>)</sub>
             </div>
         </div>
     </div>
@@ -357,7 +357,7 @@ ClassicEditor
         savePosts();
     });
 
-    $('.ck-content').on('change keypress keyup', function(){
+    $('.ck-content').on('change keypress keyup paste', function(){
         savePosts();
     })
 
@@ -365,7 +365,7 @@ ClassicEditor
         $('#url').text(function(){
             url = $('input[name=title]').val().trim().replace(/[^a-z0-9+]+/gi, '-').toLowerCase()
             $('input[name=url]').val(url)
-            $('#preview').attr('href', '<?php echo base_url()?>preview/blog/' + url)
+            $('#preview').attr('href', '<?=base_url()?>preview/<?=$url?>/' + url)
             return url
         })
     })

@@ -9,6 +9,7 @@
 </div>
 
 <input type="hidden" name="id" value="<?=!empty($page['id']) ? $page['id'] : 0?>">
+<input type="hidden" name="url" value="<?=!empty($page['url']) ? $page['url'] : ''?>">
 
 <div class="row m-b-5">
     <div class="col-lg-7">
@@ -92,7 +93,8 @@ $(function(){
 
     $('input[name=name]').on('keyup',function(){
         $('#url').text(function(){
-            url = $('input[name=name]').val().trim().replace(/[^a-z0-9+]+/gi, '-').toLowerCase()
+            url = $('input[name=name]').val().trim().replace(/[^a-z0-9+]+/gi, '-').toLowerCase();
+            $('input[name=url]').val(url);
             return url
         })
     })
@@ -105,6 +107,7 @@ $(function(){
             name: $('input[name=name]').val(),
             template: $('select[name=template]').val(),  
             banner: $('input[name=image]').val(),
+            url: $('input[name=url]').val(),
             status: ($('input[type=checkbox]').prop("checked") ? 1 : 0 )                   
         }
 

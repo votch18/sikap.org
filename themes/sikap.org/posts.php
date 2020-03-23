@@ -56,10 +56,10 @@
                             </form>
                         </div>
                         <?php
-                        if (count($news) > 0 && $url != 'announcements') {
+                        if (count($news) > 0 ) {
                         ?>
                         <div class="popular-posts">
-                            <h2>Announcements</h2>
+                            <h2>Related news</h2>
 
                             <ul class="p-0 m-0">
 
@@ -72,7 +72,7 @@
                                     <figure><a href="#"><img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>" style="width: 72px; height: auto;"></a></figure>
 
                                     <div class="entry-content">
-                                        <h3 class="entry-title"><a href="<?=base_url().'annoucements/'.$row['slug']?>"><?=$row['title']?></a></h3>
+                                        <h3 class="entry-title"><a href="<?=base_url().'news/'.$row['slug']?>"><?=$row['title']?></a></h3>
 
                                         <div class="posted-date"><?= date_format(new DateTime($row['date']), 'F d, Y'); ?></div>
                                     </div>
