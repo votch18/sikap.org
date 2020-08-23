@@ -10,8 +10,8 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>Admin Pro Admin Template - The Ultimate Bootstrap 4 Admin Template</title>
-	<link rel="canonical" href="https://www.wrappixel.com/templates/adminpro/" />
+    <title>sikap.org</title>
+	<link rel="canonical" href="https://sikap.org" />
     <!-- Bootstrap Core CSS -->
     <link href="<?=base_url()?>assets/admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?=base_url()?>assets/admin/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
@@ -29,11 +29,16 @@
     <script src="<?=base_url()?>assets/admin/assets/plugins/jquery/jquery.min.js"></script>
 </head>
 
-<body class="card-no-border">
+<body class="card-no-border" style="zoom: 80%!important;">
    
     <section id="wrapper">
-        <div class="login-register" style="background: #e2e2e2;">
-            <div class="login-box card" style="border-radius: 10px;">
+        <div class="login-register" style="background: #e2e2e2; 
+  height: 100%;
+  width: 100%;
+  padding: 10% 0;
+  position: fixed; ">
+            <div class="login-box card" style="border-radius: 10px; width: 400px;
+  margin: 0 auto;">
                 <div class="card-body">
                     <form class="form-horizontal form-material" id="frmLogin">
                         <div class="text-center p-b-10">

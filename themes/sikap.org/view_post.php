@@ -42,12 +42,14 @@
 
                 <div class="col-12 col-lg-4">
                     <div class="sidebar">
+                        <!--
                         <div class="search-widget">
                             <form class="flex flex-wrap align-items-center">
                                 <input type="search" placeholder="Search...">
                                 <button type="submit" class="flex justify-content-center align-items-center">GO</button>
                             </form>
                         </div>
+                        -->
                         <?php
                         if (count($news) > 0) {
                         ?>
@@ -61,8 +63,8 @@
                             $news = count($news) > 5 ? array_slice($news, 0, 5) : $news;
                             foreach($news as $row) {
                             ?>
-                                <li class="d-flex flex-wrap justify-content-between align-items-center">
-                                    <figure><a href="#"><img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>" style="width: 72px; height: auto;"></a></figure>
+                                <li class="d-flex flex-wrap justify-content-between">
+                                    <figure><a href="<?=base_url().'news/'.$row['slug']?>"><img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>" style="width: 72px; height: auto;"></a></figure>
 
                                     <div class="entry-content">
                                         <h3 class="entry-title"><a href="<?=base_url().'news/'.$row['slug']?>"><?=$row['title']?></a></h3>
@@ -115,38 +117,6 @@
                         ?>
 
                         <?php
-                        if (count($publications) > 0 && $url != 'publications') {
-                        ?>
-                        <div class="popular-posts">
-                            <h2>Publications</h2>
-
-                            <ul class="p-0 m-0">
-
-                            <?php
-                            $publications = count($publications) > 5 ? array_slice($publications, 0, 5) : $publications;
-                            foreach($publications as $row) {
-                            ?>
-                                <li class="d-flex flex-wrap justify-content-between align-items-center">
-                                    <figure><a href="#"><img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>" style="width: 72px; height: auto;"></a></figure>
-
-                                    <div class="entry-content">
-                                        <h3 class="entry-title"><a href="<?=base_url().'publications/'.$row['slug']?>"><?=$row['title']?></a></h3>
-
-                                        <div class="posted-date"><?= date_format(new DateTime($row['date']), 'F d, Y'); ?></div>
-                                    </div>
-                                </li>
-                                <?php
-                                }
-                            ?>
-                               
-                            </ul>
-                        </div>
-
-                        <?php
-                            }
-                        ?>
-
-<?php
                         if (count($awards) > 0 && $url != 'awards') {
                         ?>
                         <div class="popular-posts">

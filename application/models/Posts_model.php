@@ -22,7 +22,8 @@ class Posts_model extends CI_Model{
             'title' => $this->input->post('title'),
             'description' => $this->input->post('description'),
             'post' => $this->input->post('post'),        
-            'photo' => $this->input->post('image'),        
+            'photo' => $this->input->post('image'),
+            'program_category' => $this->input->post('category'),
             'type' => $type,
             'userid' => $userid,     
             'slug' => $slug      
@@ -120,6 +121,34 @@ class Posts_model extends CI_Model{
         return $query->result_array();
     }
 
+
+    public function get_published_programs($category){
+        $sql = "SELECT 
+            a.id,
+            a.postid,
+            a.title,
+            a.description,
+            a.post,
+            a.slug,
+            a.date,
+            a.photo as featured_img, 
+            a.status,
+            b.id as userid,
+            b.username,
+            b.photo,              
+            CONCAT(b.fname, ' ', b.lname) as name,
+            TIME_TO_SEC(TIMEDIFF(NOW(), a.date)) as seconds
+            FROM t_posts a
+            INNER JOIN t_users b ON a.userid = b.id
+            INNER JOIN t_programs_category c ON a.program_category = c.id
+            WHERE a.isactive = 1 AND a.status = 1 AND a.type = 5 AND c.url = ?
+            ORDER BY a.date DESC
+        ";
+
+        $query = $this->db->query($sql, array($category));
+        return $query->result_array();
+    }
+
     public function get_featured(){
         $sql = "SELECT 
             a.id,
@@ -187,6 +216,23 @@ class Posts_model extends CI_Model{
     public function validateid($postid){
         $query = $this->db->get_where('posts', array('postid' => $postid));
         return $query->num_rows();
+    }
+
+    public function upload(){
+        if(isset($_FILES["cropImage"])){
+            // Define a name for the file
+            $filename = md5(uniqid(rand(), true)).'.png';
+            // In this case the current directory of the PHP script
+            $directory = './filemanager/'. $filename;
+
+            // Move the file to your server
+            if (!move_uploaded_file($_FILES["cropImage"]["tmp_name"], $directory)) {
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
     }
 
 

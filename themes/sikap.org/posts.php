@@ -12,8 +12,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-8">
-
-                <?php
+                    <?php
+                    if (empty($posts)){
+                    ?>
+                        <div class="alert alert-danger">
+                            <h3><i class="fa fa-exclamation-circle red"></i> No records found!</h3>
+                        </div>
+                    <?php
+                    }
                     foreach($posts as $row) {
                 ?>
                     <div class="news-content">
@@ -122,38 +128,6 @@
                         ?>
 
                         <?php
-                        if (count($publications) > 0 && $url != 'publications') {
-                        ?>
-                        <div class="popular-posts">
-                            <h2>Publications</h2>
-
-                            <ul class="p-0 m-0">
-
-                            <?php
-                            $publications = count($publications) > 5 ? array_slice($publications, 0, 5) : $publications;
-                            foreach($publications as $row) {
-                            ?>
-                                <li class="d-flex flex-wrap justify-content-between align-items-center">
-                                    <figure><a href="#"><img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>" style="width: 72px; height: auto;"></a></figure>
-
-                                    <div class="entry-content">
-                                        <h3 class="entry-title"><a href="<?=base_url().'publications/'.$row['slug']?>"><?=$row['title']?></a></h3>
-
-                                        <div class="posted-date"><?= date_format(new DateTime($row['date']), 'F d, Y'); ?></div>
-                                    </div>
-                                </li>
-                                <?php
-                                }
-                            ?>
-                               
-                            </ul>
-                        </div>
-
-                        <?php
-                            }
-                        ?>
-
-<?php
                         if (count($awards) > 0 && $url != 'awards') {
                         ?>
                         <div class="popular-posts">

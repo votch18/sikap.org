@@ -39,8 +39,8 @@
                     <div class="m-r-20 align-self-center">
                         <i class="mdi mdi-library-books fa-3x text-info"></i></div>
                     <div class="align-self-center">
-                        <h6 class="text-muted m-t-10 m-b-0">Publications</h6>
-                        <h2 class="m-t-0"><?=count($publications)?></h2></div>
+                        <h6 class="text-muted m-t-10 m-b-0">Accreditations</h6>
+                        <h2 class="m-t-0"><?=count($accreditation)?></h2></div>
                 </div>
             </div>
         </div>

@@ -38,6 +38,16 @@
                     </span> 
                 </h4>
 				<textarea class="form-control input-lg" rows="5"  name="description" placeholder="Short description" required><?=!empty($post['description']) ? $post['description'] : ''?></textarea>
+                <select name="category" class="form-control" style="<?=$url != "programs" ? "display: none;" : ""?>">
+                    <option value="0">Select program category</option>
+                    <?php
+                        foreach ($categories as $category){
+                            ?>
+                                <option value="<?=$category["id"]?>"><?=$category["description"]?></option>
+                            <?php
+                        }
+                    ?>
+                </select>
                 </div>
             </div>
         </div>
@@ -45,8 +55,9 @@
     <div class="col-lg-5">
         <div class="card">
             <div class="card-body">
+                <button class="btn btn-dark float-right btn-sm" id="upload_btn" ><i class="mdi mdi-cloud-upload"></i> Upload & Crop</button>
                 <h5 class="">Featured Image</h5>
-                <div class="col-md-12" style="background:#e9e9e9; height: 200px;">
+                <div class="col-md-12 m-t-15" style="background:#e9e9e9; height: 200px;">
                     <div class="row">
                     <?php
                          $photo = !empty($post['photo']) ? $post['photo'] : base_url().'assets/admin/images/noimage.png';
@@ -56,12 +67,12 @@
                     <a href="#" data-toggle="modal" data-target="#dialogFilemanager">
                         <div style="display: block; margin-top: -180px; text-align: center; width: 100%;">
                             <span class="fa fa-cloud-upload" style="font-size: 45px;"></span><br/><br/>
-                            <span style="display: block">Choose from File Manager <br>(<?=$url == 'slider' ? '1920w x 832h' : '754w x 390h'?>)</span>
+                            <span style="display: block">Choose from File Manager <br>(<?=$url == 'slider' ? '770w x 350h' : '750w x 390h'?>)</span>
                         </div>
                         <input type="hidden" name="image" value="<?=!empty($post['photo']) ? $post['photo'] : ''?>"/>
                     </a>                    
                 </div>
-                <sub>Ideal image size (<?=$url == 'slider' ? '1920w x 832h' : '754w x 390h'?>)</sub>
+                <sub>Ideal image size (<?=$url == 'slider' ? '770w x 350h' : '750w x 390h'?>)</sub>
             </div>
         </div>
     </div>
@@ -81,6 +92,32 @@
 
 </form>
 
+<input type="file" name="uploadImage" style="display: none;">
+
+<div class="modal" tabindex="-1" role="dialog" id="uploadModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload & Crop Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <?php
+                $photo = !empty($post['photo']) ? $post['photo'] : base_url().'assets/admin/images/noimage.png';
+                ?>
+                <div>
+                    <img id="cropImage" class="img-responsive" src="<?=$photo?>" style="display:block;margin:auto; width: 100%; height: auto;"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn_save_crop">Crop & Save Image</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="d-none">
@@ -91,6 +128,8 @@
 </div>
 
 <script>
+
+
 $(function(){
     // elfinder folder hash of the destination folder to be uploaded in this CKeditor 5
     const uploadTargetHash = 'l1_Lw';
@@ -353,7 +392,6 @@ ClassicEditor
     })
 
     $('#dialogFilemanager').on('hidden.bs.modal', function () {
-        console.log('sample');
         savePosts();
     });
 
@@ -381,10 +419,9 @@ ClassicEditor
                 description: $('textarea[name=description]').val(),
                 post: $('.ck-content').html(),
                 type: $('input[name=type]').val(),
-                image: $('input[name=image]').val()                
+                image: $('input[name=image]').val()   ,
+                category: $('select[name=category]').val()
             }
-
-            console.log(data);
 
             $.ajax({
                 type: 'POST',
@@ -474,7 +511,103 @@ ClassicEditor
         })
         
     }
-    
+
+    $('#upload_btn').on('click', function(e){
+        e.preventDefault();
+
+        $('input[name="uploadImage"]').trigger('click');
+        //$('#uploadModal').modal('show');
+
+    })
+
+    var cropper;
+    var url = '<?=$url?>';
+
+    $('input[name="uploadImage"]').change(function(e){
+
+        var file = $(this)[0].files[0];
+        var reader = new FileReader();
+        var img_data = "";
+        reader.onload = function(event) {
+            jQuery.noConflict();
+            $('#uploadModal').modal('show');
+            $('#cropImage').attr('src', event.target.result);
+
+            if (cropper != undefined){
+                cropper.destroy();
+            }
+
+            var image = document.getElementById('cropImage');
+            if (url == 'slider'){
+                cropper = new Cropper(image, {
+                    aspectRatio: 770 / 350,
+                    zoomable: false
+                });
+            }else{
+                cropper = new Cropper(image, {
+                    aspectRatio: 750 / 390,
+                    zoomable: false
+                });
+            }
+
+
+        };
+        reader.readAsDataURL(file);
+    })
+
+
+    $('.btn_save_crop').on('click', function(e){
+        var formData 	= new FormData();
+        var canvas 		= cropper.getCroppedCanvas();
+        formData.append('url', '<?=$url?>');
+        formData.append('cropImage', canvas.toDataURL("image/jpeg"));
+
+        swal.fire({
+            title: 'Uploading ...',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            }
+        });
+        $.ajax({
+            url: "<?=base_url()?>posts/uploadCropImage",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            xhr: function() {
+                var xhr = $.ajaxSettings.xhr();
+                xhr.upload.onprogress = function(e) {
+                    var percentage = Math.floor(e.loaded / e.total * 100);
+                    swal.update({
+                        title: 'Uploading (' + percentage + '%)',
+                        allowOutsideClick: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
+                };
+                return xhr;
+            }
+            })
+            .done(function(res){
+                jQuery.noConflict();
+                $('#uploadModal').modal('hide');
+
+                $('input[name=image]').val('<?=base_url()?>filemanager/' + res);
+                $('#img-uploader').attr('src', '<?=base_url()?>filemanager/' + res);
+                swal.close();
+                savePosts();
+            })
+
+        })
+
+    $('select[name=category]').change(function(e){
+        e.preventDefault();
+        savePosts();
+    })
+
 })
         
     </script>

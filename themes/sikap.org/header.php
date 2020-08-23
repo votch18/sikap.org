@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel='icon' href='<?=base_url()?>filemanager/<?=$settings['site_favicon']?>' type='image/x-icon' >
-    <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/bootstrap.css">
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/font-awesome.min.css">
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/elegant-fonts.css">
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/themify-icons.css">
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/swiper.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL_THEME ?>css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL_THEME ?>/style.css">
     <link rel="stylesheet" href="<?= BASE_URL_THEME ?>vendor/leaflet/leaflet.css" />
 
     <style>
@@ -39,12 +39,11 @@
 </head>
 <body class="single-page news-page">
     <header class="site-header">
-		<div class="top-border"></div>
         <div class="top-header-bar">
             <div class="container">
                 <div class="row ">
                     <?php          
-                        $flash = array('title' => 'Welcome to sikap.org!', 'message' => 'The following contents are dummies only, and is intended for testing purposes. All contents can be found at facebook.com SIKAP Caraga Region page.');              
+                        $flash = "";//array('title' => 'Welcome to sikap.org!', 'message' => 'The following contents are dummies only, and is intended for testing purposes. All contents can be found at facebook.com SIKAP Caraga Region page.');
                         if ( !empty($flash) ){
                             ?>
                                 <div class="col-md-12 text-center">
@@ -62,40 +61,49 @@
             </div>
         </div>
 
-        <div class="nav-bar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
-                        <div class="site-branding d-flex align-items-center">
-                           <a class="d-inline-block" href="index.html" rel="home" style="text-decoration: none;">
-						   <img class="d-inline-block" src="<?=base_url().'filemanager/'.$settings['site_logo']?>" style="height: 80px; width: 80px; vertical-align: middle;" alt="logo">
-						   <h3 class="d-inline-block m-0" style="vertical-align: middle; font-weight: bold;">SIKAP, Inc.</h3>
-						   </a>
-                        </div>
-
-                        <nav class="site-navigation d-flex justify-content-end align-items-center">
-                            <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-content-center">
-                                <?php
-                                
-                                    foreach($pages as $row) {
-                                ?>
-                                
-                                <li class="<?= $row['url'] == $url ? 'current-menu-item' : ''?> "><a href="<?= BASE_URL.$row['url']?>"><?=ucwords($row['name'])?></a></li>
-                                <?php
-}
-                                ?>
-                                
-                            </ul>
-                        </nav>
-
-                        <div class="hamburger-menu d-lg-none">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style=" background-image: linear-gradient(-90deg, #A7B9CA, #DB9B75 70%);">
+            <div style="width: calc(50% - 15px); padding: 15px; ">
+                <a class="d-inline-block" href="<?=base_url()?>" rel="home" style="text-decoration: none;">
+                    <img class="d-inline-block" src="<?=base_url().'filemanager/logo2.png'?>" style="height: auto; width: 100%; vertical-align: middle;" alt="logo">
+                </a>
             </div>
-        </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText" style="width: 50%; font-size: 16px; font-weight: bold;">
+                <ul class="navbar-nav ml-auto mr-auto align-content-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span>About Us <i class="fa fa-chevron-down"></i></span>
+                        </a>
+                        <div class="dropdown-menu about-us" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/history">History</a>
+                            <a class="dropdown-item" href="/vision">Vision</a>
+                            <a class="dropdown-item" href="/mission">Mission</a>
+                            <a class="dropdown-item" href="/goals">Goals</a>
+                            <a class="dropdown-item" href="/core-values">Core Values</a>
+                            <a class="dropdown-item" href="/approach">Approach</a>
+                            <a class="dropdown-item" href="/strategic-direction">Strategic Direction</a>
+                            <a class="dropdown-item" href="/members-of-the-board-of-trustees">Members of the Board of Trustees</a>
+                            <a class="dropdown-item" href="/management-and-staff">Management and Staff</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/programs"><span>Programs & </span><span>Projects</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news"><span>Features & </span><span>News</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accreditations"><span>Accreditation & </span><span>Membership</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/awards"><span>Awards & </span><span>Recognition</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="top-border2"></div>
+
+
     </header>

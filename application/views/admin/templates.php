@@ -28,7 +28,7 @@
 
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
-        <h3 class="text-themecolor">Templates</h3>
+        <h3 class="text-themecolor">Templates <span class="selected_file text-success"></span></h3>
     </div>
     <div class="col-md-7 align-self-center">
         <a href="#" class="btn btn-success float-right btn_save">Save changes</a>
@@ -51,7 +51,7 @@
             <div class="card-body">
                 <h3>Template files</h3>
                 <ul>
-                    <li><a href="#" class="btn_load_file" data-file="css/style.css">style.css</a></li>
+                    <li><a href="#" class="btn_load_file" data-file="style.css">style.css</a></li>
                     <?php
                         foreach($templates as $file){
                             ?>
@@ -85,6 +85,7 @@
             e.preventDefault();
 
             var filename = $(this).attr('data-file')
+            $('.selected_file').text(' - ' + filename);
             $.ajax({
                 type: 'post',
                 url: '<?php echo base_url() ?>' + 'themes/read/' + filename,

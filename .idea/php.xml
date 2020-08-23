@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/studio-42/elfinder" />
+      <path value="$PROJECT_DIR$/vendor/ckeditor5/src" />
+      <path value="$PROJECT_DIR$/vendor/ckeditor5/sample" />
+      <path value="$PROJECT_DIR$/vendor/ckeditor5/build" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
+  </component>
+</project>

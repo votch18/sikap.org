@@ -48,39 +48,6 @@
 
             let base_url = '<?=base_url()?>admin/';
 
-            // $( window ).on( 'hashchange', function( e ) {
-            //     getPartial();
-            // });
-
-            // function getPartial(){
-            //     let url = window.location.hash;
-
-            //     url = (url == '#elf_l1_XA') ? history.back() : url;
-
-            //     //remove hash
-            //     url = url.replace(/#\//gi, '');
-            //     //remove duplicate slash
-            //     url = url.replace(/\/\//gi, '/');
-
-            //     //get controller & method
-            //     let controller = url.split('/')[0];
-            //     let method = url.split('/')[1];
-                
-            //     //if empty url then load dashboard
-            //     if (url == '' || url == '#/'){
-            //         load(base_url + 'dashboard');
-            //     }else if(controller != '' || controller != 'home'){
-            //         load(base_url + url);
-            //     }else{
-            //         url = '';
-            //         load(base_url + 'dashboard');
-            //     }
-
-            //     highlightMenu(controller);
-               
-            //     //push hash url to browser searchbar
-            //     window.history.pushState('', document.title, base_url + '#/' + url);
-            // }
 
             function highlightMenu(){
                 $( "#sidebarnav li a" ).each(function( index ) {
@@ -102,28 +69,6 @@
                 });
             }
 
-            // function load(url){
-            //     //$('.preloader').
-            //     $.get( url, function(data) {                    
-            //         $("#main").html(data);
-            //     })
-            //     .done(function() {
-            //         //alert( "second success" );
-            //         $('#dataTable').DataTable({
-            //             "bLengthChange": false,
-            //             "bInfo": false,
-            //             "bSortable": false,
-            //         });
-            //     })
-            //     .fail(function() {
-            //         //alert( "error" );
-            //     })
-            //     .always(function() {
-            //         //alert( "finished" );
-            //     });
-            // }
-
-            // getPartial();
             highlightMenu();
 
             $('#dataTable').DataTable({

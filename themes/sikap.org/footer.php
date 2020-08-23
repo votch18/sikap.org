@@ -3,10 +3,10 @@
         <div class="footer-widgets">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-lg-4">
                         <div class="foot-about">
-                            <h2><a class="foot-logo" href="#"><img src="<?=base_url().'filemanager/'.$settings['site_logo']?>" alt="" style="height: 100px; width: 100px;"></a></h2>
-                            <ul class="d-flex flex-wrap align-items-center">
+                            <h2><a class="foot-logo" href="#"><img src="<?=base_url().'filemanager/logo.png'?>" alt="" style="height: 100px; width: 100px;"></a></h2>
+                            <ul>
                                
                                 <li><a href="<?=$settings['facebook']?>"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="<?=$settings['twitter']?>"><i class="fa fa-twitter"></i></a></li>
@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                    <div class="col-12 col-lg-4 mt-5">
                         <h2>Site Map</h2>
 
                         <ul>
@@ -32,7 +32,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                    <div class="col-12 col-lg-4 mt-5">
                         <div class="foot-contact">
                             <h2>Contact</h2>
 
@@ -60,6 +60,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             </div>
         </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script type='text/javascript' src='<?= BASE_URL_THEME ?>js/jquery.collapsible.min.js'></script>
     <script type='text/javascript' src='<?= BASE_URL_THEME ?>js/swiper.min.js'></script>

@@ -24,7 +24,7 @@ class Admin extends CI_Controller {
 
             $data['news'] 	= $this->posts_model->get_posts(1);
             $data['announcements'] 	= $this->posts_model->get_posts(2);
-            $data['publications'] 	= $this->posts_model->get_posts(3);
+            $data['accreditation'] 	= $this->posts_model->get_posts(3);
             $data['awards'] 	= $this->posts_model->get_posts(4);
             $data['programs'] 	= $this->posts_model->get_posts(5);
             $data['gallery'] 	= $this->posts_model->get_posts(6);
@@ -49,7 +49,7 @@ class Admin extends CI_Controller {
 
         $data['news'] 	= $this->posts_model->get_posts(1);
         $data['announcements'] 	= $this->posts_model->get_posts(2);
-        $data['publications'] 	= $this->posts_model->get_posts(3);
+        $data['accreditation'] 	= $this->posts_model->get_posts(3);
         $data['awards'] 	= $this->posts_model->get_posts(4);
         $data['programs'] 	= $this->posts_model->get_posts(5);
         $data['gallery'] 	= $this->posts_model->get_posts(6);
@@ -92,6 +92,7 @@ class Admin extends CI_Controller {
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin'); 
         $type = $this->pages_model->get_type_by_url($url);
+        $data['categories'] = $this->pages_model->get_program_category();
 
         $data['title'] = 'create '.$url;   
         $data['url'] =  $url;      
@@ -108,7 +109,8 @@ class Admin extends CI_Controller {
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');
         $type = $this->pages_model->get_type_by_url($url);
-        
+        $data['categories'] = $this->pages_model->get_program_category();
+
         $data['title'] = 'edit '.$url; ;   
         $data['url'] = $url;       
         $data['type'] = $type;    
@@ -323,6 +325,8 @@ class Admin extends CI_Controller {
             exit;	
         }
     }
+
+
 
     public function logout(){
 		$this->session->unset_userdata('admin', null);

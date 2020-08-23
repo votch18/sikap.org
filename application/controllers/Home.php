@@ -25,7 +25,7 @@ class Home extends CI_Controller {
         
         $data['news'] 	= $this->posts_model->get_published_post(1);
         $data['announcements'] 	= $this->posts_model->get_published_post(2);
-        $data['publications'] 	= $this->posts_model->get_published_post(3);
+        $data['accreditation'] 	= $this->posts_model->get_published_post(3);
         $data['awards'] 	= $this->posts_model->get_published_post(4);
         $data['programs'] 	= $this->posts_model->get_published_post(5);
         $data['gallery'] 	= $this->posts_model->get_published_post(6);
@@ -36,30 +36,36 @@ class Home extends CI_Controller {
 		$this->theme->initialize($data);
     }
 
-    public function posts( $url )
+    public function posts( $url)
 	{
-		
+	    $category = $this->input->get('category', TRUE);
+
         $data['settings'] 	= $this->settings_model->get();
         $data['pages'] 	= $this->pages_model->get();
         $data['url'] =  $url;
 
         $data['banner'] = $this->pages_model->get_banner_by_url($url);
         $type = $this->pages_model->get_type_by_url($url);
-        
-		$posts = $this->posts_model->get_posts($type);
-        $data['posts'] 	= $posts;
+
+        if ($url == "programs" && $category != ""){
+            $data['posts'] 	= $this->posts_model->get_published_programs($category);
+        }else{
+            $posts = $this->posts_model->get_published_post($type);
+            $data['posts'] 	= $posts;
+        }
 
         $data['news'] 	= $this->posts_model->get_published_post(1);
         $data['announcements'] 	= $this->posts_model->get_published_post(2);
-        $data['publications'] 	= $this->posts_model->get_published_post(3);
+        $data['accreditations'] 	= $this->posts_model->get_published_post(3);
         $data['awards'] 	= $this->posts_model->get_published_post(4);
         $data['programs'] 	= $this->posts_model->get_published_post(5);
         $data['gallery'] 	= $this->posts_model->get_published_post(6);
         $data['slider'] 	= $this->posts_model->get_published_post(7);
-        
-       	if(empty($data['posts']) && $type != "0"){
-       		redirect(base_url());
-       	}
+        $data['category'] = $category;
+
+       	//if(empty($data['posts']) && $type != "0"){
+       		//redirect(base_url());
+       	//}
 
 		$data['template'] 	= $this->pages_model->get_template($url);        
 
@@ -71,6 +77,10 @@ class Home extends CI_Controller {
 	
         if($preview){
 			$this->auth->is_logged_in();
+        }
+
+        if ($url == 'programs'){
+            redirect(base_url().'programs/1');
         }
         
         $data['settings'] 	= $this->settings_model->get();
@@ -86,7 +96,7 @@ class Home extends CI_Controller {
 
         $data['news'] 	= $this->posts_model->get_published_post(1);
         $data['announcements'] 	= $this->posts_model->get_published_post(2);
-        $data['publications'] 	= $this->posts_model->get_published_post(3);
+        $data['accreditations'] 	= $this->posts_model->get_published_post(3);
         $data['awards'] 	= $this->posts_model->get_published_post(4);
         $data['programs'] 	= $this->posts_model->get_published_post(5);
         $data['gallery'] 	= $this->posts_model->get_published_post(6);
@@ -100,4 +110,21 @@ class Home extends CI_Controller {
 
         $this->theme->initialize($data);
 	}
+
+    public function programs( $category = 1)
+    {
+        $url = 'programs';
+
+        $data['settings'] 	= $this->settings_model->get();
+        $data['pages'] 	= $this->pages_model->get();
+        $data['url'] =  $url;
+
+        $data['banner'] = $this->pages_model->get_banner_by_url($url);
+        $data['programs'] 	= $this->posts_model->get_published_programs($category);
+
+        $data['template'] 	= $this->pages_model->get_template($url);
+
+        $this->theme->initialize($data);
+    }
+
 }

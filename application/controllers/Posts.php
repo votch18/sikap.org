@@ -44,5 +44,18 @@ class Posts extends CI_Controller {
         echo json_encode( array("message" =>  "failed") );
         exit;	
     }
+
+    public function uploadCropImage(){
+
+        $img              = str_replace('data:image/jpeg;base64,', '', $this->input->post('cropImage'));
+        $img              = str_replace(' ', '+', $img);
+        $file            = base64_decode($img);
+        $filename        = $this->input->post('url')."_".time().".jpg";
+        $path = $_SERVER['DOCUMENT_ROOT'].'/filemanager/';
+        file_put_contents($path.$filename,$file);
+        echo $filename;
+        exit;
+
+    }
     
 }

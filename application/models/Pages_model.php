@@ -7,6 +7,7 @@ class Pages_model extends CI_Model{
         $this->load->helper('url');
     
         $id = $this->input->post('id');
+        $url = $this->input->post('url');
 
         $template = $this->input->post('template');
         //create new template
@@ -95,6 +96,12 @@ class Pages_model extends CI_Model{
         }
         
         return  $type['type'];
+    }
+
+    public function get_program_category(){
+        $this->db->select('*');
+        $this->db->from('programs_category');
+        return $this->db->get()->result_array();
     }
 
     public function get_banner_by_url($url){

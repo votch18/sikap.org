@@ -27,6 +27,8 @@
     
     <link href="<?=base_url()?>assets/admin/main/css/switch.css" id="theme" rel="stylesheet">
 
+    <link href="<?=base_url()?>assets/admin/vendor/cropper/cropper.css" rel="stylesheet">
+
     <style>
         #sidebarnav > li.active {
             border: 1px solid #0099ff;
@@ -48,9 +50,11 @@
     <script src="<?=base_url()?>assets/admin/main/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="<?=base_url()?>assets/admin/main/js/custom.min.js"></script>
+
+    <script src="<?=base_url()?>assets/admin/vendor/cropper/cropper.js"></script>
 </head>
 
-<body class="fix-header fix-sidebar card-no-border">
+<body class="fix-header fix-sidebar card-no-border" style="zoom: 80%!important;">
     
     <!-- Main wrapper - style you can find in pages.scss -->
     
@@ -145,20 +149,17 @@
                         <li>
                             <a class="waves-effect waves-dark" href="<?=base_url()?>admin/news" aria-expanded="false"><i class="mdi mdi-file-document"></i><span class="hide-menu">News</span></a>
                         </li>
-                        <li>
+                        <!--<li>
                             <a class="waves-effect waves-dark" href="<?=base_url()?>admin/announcements" aria-expanded="false"><i class="mdi mdi-bullhorn"></i><span class="hide-menu">Announcements</span></a>
+                        </li>-->
+                        <li>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/accreditations" aria-expanded="false"><i class="mdi mdi-library-books d-inline-block"></i><span class="hide-menu d-inline-block" style="width: 80%; vertical-align: middle;">Accreditation & Membership</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/publications" aria-expanded="false"><i class="mdi mdi-library-books"></i><span class="hide-menu">Publications</span></a>
-                        </li>
-                        <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/awards" aria-expanded="false"><i class="mdi mdi-trophy"></i><span class="hide-menu">Awards</span></a>
+                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/awards" aria-expanded="false"><i class="mdi mdi-trophy d-inline-block"></i><span class="hide-menu d-inline-block" style="width: 80%; vertical-align: middle;">Awards & Recognition</span></a>
                         </li>
                         <li>
                             <a class="waves-effect waves-dark" href="<?=base_url()?>admin/programs" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Programs</span></a>
-                        </li>
-                        <li>
-                            <a class="waves-effect waves-dark" href="<?=base_url()?>admin/gallery" aria-expanded="false"><i class="mdi mdi-image"></i><span class="hide-menu">Gallery</span></a>
                         </li>
                         <li>
                             <a class="waves-effect waves-dark" href="<?=base_url()?>admin/slider" aria-expanded="false"><i class="mdi mdi-burst-mode"></i><span class="hide-menu">Slider</span></a>
