@@ -11,12 +11,13 @@
       </div>
       <form method="POST">
       <div class="modal-body">
+          <input type="hidden" name="id" value="<?=!empty($user['id']) ? $user['id'] : '' ?>">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <label class="small">First name</label>
                     <input type="text" name="fname" class="form-control" value="<?=!empty($user['fname']) ? $user['fname'] : '' ?>" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <label class="small">Last name</label>
                     <input type="text" name="lname" class="form-control" value="<?=!empty($user['lname']) ? $user['lname'] : '' ?>" required> 
                 </div>            
@@ -30,9 +31,9 @@
                 <input type="text" name="contactno" class="form-control" value="<?=!empty($user['contactno']) ? $user['contactno'] : ''?>"> 
             </div>  
             <hr/>
-            <div class="form-group m-0">
+            <div class="form-group m-0" style="display: none;">
                 <label class="small">Role</label>
-                <select name="role" class="form-control" required>
+                <select name="role" class="form-control" required >
                     <?php
                         foreach($roles as $role) {
                         ?>
@@ -43,11 +44,11 @@
                 </select>
             </div> 
             <div class="row">
-                <div class="form-group m-0 col-md-6">
+                <div class="form-group m-0 col-sm-12">
                     <label class="small">Username</label>
                     <input type="text" name="username" class="form-control" value="<?=!empty($user['username']) ? $user['username'] : ''?>" required> 
                 </div>   
-                <div class="form-group m-0 col-md-6">
+                <div class="form-group m-0 col-sm-12">
                     <label class="small">Password</label>
                     <input type="password" name="password" class="form-control" value="<?=!empty($user['password']) ? str_replace($user['salt'], '', $user['password']) : ''?>" required> 
                 </div>     

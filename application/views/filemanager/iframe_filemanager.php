@@ -23,10 +23,20 @@
                     googleDocsMimes : ['application/pdf', 'image/tiff', 'application/vnd.ms-office', 'application/msword', 'application/vnd.ms-word', 'application/vnd.ms-excel', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
                 }
             }
-            ,getFileCallback: function(file){             
-                $("#dialogFilemanager", window.parent.document).trigger('click');
-                $('input[name=image]', window.parent.document).val(file.url); 
-                $('#img-uploader', window.parent.document).attr('src', file.url);    
+            ,getFileCallback: function(file){
+                if (window.parent.fromTinyMCE == false){
+                    $("#dialogFilemanager", window.parent.document).trigger('click');
+                    $('input[name=image]', window.parent.document).val(file.url);
+                    $('#img-uploader', window.parent.document).attr('src', file.url);
+                    if ($('input[name=value]', window.parent.document).length){
+                        $('input[name=value]', window.parent.document).val(file.name);
+                    }
+                }else{
+                    $("#dialogFilemanager", window.parent.document).trigger('click');
+                    window.parent.tinymce.activeEditor.insertContent('<img height="auto" width="auto" src="' + file.url + '"/>');
+                }
+
+                window.parent.fromTinyMCE = false;
             }
             // bootCalback calls at before elFinder boot up 
             ,bootCallback : function(fm, extraObj) {

@@ -9,9 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>sikap.org</title>
-	<link rel="canonical" href="https://sikap.org" />
+    <link rel='icon' href='<?=base_url()?>filemanager/<?=$settings['site_favicon']?>' type='image/x-icon' >
+    <title><?=$settings['site_name']?></title>
+	<link rel="canonical" href="<?=base_url()?>" />
     <!-- Bootstrap Core CSS -->
     <link href="<?=base_url()?>assets/admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?=base_url()?>assets/admin/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
@@ -58,7 +58,9 @@
                                 <div class="checkbox checkbox-info float-left p-t-0">
                                     <input id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue" name="remember">
                                     <label for="checkbox-signup"> Remember me </label>
-                                </div> <a href="javascript:void(0)" id="to-recover" class="text-muted float-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a> </div>
+                                </div>
+                                <!--<a href="javascript:void(0)" id="to-recover" class="text-muted float-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>-->
+                            </div>
                         </div>
                         <div class="text-center">
                             <div class="col-xs-12">

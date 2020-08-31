@@ -11,11 +11,11 @@
 <div class="welcome-wrap">
     <div class="container">
         <div class="row mt-5 mb-5">
-        <div class="col-md-12">
+        <div class="col-md-12 col-lg-8 offset-lg-2">
                 <div class="section-heading">
                   
                  	<h4>
-						“SIKAP is a leading resource organization in attaining and promoting:
+						SIKAP is a leading resource organization in attaining and promoting:
 						<br/>
 					<ul>
 						<li>Holistic and Sustainable Development 

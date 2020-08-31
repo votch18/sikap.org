@@ -11,7 +11,7 @@
 <div class="welcome-wrap">
     <div class="container">
         <div class="row mt-5 mb-5">
-        <div class="col-md-12">
+        <div class="col-md-12 col-lg-8 offset-lg-2">
                 <div class="section-heading">
                  	<br/>
 					<p>

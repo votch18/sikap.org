@@ -38,7 +38,7 @@
                                         <h5 class="media-heading name m-0">
                                             <?=ucwords($row['fname'].' '.$row['lname'])?>
                                         </h5>
-                                        <span class="badge badge-warning"><?=$row['role_desc']?></span>
+                                        <span class="badge badge-warning d-none"><?=$row['role_desc']?></span>
                                     </div>
                                 </div>
                             </td>      
@@ -46,8 +46,22 @@
                             <td><?=$row['email']?></td>
                             <td><?=$row['contactno']?></td>
                             <td style="width: 160px; text-align: right;">
-                                <button class="btn btn-primary btn-sm btn_edit" data-id="<?=$row['id']?>" ><i class="fa fa-edit"></i>&nbsp;Edit</button>
-                                <button class="btn btn-danger btn-sm btn_delete" data-id="<?=$row['id']?>" ><i class="fa fa-trash"></i>&nbsp;Delete</button>
+                                <?php
+
+                                if ($row["id"] != "1"){
+                                ?>
+                                <button class="btn btn-primary btn-sm btn_edit m-b-5" data-id="<?=$row['id']?>" ><i class="fa fa-edit"></i>&nbsp;Edit</button>
+                                <button class="btn btn-danger btn-sm btn_delete m-b-5" data-id="<?=$row['id']?>" ><i class="fa fa-trash"></i>&nbsp;Delete</button>
+                                    <?php
+                                }
+
+                                if ($row["username"] != "admin"){
+                                    ?>
+                                    <button class="btn btn-info btn-sm btn_access" data-id="<?=$row['id']?>"><i class="fa fa-cogs"></i>&nbsp;Access Rights</button>
+                                <?php
+                                }
+                                ?>
+
                             </td>
                         </tr>
                     <?php
@@ -164,7 +178,6 @@
                     
                 },
                 success: function(res){
-                    
                     $('#modalEditUser').remove();
                     $('body').append(res);
                     $('#modalEditUser').modal('show');
@@ -207,5 +220,15 @@
                 }
             })
        })
+
+       $('body').on('click', '.btn_access', function(e){
+           e.preventDefault();
+           var id = $(this).data('id');
+           $.post('<?=base_url()?>users/get_access_rights', { id: id} ).done(function(res){
+               $('body').append(res);
+               $('#accessModal').modal('show');
+           })
+
+       });
    })
    </script>

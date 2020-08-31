@@ -11,7 +11,7 @@
 <div class="welcome-wrap">
     <div class="container">
         <div class="row mt-5 mb-5">
-        <div class="col-md-12">
+        <div class="col-md-12 col-lg-8 offset-lg-2">
                 <div class="section-heading">
                   	<h4>SIKAP is anchored on the following core values:</h4>
 					<br/>
@@ -40,7 +40,7 @@
 						We are guided by our sincere commitment to serve taking into consideration the ideas, feelings, capabilities, values, and culture of the communities. We serve because we care. 
                		</p>
 					
-					<img src="/filemanager/compassion.jpg" style="width: 100%; height: auto;"/>
+					<img src="/filemanager/ABOUT_US/compassion.jpg" style="width: 100%; height: auto;"/>
 				</div>
             </div>
         </div>

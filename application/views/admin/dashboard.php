@@ -5,7 +5,7 @@
 </div>
    
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
@@ -19,51 +19,8 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="m-r-20 align-self-center">
-                        <i class="mdi mdi-bullhorn fa-3x text-info"></i></div>
-                    <div class="align-self-center">
-                        <h6 class="text-muted m-t-10 m-b-0">Announcements</h6>
-                        <h2 class="m-t-0"><?=count($announcements)?></h2></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="m-r-20 align-self-center">
-                        <i class="mdi mdi-library-books fa-3x text-info"></i></div>
-                    <div class="align-self-center">
-                        <h6 class="text-muted m-t-10 m-b-0">Accreditations</h6>
-                        <h2 class="m-t-0"><?=count($accreditation)?></h2></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="m-r-20 align-self-center">
-                    <i class="mdi mdi-trophy fa-3x text-info"></i></div>
-                    <div class="align-self-center">
-                        <h6 class="text-muted m-t-10 m-b-0">Awards</h6>
-                        <h2 class="m-t-0"><?=count($awards)?></h2></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-
-
-<div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
@@ -77,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
@@ -90,7 +47,13 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
@@ -103,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">

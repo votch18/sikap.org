@@ -110,11 +110,15 @@ class Posts_model extends CI_Model{
             b.username,
             b.photo,              
             CONCAT(b.fname, ' ', b.lname) as name,
-            TIME_TO_SEC(TIMEDIFF(NOW(), a.date)) as seconds
+            TIME_TO_SEC(TIMEDIFF(NOW(), a.date)) as seconds,
+            c.description as program_category,
+            c.url as category_url,
+            c.style as category_style
             FROM t_posts a
             INNER JOIN t_users b ON a.userid = b.id
+            LEFT JOIN t_programs_category c ON a.program_category = c.id
             WHERE a.isactive = 1 AND a.status = 1 AND a.type = ?
-            ORDER BY a.date DESC
+            ORDER BY c.id ASC, a.date  DESC
         ";
         
         $query = $this->db->query($sql, array($type));    
@@ -137,10 +141,13 @@ class Posts_model extends CI_Model{
             b.username,
             b.photo,              
             CONCAT(b.fname, ' ', b.lname) as name,
-            TIME_TO_SEC(TIMEDIFF(NOW(), a.date)) as seconds
+            TIME_TO_SEC(TIMEDIFF(NOW(), a.date)) as seconds,
+            c.description as program_category,  
+            c.url as category_url,
+            c.style as category_style            
             FROM t_posts a
             INNER JOIN t_users b ON a.userid = b.id
-            INNER JOIN t_programs_category c ON a.program_category = c.id
+            LEFT JOIN t_programs_category c ON a.program_category = c.id
             WHERE a.isactive = 1 AND a.status = 1 AND a.type = 5 AND c.url = ?
             ORDER BY a.date DESC
         ";

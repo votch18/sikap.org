@@ -2,8 +2,8 @@
             
         
         </div>
-        <footer class="footer text-center"> © <?=date('Y')?> <a href="<?=base_url()?>">sikap.org</a> </footer>
     </div>
+        <footer class="footer text-center" style="margin-left: 240px;"> © <?=date('Y')?> <a href="<?=base_url()?>">sikap.org</a> </footer>
 </div>
 
 

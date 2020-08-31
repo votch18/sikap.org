@@ -9,13 +9,18 @@
     <div class="col-lg-4 col-xlg-3 col-md-5">
         <div class="card">
             <div class="card-body">
-                <div class="m-t-30 text-center">
+                <div class="m-t-30 m-b-30 text-center">
                     <a class="btn_upload" href="">
                         <img src="<?=$photo?>?<?=strtotime("now")?>" class="img-circle" style="height: 150px; width: 150px">
                     </a>
                     
                     <h4 class="card-title m-t-10"><?=ucwords($users['fname'].' '.$users['lname'])?></h4>
                     <h6 class="card-subtitle"><?=ucwords($users['role_desc'])?></h6>
+                    <br/>
+                    <div class="alert alert-info">Click image to upload new.
+                    <sub>Note: Your changes will take effect after next login.</sub>
+                    </div>
+                    <br/>
                 </div>
             </div>
         </div>
@@ -53,7 +58,7 @@
                         </div>
                         <hr/>
                         <div class="text-right">
-                            <input type="submit" class="btn btn-primary " value="Save Changes">
+                            <input type="submit" class="btn btn-success " value="Save Changes">
                         </div> 
                     </form>
       

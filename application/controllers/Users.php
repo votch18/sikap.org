@@ -29,10 +29,23 @@ class Users extends CI_Controller {
     }
 
     public function save_user(){
-
         header('Content-Type: application/json; charset=utf-8;');			
         echo json_encode( array("message" =>  $this->users_model->set_user()) );
         exit;	
+    }
+
+    public function get_access_rights(){
+        $data['user'] =  $this->users_model->get_user_by_id();
+        $data["access"] = $this->users_model->get_access_rights($this->input->post('id'));
+
+        $this->load->view('modal/user_access', $data);
+    }
+
+
+    public function set_access_rights(){
+        header('Content-Type: application/json; charset=utf-8;');
+        echo json_encode( array("message" =>  $this->users_model->set_access_rights()) );
+        exit;
     }
 
     public function do_upload()

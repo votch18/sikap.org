@@ -11,7 +11,7 @@
 <div class="welcome-wrap">
     <div class="container">
         <div class="row mt-5 mb-5">
-        <div class="col-md-12">
+        <div class="col-md-12 col-lg-8 offset-lg-2">
                 <div class="section-heading">
                  
 					<p>
@@ -21,7 +21,7 @@
 						<li><b>Quality Program Diversification</b>
 							<br/>
 							<p>
-								<img src="/filemanager/sikap_approach.jpg" style="width: 100%; height: auto; margin: auto; max-width: 500px; " align="right"/>
+								<img src="/filemanager/ABOUT_US/sikap_approach.jpg" style="width: 100%; height: auto; margin: auto; max-width: 500px; " align="right"/>
 								SIKAP expands and diversifies into integrated/holistic, environment-oriented, gender-sensitive, innovative, responsive, sustainable and high-impact programs and projects.
 							</p>
 						</li>

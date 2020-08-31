@@ -3,7 +3,15 @@
         <h3 class="text-themecolor">Pages</h3>
     </div>
     <div class="col-md-7">
-        <a href="<?=base_url()?>admin/pages/create" class="btn btn-success float-right"><i class="fa fa-plus"></i>&nbsp;Add new page</a>
+        <?php
+
+        if (isset($create) && $create == true){
+            ?>
+            <a href="<?=base_url()?>admin/pages/create" class="btn btn-success float-right"><i class="fa fa-plus"></i>&nbsp;Add new page</a>
+        <?php
+        }
+        ?>
+
     </div>
 
 </div>
@@ -43,13 +51,24 @@
                             <?=$row['banner']?>
                         </td>
                         <td style="width: 160px;">
-                        <a href="<?=base_url()?>admin/pages/edit/<?=$row['id']?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                            <?php
+
+                            if (isset($create) && $create == true) {
+                                ?>
+                                <a href="<?= base_url() ?>admin/pages/edit/<?= $row['id'] ?>"
+                                   class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                <?php
+
+                            }
+                            ?>
                             <?php
                                 if ($row['isdefault'] != "1"){
-                                    ?>
-                                       
-                                        <a href="" class="btn btn-danger btn_remove_page btn-sm" data-id="<?=$row['id']?>"><i class="fa fa-trash"></i>&nbsp;Delete</a>
-                                    <?php
+                                    if (isset($delete) && $delete == true) {
+                                        ?>
+                                        <a href="" class="btn btn-danger btn_remove_page btn-sm" data-id="<?= $row['id'] ?>"><i
+                                                class="fa fa-trash"></i>&nbsp;Delete</a>
+                                        <?php
+                                    }
                                 }
                             ?>
                            

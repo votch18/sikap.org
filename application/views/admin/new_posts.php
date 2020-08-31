@@ -1,11 +1,15 @@
-<script src="<?=base_url()?>vendor/ckeditor5/build/ckeditor.js"></script>
+<script src="<?=base_url()?>vendor/tinymce/js/tinymce/tinymce.min.js"></script>
 <script src="<?=base_url()?>vendor/studio-42/elfinder/js/elfinder.min.js"></script>
 
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
-        <h3 class="text-themecolor"><?=ucwords($title)?></h3>
+        <h3 class="text-themecolor"><?=ucwords($title)?>
+            <a href="<?=base_url()?>admin/<?=$url?>/create" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp;<?=ucwords('New ')?></a>
+        </h3>
+
     </div>
     <div class="col-md-7 align-self-center">
+
         <a id="preview" href="<?=base_url()?>preview/<?=$url?>/<?=!empty($post['slug']) ? $post['slug'] :''?>" class="float-right" target="_blank">Preview</a>
     </div>   
 </div>
@@ -19,6 +23,9 @@
         <div class="card">
             <div class="card-body">            
                 <div class="panel-heading">
+                    <?php
+                        if (isset($publish) && $publish == true){
+                    ?>
                     <div class="float-right" >
                         <h5 class="d-inline">Publish?</h5>
                         <label class="switch m-0 p-0" style="vertical-align: middle;">
@@ -26,7 +33,9 @@
                             <span class="slider round"></span>
                         </label>
                     </div>
-                    
+                    <?php
+                        }
+                    ?>
                     <small>Automatically saved as <b class="text-success">draft</b> when <b>touched</b>.</small>                
                 <input type="hidden" name="url"/>
 				<input class="form-control input-lg m-t-10" name="title" placeholder="Title" type="text" value="<?=!empty($post['title']) ? $post['title'] : ''?>" required autocomplete="off">
@@ -43,7 +52,7 @@
                     <?php
                         foreach ($categories as $category){
                             ?>
-                                <option value="<?=$category["id"]?>"><?=$category["description"]?></option>
+                                <option value="<?=$category["id"]?>" <?=!empty($post['program_category']) && $post['program_category'] == $category["id"] ? 'selected' : ''?>><?=$category["description"]?></option>
                             <?php
                         }
                     ?>
@@ -129,257 +138,51 @@
 
 <script>
 
-
 $(function(){
-    // elfinder folder hash of the destination folder to be uploaded in this CKeditor 5
-    const uploadTargetHash = 'l1_Lw';
 
-// elFinder connector URL
-const connectorUrl = '<?=base_url()?>filemanager/connector';
+    tinymce.init({
+        selector: 'textarea#editor',
+        plugins: 'print preview paste importcss searchreplace autolink save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons autoresize',
+        imagetools_cors_hosts: ['picsum.photos'],
+        menubar: false,
+        statusbar: false,
+        toolbar: 'fullscreen  | undo redo | bold italic underline strikethrough subscript superscript | formatselect fontselect fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | charmap | insertfile link | table customLink',
+        toolbar_sticky: true,
+        quickbars_insert_toolbar: false,
+        image_advtab: true,
+        force_br_newlines: true,
+        force_p_newlines: false,
+        forced_root_block: '',
+        importcss_append: true,
+        height: 550,
+        setup: function (editor) {
+            editor.ui.registry.addButton('customLink', {
+                icon: 'image',
+                tooltip: 'Attach files',
+                onAction: function () {
+                    fromTinyMCE = true;
 
-ClassicEditor
-    .create( document.querySelector( '#editor' ), {
-        
-        toolbar: {
-            items: [
-                'undo',
-                'redo',                            
-                'CKFinder',
-                '|',
-                'heading',               
-                'bold',
-                'italic',
-                'link',
-                'bulletedList',
-                'numberedList',
-                '|',
-                'indent',
-                'outdent',
-                '|',                             
-                'insertTable',
-                'blockQuote',
-                'alignment',
-                'fontBackgroundColor',
-                'fontColor',
-                'highlight',
-                '|',    
-                'strikethrough',
-                'subscript',
-                'superscript',
-                'underline',   
-                '|',    
-                'mediaEmbed'
-            ]
-        },
-        language: 'en',
-        image: {
-            toolbar: [
-                'imageTextAlternative',
-                'imageStyle:full',
-                'imageStyle:side'
-            ]
-        },
-        table: {
-            contentToolbar: [
-                'tableColumn',
-                'tableRow',
-                'mergeTableCells',
-                'tableCellProperties',
-                'tableProperties'
-            ]
-        },
-        licenseKey: '',
-        
-    } )
-    .then( editor => {
-        window.editor = editor;
-        
-        editor.model.document.on( 'change:data', () => {
-            savePosts();
-        } );
-        const ckf = editor.commands.get('ckfinder'),
-            fileRepo = editor.plugins.get('FileRepository'),
-            ntf = editor.plugins.get('Notification'),
-            i18 = editor.locale.t,
-            // Insert images to editor window
-            insertImages = urls => {
-                const imgCmd = editor.commands.get('imageUpload');
-                if (!imgCmd.isEnabled) {
-                    ntf.showWarning(i18('Could not insert image at the current position.'), {
-                        title: i18('Inserting image failed'),
-                        namespace: 'ckfinder'
-                    });
-                    return;
+                    jQuery.noConflict();
+                    $('#dialogFilemanager').modal('show');
                 }
-                editor.execute('imageInsert', { source: urls });
-            },
-            // To get elFinder instance
-            getfm = open => {
-                return new Promise((resolve, reject) => {
-                    // Execute when the elFinder instance is created
-                    const done = () => {
-                        if (open) {
-                            // request to open folder specify
-                            if (!Object.keys(_fm.files()).length) {
-                                // when initial request
-                                _fm.one('open', () => {
-                                    _fm.file(open)? resolve(_fm) : reject(_fm, 'errFolderNotFound');
-                                });
-                            } else {
-                                // elFinder has already been initialized
-                                new Promise((res, rej) => {
-                                    if (_fm.file(open)) {
-                                        res();
-                                    } else {
-                                        // To acquire target folder information
-                                        _fm.request({cmd: 'parents', target: open}).done(e =>{
-                                            _fm.file(open)? res() : rej();
-                                        }).fail(() => {
-                                            rej();
-                                        });
-                                    }
-                                }).then(() => {
-                                    // Open folder after folder information is acquired
-                                    _fm.exec('open', open).done(() => {
-                                        resolve(_fm);
-                                    }).fail(err => {
-                                        reject(_fm, err? err : 'errFolderNotFound');
-                                    });
-                                }).catch((err) => {
-                                    reject(_fm, err? err : 'errFolderNotFound');
-                                });
-                            }
-                        } else {
-                            // show elFinder manager only
-                            resolve(_fm);
-                        }
-                    };
+            });
+        },
 
-                    // Check elFinder instance
-                    if (_fm) {
-                        // elFinder instance has already been created
-                        done();
-                    } else {
-                        // To create elFinder instance
-                        _fm = $('<div/>').dialogelfinder({
-                            // dialog title
-                            title : 'File Manager',
-                            // connector URL
-                            url : connectorUrl,
-                            // start folder setting
-                            startPathHash : open? open : void(0),
-                            // Set to do not use browser history to un-use location.hash
-                            useBrowserHistory : false,
-                            // Disable auto open
-                            autoOpen : false,
-                            // elFinder dialog width
-                            width : '80%',
-                            // set getfile command options
-                            commandsOptions : {
-                                getfile: {
-                                    oncomplete : 'close',
-                                    multiple : true
-                                }
-                            },
-                            // Insert in CKEditor when choosing files
-                            getFileCallback : (files, fm) => {
-                                let imgs = [];
-                                fm.getUI('cwd').trigger('unselectall');
-                                $.each(files, function(i, f) {
-                                    if (f && f.mime.match(/^image\//i)) {
-                                        imgs.push(fm.convAbsUrl(f.url));
-                                    } else {
-                                        editor.execute('link', fm.convAbsUrl(f.url));
-                                    }
-                                });
-                                if (imgs.length) {
-                                    insertImages(imgs);
-                                }
+        //image_caption: true,
+        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+        noneditable_noneditable_class: "mceNonEditable",
+        toolbar_mode: 'sliding',
+        //contextmenu: "link image imagetools table",
+        init_instance_callback: function (editor) {
 
-                                //trigger save after insert image
-                                savePosts();
-                            }
-                        }).elfinder('instance');
-                        done();
-                    }
-                });
-            };
-
-        // elFinder instance
-        let _fm;
-
-        if (ckf) {
-            // Take over ckfinder execute()
-            ckf.execute = () => {
-                getfm().then(fm => {
-                    fm.getUI().dialogelfinder('open');
-                });
-            };
+            editor.on('input change', function (e) {
+                savePosts();
+            });
         }
-
-        // Make uploader
-        const uploder = function(loader) {
-            let upload = function(file, resolve, reject) {
-                getfm(uploadTargetHash).then(fm => {
-                    let fmNode = fm.getUI();
-                    fmNode.dialogelfinder('open');
-                    fm.exec('upload', {files: [file], target: uploadTargetHash}, void(0), uploadTargetHash)
-                        .done(data => {
-                            if (data.added && data.added.length) {
-                                fm.url(data.added[0].hash, { async: true }).done(function(url) {
-                                    resolve({
-                                        'default': fm.convAbsUrl(url)
-                                    });
-                                    fmNode.dialogelfinder('close');
-                                }).fail(function() {
-                                    reject('errFileNotFound');
-                                });
-                            } else {
-                                reject(fm.i18n(data.error? data.error : 'errUpload'));
-                                fmNode.dialogelfinder('close');
-                            }
-                        })
-                        .fail(err => {
-                            const error = fm.parseError(err);
-                            reject(fm.i18n(error? (error === 'userabort'? 'errAbort' : error) : 'errUploadNoFiles'));
-                        });
-                }).catch((fm, err) => {
-                    const error = fm.parseError(err);
-                    reject(fm.i18n(error? (error === 'userabort'? 'errAbort' : error) : 'errUploadNoFiles'));
-                });
-            };
-
-            this.upload = function() {
-                return new Promise(function(resolve, reject) {
-                    if (loader.file instanceof Promise || (loader.file && typeof loader.file.then === 'function')) {
-                        loader.file.then(function(file) {
-                            upload(file, resolve, reject);
-                        });
-                    } else {
-                        upload(loader.file, resolve, reject);
-                    }
-                });
-            };
-            this.abort = function() {
-                _fm && _fm.getUI().trigger('uploadabort');
-            };
-        };
-
-        // Set up image uploader
-        fileRepo.createUploadAdapter = loader => {
-            return new uploder(loader);
-        };
-        
-        
-        
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
-
+    });
 
     let form_original_data = $("#savePosts").serialize();
-    let editor_content = $('.ck-content').html();
+    let editor_content = tinymce.activeEditor.getContent();
 
     //publish
     $('input[type=checkbox]').click(function(e){
@@ -387,17 +190,10 @@ ClassicEditor
         publishedPosts();
     })
 
-    $('input[type=text], textarea, .ck-cotent').on('keypress keyup change blur',function(){
-        savePosts();
-    })
 
     $('#dialogFilemanager').on('hidden.bs.modal', function () {
         savePosts();
     });
-
-    $('.ck-content').on('change keypress keyup paste', function(){
-        savePosts();
-    })
 
     $('input[name=title]').on('keyup',function(){
         $('#url').text(function(){
@@ -409,15 +205,15 @@ ClassicEditor
     })
 
     function savePosts(){
-        if (form_original_data != $("#savePosts").serialize() || editor_content != $('.ck-content').html()){
+        if (form_original_data != $("#savePosts").serialize() || editor_content != tinymce.activeEditor.getContent()){
             form_original_data = $("#savePosts").serialize();
-            editor_content = $('.ck-content').html();
+            editor_content = tinymce.activeEditor.getContent();
 
             let data = { 
                 postid: $('input[name=postid]').val(),
                 title: $('input[name=title]').val(),
                 description: $('textarea[name=description]').val(),
-                post: $('.ck-content').html(),
+                post: tinymce.activeEditor.getContent(),
                 type: $('input[name=type]').val(),
                 image: $('input[name=image]').val()   ,
                 category: $('select[name=category]').val()
@@ -490,9 +286,10 @@ ClassicEditor
                         if(res.message == 'success'){
                            
                             Swal.fire("Success!", title + "ed successfully!", "success");
-       
+
                             setTimeout(function(){                           
                                 $('.status').html('')
+                                window.location.href = '<?=base_url()?>admin/<?=$url?>';
                             }, 1500)
                         }
                         else{
@@ -516,8 +313,6 @@ ClassicEditor
         e.preventDefault();
 
         $('input[name="uploadImage"]').trigger('click');
-        //$('#uploadModal').modal('show');
-
     })
 
     var cropper;
@@ -595,12 +390,11 @@ ClassicEditor
                 jQuery.noConflict();
                 $('#uploadModal').modal('hide');
 
-                $('input[name=image]').val('<?=base_url()?>filemanager/' + res);
-                $('#img-uploader').attr('src', '<?=base_url()?>filemanager/' + res);
+                $('input[name=image]').val('<?=base_url()?>filemanager/<?=strtoupper($url)?>/' + res);
+                $('#img-uploader').attr('src', '<?=base_url()?>filemanager/<?=strtoupper($url)?>/' + res);
                 swal.close();
                 savePosts();
             })
-
         })
 
     $('select[name=category]').change(function(e){
@@ -611,10 +405,3 @@ ClassicEditor
 })
         
     </script>
-
-    <style>
-    .ck .ck-content {
-        min-height: 500px!important;
-    }
-    
-    </style>

@@ -62,6 +62,11 @@ $route['users/delete/(:any)']           = 'users/delete/$1';
 $route['users/do_upload/(:any)']        = 'users/do_upload';
 $route['users/update_info/(:any)']      = 'users/update_info';
 $route['users/change_password/(:any)']  = 'users/change_password';
+$route['users/add_user']                = 'users/add_user';
+$route['users/add_user/(:any)']         = 'users/add_user/$1';
+$route['users/get_access_rights']       = 'users/get_access_rights';
+$route['users/get_access_rights/(:any)']= 'users/get_access_rights/$1';
+$route['users/set_access_rights']       = 'users/set_access_rights';
 $route['users/(:any)']                  = 'users/$1';
 
 $route['admin']                         = 'admin';

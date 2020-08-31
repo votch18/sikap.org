@@ -19,7 +19,7 @@ class Admin extends CI_Controller {
         $data['settings'] 	= $this->settings_model->get();
 
         if ( $this->session->has_userdata('admin') ){
-            $data['admin'] = $this->session->userdata('admin');          
+            $data['admin'] = $this->session->userdata('admin');
             $data["url"] = "dashboard";
 
             $data['news'] 	= $this->posts_model->get_posts(1);
@@ -35,7 +35,7 @@ class Admin extends CI_Controller {
             $this->load->view('admin/dashboard', $data);
             $this->load->view('shared/admin_footer');
         }else{
-		    $this->load->view('admin/login');
+		    $this->load->view('admin/login', $data);
         }
     }
 
@@ -44,7 +44,7 @@ class Admin extends CI_Controller {
         $this->auth->is_logged_in();
 
         $data['settings'] 	= $this->settings_model->get();
-        $data['admin'] = $this->session->userdata('admin');          
+        $data['admin'] = $this->session->userdata('admin');
         $data["url"] = "dashboard";
 
         $data['news'] 	= $this->posts_model->get_posts(1);
@@ -65,7 +65,7 @@ class Admin extends CI_Controller {
         $this->auth->is_logged_in();
 
         $data['settings'] 	= $this->settings_model->get();
-        $data['admin'] = $this->session->userdata('admin');   
+        $data['admin'] = $this->session->userdata('admin');
         $type = $this->pages_model->get_type_by_url($url);
 
         $data['posts'] = $this->posts_model->get_posts($type);
@@ -75,6 +75,20 @@ class Admin extends CI_Controller {
         $data['title'] = $url;
         $data['url'] = $url;
         $data['action'] = $url.'/create';
+
+        if ($url == 'news'){
+            $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 2);
+            $data["delete"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 3);
+            $data["publish"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 4);
+        }elseif ($url == 'programs'){
+            $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 5);
+            $data["delete"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 6);
+            $data["publish"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 7);
+        }else{
+            $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 8);
+            $data["delete"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 9);
+            $data["publish"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 10);
+        }
 
         $this->load->view('shared/admin_header', $data);  
         if ($url == 'gallery'){
@@ -90,13 +104,26 @@ class Admin extends CI_Controller {
         $this->auth->is_logged_in();
 
         $data['settings'] 	= $this->settings_model->get();
-        $data['admin'] = $this->session->userdata('admin'); 
+        $data['admin'] = $this->session->userdata('admin');
         $type = $this->pages_model->get_type_by_url($url);
         $data['categories'] = $this->pages_model->get_program_category();
 
         $data['title'] = 'create '.$url;   
         $data['url'] =  $url;      
-        $data['type'] = $type;    
+        $data['type'] = $type;
+
+        if ($url == 'news'){
+            $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 2);
+            $data["publish"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 4);
+        }elseif ($url == 'programs'){
+            $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 5);
+            $data["publish"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 7);
+        }else{
+            $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 8);
+            $data["publish"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 10);
+        }
+
+        if (!$data["create"]) redirect(base_url().'admin/'.$url);
 
         $this->load->view('shared/admin_header', $data);  
         $this->load->view('admin/new_posts', $data);
@@ -108,6 +135,7 @@ class Admin extends CI_Controller {
 
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');
+        $data["access"] = $this->users_model->get_access_rights($data['admin']['id']);
         $type = $this->pages_model->get_type_by_url($url);
         $data['categories'] = $this->pages_model->get_program_category();
 
@@ -117,6 +145,19 @@ class Admin extends CI_Controller {
         $data['post'] = $this->posts_model->get_posts_by_id($id);  
 
         if (empty($data['post'])) redirect(base_url().'admin');
+
+        if ($url == 'news'){
+            $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 2);
+            $data["publish"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 4);
+        }elseif ($url == 'programs'){
+            $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 5);
+            $data["publish"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 7);
+        }else{
+            $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 8);
+            $data["publish"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 10);
+        }
+
+        if (!$data["create"]) redirect(base_url().'admin/'.$url);
 
         $this->load->view('shared/admin_header', $data);  
         $this->load->view('admin/new_posts', $data);
@@ -128,8 +169,11 @@ class Admin extends CI_Controller {
         $this->auth->is_logged_in();
 
         $data['settings'] 	= $this->settings_model->get();
-        $data['admin'] = $this->session->userdata('admin');    
-        $data['url'] =  'filemanager';     
+        $data['admin'] = $this->session->userdata('admin');
+        $data["access"] = $this->users_model->get_access_rights($data['admin']['id']);
+        $data['url'] =  'filemanager';
+
+        $data["view"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 20);
 
         $this->load->view('shared/admin_header', $data);  
         $this->load->view('filemanager/filemanager');
@@ -142,9 +186,13 @@ class Admin extends CI_Controller {
         $this->auth->is_logged_in();
 
         $data['settings'] 	= $this->settings_model->get();
-        $data['admin'] = $this->session->userdata('admin');    
+        $data['admin'] = $this->session->userdata('admin');
+        $data["access"] = $this->users_model->get_access_rights($data['admin']['id']);
         $data['pages'] 	= $this->pages_model->get_all();   
-        $data['url'] =  'pages';     
+        $data['url'] =  'pages';
+
+        $data["create"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 18);
+        $data["delete"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 19);
       
         $this->load->view('shared/admin_header', $data);  
         $this->load->view('admin/pages');
@@ -156,7 +204,8 @@ class Admin extends CI_Controller {
         $this->auth->is_logged_in();
 
         $data['settings'] 	= $this->settings_model->get();
-        $data['admin'] = $this->session->userdata('admin');  
+        $data['admin'] = $this->session->userdata('admin');
+        $data["access"] = $this->users_model->get_access_rights($data['admin']['id']);
         $data['url'] =  'pages';     
         $data['title'] = 'create page';  
         $excludes = array('.', '..', 'js', 'plugins', 'footer.php', 'header.php' );
@@ -174,7 +223,8 @@ class Admin extends CI_Controller {
 
         $data['settings'] 	= $this->settings_model->get();
         $data['admin'] = $this->session->userdata('admin');    
-        $data['page'] 	= $this->pages_model->get_by_id($id);   
+        $data['page'] 	= $this->pages_model->get_by_id($id);
+        $data["access"] = $this->users_model->get_access_rights($data['admin']['id']);
         $data['url'] =  'pages';     
         $data['title'] = 'Edit page';  
         $excludes = array('.', '..', 'js', 'plugins', 'footer.php', 'header.php' );
@@ -212,7 +262,8 @@ class Admin extends CI_Controller {
         $this->auth->is_logged_in();
 
 		$data['settings'] 	= $this->settings_model->get();
-        $data['admin'] = $this->session->userdata('admin');    
+        $data['admin'] = $this->session->userdata('admin');
+        $data["access"] = $this->users_model->get_access_rights($data['admin']['id']);
         $data['pages'] 	= $this->pages_model->get();   
         $data['url'] =  'templates';   
 
@@ -222,6 +273,8 @@ class Admin extends CI_Controller {
         $excludes = array('.', '..', 'js', 'plugins' );
 		$includes = array('.php');
         $data['templates'] 	= $this->theme->templates($excludes, $includes);
+
+        $data["view"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 12);
 
 		$this->load->view('shared/admin_header', $data);
 		$this->load->view('admin/templates', $data);
@@ -235,9 +288,11 @@ class Admin extends CI_Controller {
 
         $data['settings'] 	= $this->settings_model->get();
         $data['data'] 	= $this->settings_model->get_all();
-        $data['admin'] = $this->session->userdata('admin');    
+        $data['admin'] = $this->session->userdata('admin');
         $data['pages'] 	= $this->pages_model->get();   
-        $data['url'] =  'settings'; 
+        $data['url'] =  'settings';
+
+        $data["view"] = $this->users_model->get_access_rights_by_id($data['admin']['id'], 13);
 
         $this->load->view('shared/admin_header', $data);  
         $this->load->view('admin/settings');
@@ -276,15 +331,18 @@ class Admin extends CI_Controller {
         $this->auth->is_logged_in();
 
         $data['settings'] 	= $this->settings_model->get();
-        $data['admin'] = $this->session->userdata('admin'); 
+        $data['admin'] = $this->session->userdata('admin');
         $data['users'] = $this->users_model->get_users($username); 
         $data["url"] = "users";
-       
+
+
         $this->load->view('shared/admin_header', $data);       
 
         if ($username != FALSE){
             $this->load->view('admin/profile', $data);
         }else{
+            if ($data['admin']['id'] != 1) redirect(base_url().'admin/');
+
             $this->load->view('admin/users', $data);
         }
         

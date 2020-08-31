@@ -20,6 +20,7 @@ class Pages_model extends CI_Model{
             //create the file
             $handle = fopen($theme['path'].$template, 'w');
             //write some data here
+            fwrite($handle,$this->getBanner()."\n");
             fclose($handle);
         }
      
@@ -114,6 +115,17 @@ class Pages_model extends CI_Model{
         return  $this->db->get()->row_array()['banner'];
     }
 
+    public function get_title_by_url($url){
+
+        $this->db->select('name');
+        $this->db->from('pages');
+        $this->db->where('url', $url);
+        $this->db->limit(1);
+
+        $page = $this->db->get()->row_array();
+        return  $page['name'];
+    }
+
     public function get_by_id($id){
        
         $this->db->select('*');
@@ -141,8 +153,15 @@ class Pages_model extends CI_Model{
 
         $this->db->where('id', $id);
         return ($this->db->delete('pages')) ? "success" : "An error occured while deleting your record.";
+    }
 
-        
+    public function getBanner(){
+        $this->db->select('html');
+        $this->db->from('templates');
+        $this->db->where('name', 'banner');
+        $this->db->limit(1);
+
+        return $this->db->get()->row_array()["html"];
     }
   
 }

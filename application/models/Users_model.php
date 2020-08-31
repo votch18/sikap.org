@@ -124,6 +124,7 @@ class Users_model extends CI_Model{
                 c.description as role_desc
                 FROM t_users a
                 LEFT JOIN t_roles c ON a.role = c.id
+                ORDER BY a.id ASC
             ";
 
             $query = $this->db->query($sql, array($username));
@@ -228,5 +229,46 @@ class Users_model extends CI_Model{
                 return true;
             }
         }
+    }
+
+    public function set_access_rights(){
+        $userid = $this->input->post('userid');
+        $access = $this->input->post('access');
+
+        $data = array(
+            'userid' => $userid,
+            'access' => $access,
+        );
+
+        if ($this->validate_access($userid, $access) > 0){
+            $this->db->where('userid', $userid);
+            $this->db->where('access', $access);
+            return ($this->db->delete('access_rights')) ? "success" : "An error occurred!.";
+        }
+
+        return $this->db->insert('access_rights', $data) ? "success" : "An error occurred!";
+    }
+
+
+    public function validate_access($userid, $access){
+        $query = $this->db->get_where('access_rights', array('userid' => $userid, 'access' => $access));
+        return $query->num_rows();
+    }
+
+    public function get_access_rights($id){
+        $sql = "select a.*, (SELECT x.access FROM t_access_rights x WHERE x.userid = ? AND x.access = a.id) as access from t_access a
+                ORDER BY a.sort ASC
+            ";
+
+        $query = $this->db->query($sql, array($id));
+        return $query->result_array();
+    }
+
+
+    public function get_access_rights_by_id($userid, $access){
+        if ($userid == 1) return true;
+
+        $query = $this->db->get_where('access_rights', array('userid' => $userid, 'access' => $access));
+        return $query->num_rows() > 0 ? true : false;
     }
 }

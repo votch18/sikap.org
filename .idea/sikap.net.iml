@@ -4,11 +4,9 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/ckeditor5/build" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/ckeditor5/sample" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/ckeditor5/src" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/studio-42/elfinder" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tinymce/js" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

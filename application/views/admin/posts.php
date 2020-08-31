@@ -3,7 +3,14 @@
         <h3 class="text-themecolor"><?=ucwords($title)?></h3>
     </div>
     <div class="col-md-7">
-        <a href="<?=base_url()?>admin/<?=$action?>" class="btn btn-success float-right"><i class="fa fa-plus"></i>&nbsp;<?=ucwords('Create '.$url)?></a>
+        <?php
+            if (isset($create) && $create == true) {
+                ?>
+                <a href="<?=base_url()?>admin/<?=$action?>" class="btn btn-success float-right"><i class="fa fa-plus"></i>&nbsp;<?=ucwords('Create '.$url)?></a>
+            <?php
+            }
+        ?>
+
     </div>
 
 </div>
@@ -44,15 +51,35 @@
                            
                         </td>
                         <td class="text-right" style="width: 200px;">
-                            <div class="m-b-15">
-                                <h6 class="d-inline small">Publish?</h6>
-                                <label class="switch m-0 p-0" style="vertical-align: middle;">
-                                    <input type="checkbox" <?=!empty($post['status']) && $post['status'] == 1 ? "checked" : ""?> data-id="<?=$post['postid']?>">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
+                            <?php
+                            if (isset($publish) && $publish == true) {
+                                ?>
+                                <div class="m-b-15">
+                                    <h6 class="d-inline small">Publish?</h6>
+                                    <label class="switch m-0 p-0" style="vertical-align: middle;">
+                                        <input
+                                            type="checkbox" <?= !empty($post['status']) && $post['status'] == 1 ? "checked" : "" ?>
+                                            data-id="<?= $post['postid'] ?>">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                            <?php
+                            if (isset($create) && $create == true) {
+                            ?>
                             <a href="<?=base_url()?>admin/<?=$url?>/edit/<?=$post['postid']?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                <?php
+                            }
+                            ?>
+                            <?php
+                            if (isset($delete) && $delete == true) {
+                            ?>
                             <a href="" class="btn btn-danger btn_remove btn-sm" data-id="<?=$post['postid']?>"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+                                <?php
+                            }
+                            ?>
                         </td>
                     </tr>
                   

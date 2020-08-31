@@ -2,18 +2,17 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1><?=ucwords($url)?></h1>
+                <h1><?=ucwords($title)?></h1>
             </div>
         </div>
     </div>
 </div>
-
-
-<div class="our-causes pt-0">
+<div class="welcome-wrap">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div style="width: 100%; background: #EDF1F1; font-size: 16px!important; font-weight: bold; padding: 10px; margin-top: 20px;">
+        <div class="row mt-5 mb-5">
+			<div class="col-md-12">
+                <div class="section-heading">
+                    <div style="width: 100%; font-size: 16px!important; font-weight: bold; padding: 10px; ">
                     <ul class="list-inline programs">
                         <li class="list-inline-item wcf <?=$category == "women-children-and-family-development" ? "active" : ""?>">
                             <a href="/programs/?category=women-children-and-family-development">Women, Children & Family Development</a>
@@ -34,27 +33,31 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-
-        <?php
-
-        if (empty($posts)){
-            ?>
-            <div class="col-12 mt-5">
-                <div class="alert alert-danger">
-                    <h3><i class="fa fa-exclamation-circle red"></i> No records found!</h3>
                 </div>
             </div>
-            <?php
-        }
+        </div>
+    </div>
+</div>
+<div class="our-causes pt-0">
+    <div class="container">
+        <div class="row">
+
+        <?php
 		foreach($posts as $row) {
+			if (!empty($row["featured_img"]))     {
         ?>
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="cause-wrap">
-                    <figure class="m-0">
+					<div style="height: 250px; width: 100%; overflow: hidden!important; 
+								background-image: url(<?=$row['featured_img']?>);
+								background-size:cover;
+								background-position:center;
+								background-repeat:no-repeat;">
+					</div>
+                    <!--<figure class="m-0">
                         <img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>">
                     </figure>
-
+					-->
                     <div class="cause-content-wrap">
                         <header class="entry-header d-flex flex-wrap align-items-center">
                             <h3 class="entry-title w-100 m-0"><a href="<?=base_url().'programs/'.$row['slug']?>"><?=$row['title']?></a></h3>
@@ -69,6 +72,7 @@
             </div>
 
             <?php
+				}
 			}
 		?>
 

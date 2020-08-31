@@ -5802,3 +5802,7 @@ File: scss
     .dataTables_wrapper .dataTables_paginate .paginate_button .page-link {
       padding: 0.5rem 0.6rem; } }
 
+
+.tox-editor-header {
+  z-index: 999!important;
+}

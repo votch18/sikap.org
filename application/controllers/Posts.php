@@ -51,7 +51,13 @@ class Posts extends CI_Controller {
         $img              = str_replace(' ', '+', $img);
         $file            = base64_decode($img);
         $filename        = $this->input->post('url')."_".time().".jpg";
-        $path = $_SERVER['DOCUMENT_ROOT'].'/filemanager/';
+        $path = $_SERVER['DOCUMENT_ROOT'].'/filemanager/'.strtoupper($this->input->post('url')).'/';
+
+        if (!is_dir($path)) {
+            // dir doesn't exist, make it
+            mkdir($path);
+        }
+
         file_put_contents($path.$filename,$file);
         echo $filename;
         exit;

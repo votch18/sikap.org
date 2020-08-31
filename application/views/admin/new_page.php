@@ -16,7 +16,7 @@
         <div class="card">
             <div class="card-body">            
                 <div class="panel-heading">
-                    <div class="float-right" >
+                    <div class="float-right d-none" >
                         <h5 class="d-inline">Publish?</h5>
                         <label class="switch m-0 p-0" style="vertical-align: middle;">
                             <input type="checkbox" <?=!empty($page['status']) && $page['status'] == "1" ? "checked" : ""?>>
@@ -59,7 +59,8 @@
     <div class="col-lg-5">
         <div class="card">
             <div class="card-body">
-                <h5 class="">Page banner</h5>
+                <button class="btn btn-dark float-right btn-sm" id="upload_btn" ><i class="mdi mdi-cloud-upload"></i> Upload & Crop</button>
+                <h5 class="mt-2">Page banner</h5>
                 <div class="col-md-12" style="background:#e9e9e9; height: 200px;">
                     <div class="row">
                     <?php
@@ -70,12 +71,12 @@
                     <a href="#" data-toggle="modal" data-target="#dialogFilemanager">
                         <div style="display: block; margin-top: -180px; text-align: center; width: 100%;">
                             <span class="fa fa-cloud-upload" style="font-size: 45px;"></span><br/><br/>
-                            <span style="display: block">Choose from File Manager <br>(1920w x 248h)</span>
+                            <span style="display: block">Choose from File Manager <br>(1420w x 248h)</span>
                         </div>
                         <input type="hidden" name="image" value="<?=!empty($page['banner']) ? $page['banner'] : ''?>"/>
                     </a>                    
                 </div>
-                <sub>Ideal image size (1920w x 248h)</sub>
+                <sub>Ideal image size (1420w x 248h)</sub>
             </div>
         </div>
     </div>
@@ -83,6 +84,33 @@
 
 </form>
 
+
+<input type="file" name="uploadImage" style="display: none;">
+
+<div class="modal" tabindex="-1" role="dialog" id="uploadModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload & Crop Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <?php
+                $photo = !empty($page['banner']) ? $page['banner'] : base_url().'assets/admin/images/noimage.png';
+                ?>
+                <div>
+                    <img id="cropImage" class="img-responsive" src="<?=$photo?>" style="display:block;margin:auto; width: 100%; height: auto;"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn_save_crop">Crop & Save Image</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -146,6 +174,85 @@ $(function(){
         })
     })
 
+
+
+    $('#upload_btn').on('click', function(e){
+        e.preventDefault();
+
+        $('input[name="uploadImage"]').trigger('click');
+    })
+
+    var cropper;
+    var url = 'banner';
+
+    $('input[name="uploadImage"]').change(function(e){
+
+        var file = $(this)[0].files[0];
+        var reader = new FileReader();
+        var img_data = "";
+        reader.onload = function(event) {
+            $('#uploadModal').modal('show');
+            $('#cropImage').attr('src', event.target.result);
+
+            if (cropper != undefined){
+                cropper.destroy();
+            }
+
+            var image = document.getElementById('cropImage');
+            cropper = new Cropper(image, {
+                aspectRatio: 1420 / 248,
+                zoomable: false
+            });
+
+
+        };
+        reader.readAsDataURL(file);
+    })
+
+
+    $('.btn_save_crop').on('click', function(e){
+        var formData 	= new FormData();
+        var canvas 		= cropper.getCroppedCanvas();
+        formData.append('url', 'banner');
+        formData.append('cropImage', canvas.toDataURL("image/jpeg"));
+
+        swal.fire({
+            title: 'Uploading ...',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            }
+        });
+        $.ajax({
+            url: "<?=base_url()?>posts/uploadCropImage",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            xhr: function() {
+                var xhr = $.ajaxSettings.xhr();
+                xhr.upload.onprogress = function(e) {
+                    var percentage = Math.floor(e.loaded / e.total * 100);
+                    swal.update({
+                        title: 'Uploading (' + percentage + '%)',
+                        allowOutsideClick: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
+                };
+                return xhr;
+            }
+        })
+            .done(function(res){
+                $('#uploadModal').modal('hide');
+
+                $('input[name=image]').val('<?=base_url()?>filemanager/BANNER/' + res);
+                $('#img-uploader').attr('src', '<?=base_url()?>filemanager/BANNER/' + res);
+                swal.close();
+            })
+    })
 
 })
         
