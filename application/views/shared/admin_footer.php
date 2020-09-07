@@ -173,6 +173,20 @@
                 })
 
             })
+
+            setInterval(function(){
+                var dialog = $('.fb_dialog');
+
+                for(var i = 0; i < dialog.length; i++)
+                {
+                    var d = $(dialog[i]);
+                    if(parseInt(d.css('top')) > 0 && parseInt(d.css('top')) != 195)
+                    {
+                        d.css('top', '195px');
+                        d.css('left', 'calc(50% - 300px)')
+                    }
+                }
+            }, 500);
         })
     </script>
 </body>

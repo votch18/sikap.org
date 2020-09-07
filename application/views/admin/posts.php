@@ -50,19 +50,25 @@
                             </div>
                            
                         </td>
-                        <td class="text-right" style="width: 200px;">
+                        <td class="text-right" style="width: 250px;">
                             <?php
                             if (isset($publish) && $publish == true) {
                                 ?>
-                                <div class="m-b-15">
+                                <div class="m-b-15 d-inline-block">
                                     <h6 class="d-inline small">Publish?</h6>
                                     <label class="switch m-0 p-0" style="vertical-align: middle;">
                                         <input
+                                            id="publish"
                                             type="checkbox" <?= !empty($post['status']) && $post['status'] == 1 ? "checked" : "" ?>
                                             data-id="<?= $post['postid'] ?>">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
+                                <span class="btn btn-info btn-sm btn_post" 
+                                data-toggle="tooltip" title="Post to Facebook" 
+                                data-url="<?=base_url().$url?>/<?=$post["slug"]?>"
+                                data-picture="<?=$photo?>"><i class="fab fa-facebook-f"></i></span>
+
                                 <?php
                             }
                             ?>
@@ -96,7 +102,7 @@
 <script>
     $(function(){
         //publish
-        $('input[type=checkbox]').click(function(e){
+        $('#publish').click(function(e){
             e.preventDefault();
             
             let title = ($(this).prop("checked") ? 'Publish' : 'Unpublish' ) ;   
@@ -155,5 +161,77 @@
             })
         })
 
+
+
+       $('.btn_post').on('click', function(e){
+           e.preventDefault();
+
+           var url = $(this).data('url');
+           var picture = $(this).data('picture');
+            Swal.fire({
+                title: 'Share to Facebook?',
+                text: 'Are you sure?',
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, post to facebook!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.value) {
+
+                    FB.getLoginStatus(function(response) {
+                        if (response.status === 'connected') {
+                            accessToken = response.authResponse.accessToken;
+
+                            FB.api(
+                                '/me',
+                                {
+                                    fields: 'id,email,first_name,last_name,middle_name',
+                                    access_token: accessToken,
+                                },
+                                function(data) {
+
+                                    FB.ui({
+                                        method: 'feed',
+                                        link: url,
+                                        picture: picture
+                                    }, function(response){});
+
+                                    /*
+                                    FB.api('/' + data.id +'/feed', 'post', { message: 'Facebook post tests!', access_token:response.authResponse.accessToken }, function(response) {
+                                        if (!response || response.error) {
+                                            console.log(response.error);
+                                        } else {
+                                            //alert('Post ID: ' + response.id);
+                                            $.post('<?=base_url()?>admin/fbpost', { postid: postid, fbpostid: response.id}).done(function(res){
+                                        if (res.action == "success"){
+                                            swal.fire("Error!", "An error occured while posting to facebook!", "error");
+                                        }else{
+                                            swal.fire("Error!", "An error occured while posting to facebook!", "error");
+                                        }
+                                    })
+                                }
+                            });
+                            */
+
+                                }
+                            )
+
+
+
+                        }
+                        else {
+                            swal.fire("Error!", "Please connect with facebook to post!", "error");
+                        }
+                    });
+
+                }
+            })
+
+        });
+
     })
+
+
+
+
 </script>

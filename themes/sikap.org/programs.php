@@ -13,7 +13,7 @@
 			<div class="col-md-12">
                 <div class="section-heading">
                     <div style="width: 100%; font-size: 16px!important; font-weight: bold; padding: 10px; ">
-                    <ul class="list-inline programs">
+                    <ul class="list-inline">
                         <li class="list-inline-item wcf <?=$category == "women-children-and-family-development" ? "active" : ""?>">
                             <a href="/programs/?category=women-children-and-family-development">Women, Children & Family Development</a>
                         </li>
@@ -54,17 +54,14 @@
 								background-position:center;
 								background-repeat:no-repeat;">
 					</div>
-                    <!--<figure class="m-0">
-                        <img src="<?=$row['featured_img']?>" alt="<?=$row['title']?>">
-                    </figure>
-					-->
+                
                     <div class="cause-content-wrap">
                         <header class="entry-header d-flex flex-wrap align-items-center">
                             <h3 class="entry-title w-100 m-0"><a href="<?=base_url().'programs/'.$row['slug']?>"><?=$row['title']?></a></h3>
                         </header>
 
                         <div class="entry-content">
-                            <p class="m-0"><?=substr(strip_tags($row['post']), 0, 250)?></p>
+                            <p class="m-0"><?=trim(str_replace("&nbsp;", " ", substr(strip_tags($row['post']), 0, 250)))?></p>
                         </div>
 
                     </div>

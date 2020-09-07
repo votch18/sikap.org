@@ -30,12 +30,92 @@
 </head>
 
 <body class="card-no-border" style="zoom: 80%!important;">
-   
-    <section id="wrapper">
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId            : '2872356789536829',
+            autoLogAppEvents : true,
+            xfbml            : true,
+            version          : 'v8.0'
+        });
+
+    };
+
+    function FBLogin(){
+        FB.login(function(response) {
+            if (response.authResponse) {
+                console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function(response) {
+                    console.log(response);
+                    console.log('Good to see you, ' + response.name + '.');
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        });
+    }
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                accessToken = response.authResponse.accessToken
+                getUserData(accessToken)
+            }
+            else {
+                FBLogin();
+            }
+        });
+    }
+
+    function getUserData(accessToken){
+        FB.api(
+            '/me',
+            {
+                fields: 'id,email,first_name,last_name,middle_name',
+                access_token: accessToken,
+            },
+            function(data) {
+                var fbUser = {
+                    LoginWithFacebook: true,
+                    FBID: data.id,
+                }
+
+                var fbUser = {
+                    fbid: data.id,
+                }
+
+                $.post('<?=base_url()?>admin/fblogin', fbUser).done(function(res){
+                    if (res.action == "success"){
+                        Swal.fire(
+                            'Success!',
+                            'Welcome to sikap.org admin page!',
+                            'success'
+                        ).then((result) => {
+                            if (result.value) {
+                                window.location.reload();
+                            }
+                        })
+                    }else{
+                        Swal.fire(
+                            'Access denied!',
+                            'We can\'t find your facebook account on our database!',
+                            'error'
+                        )
+                    }
+                })
+            }
+        )
+    }
+
+
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+<section id="wrapper">
         <div class="login-register" style="background: #e2e2e2; 
   height: 100%;
   width: 100%;
-  padding: 10% 0;
+  padding: 80px 0;
   position: fixed; ">
             <div class="login-box card" style="border-radius: 10px; width: 400px;
   margin: 0 auto;">
@@ -65,11 +145,13 @@
                         <div class="text-center">
                             <div class="col-xs-12">
                                 <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Log In</button>
+
                             </div>
                         </div>
                              
                     </form>
-                 
+                    <hr/>
+                    <button class="btn btn-primary btn-lg btn-block btn-rounded" onclick="checkLoginState();">LOGIN WITH FACEBOOK</button>
                 </div>
             </div>
         </div>

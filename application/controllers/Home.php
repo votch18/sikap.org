@@ -25,10 +25,8 @@ class Home extends CI_Controller {
         
         $data['news'] 	= $this->posts_model->get_published_post(1);
         $data['announcements'] 	= $this->posts_model->get_published_post(2);
-        //$data['accreditation'] 	= $this->posts_model->get_published_post(3);
-        //$data['awards'] 	= $this->posts_model->get_published_post(4);
         $data['programs'] 	= $this->posts_model->get_published_post(5);
-        //$data['gallery'] 	= $this->posts_model->get_published_post(6);
+        $data['programs_menu']   = $this->posts_model->get_programs_order_by_category();
         $data['slider'] 	= $this->posts_model->get_published_post(7);
 
 		$data['template'] = 'home.php';
@@ -57,16 +55,10 @@ class Home extends CI_Controller {
 
         $data['news'] 	= $this->posts_model->get_published_post(1);
         $data['announcements'] 	= $this->posts_model->get_published_post(2);
-        //$data['accreditations'] 	= $this->posts_model->get_published_post(3);
-        //$data['awards'] 	= $this->posts_model->get_published_post(4);
         $data['programs'] 	= $this->posts_model->get_published_post(5);
-        //$data['gallery'] 	= $this->posts_model->get_published_post(6);
+        $data['programs_menu']   = $this->posts_model->get_programs_order_by_category();
         $data['slider'] 	= $this->posts_model->get_published_post(7);
         $data['category'] = $category;
-
-       	//if(empty($data['posts']) && $type != "0"){
-       		//redirect(base_url());
-       	//}
 
 		$data['template'] 	= $this->pages_model->get_template($url);        
 
@@ -98,10 +90,8 @@ class Home extends CI_Controller {
 
         $data['news'] 	= $this->posts_model->get_published_post(1);
         $data['announcements'] 	= $this->posts_model->get_published_post(2);
-        //$data['accreditations'] 	= $this->posts_model->get_published_post(3);
-        //$data['awards'] 	= $this->posts_model->get_published_post(4);
         $data['programs'] 	= $this->posts_model->get_published_post(5);
-        //$data['gallery'] 	= $this->posts_model->get_published_post(6);
+        $data['programs_menu']   = $this->posts_model->get_programs_order_by_category();
         $data['slider'] 	= $this->posts_model->get_published_post(7);
 
        	if(empty($data['posts'])){

@@ -38,23 +38,6 @@
                         <div class="entry-content">
                            <?=$row['post']?>
                         </div>
-						<!-- Load Facebook SDK for JavaScript -->
-					  <div id="fb-root"></div>
-					 
-					  <!-- Your like button code -->
-					  <div class="fb-like" 
-						   data-href="<?=base_url().$url.'/'.$row['slug']?>" 
-						   data-width=""
-						   data-layout="standard" 
-						   data-action="like" 
-						   data-size="small"  
-						   data-share="true">
-					  </div>
-					<div class="fb-share-button" 
-					data-href="<?=base_url().$url.'/'.$row['slug']?>" 
-					data-layout="button_count">
-					</div>
-
                        
                     </div>
                   

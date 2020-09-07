@@ -196,6 +196,7 @@ $(function(){
     });
 
     $('input[name=title]').on('keyup',function(){
+        savePosts();
         $('#url').text(function(){
             url = $('input[name=title]').val().trim().replace(/[^a-z0-9+]+/gi, '-').toLowerCase()
             $('input[name=url]').val(url)
@@ -250,7 +251,11 @@ $(function(){
 
 
     function publishedPosts(){
-      
+        if(tinymce.activeEditor.getContent().trim().length == 0) {
+            swal.fire("Error!", "Please add content before clicking publish!", "error");
+            return;
+        }
+
         let title = ($('input[type=checkbox]').prop("checked") ? 'Publish' : 'Unpublish' ) ;   
         
         let data = { 
@@ -284,7 +289,6 @@ $(function(){
                     success: function(res){
                         
                         if(res.message == 'success'){
-                           
                             Swal.fire("Success!", title + "ed successfully!", "success");
 
                             setTimeout(function(){                           

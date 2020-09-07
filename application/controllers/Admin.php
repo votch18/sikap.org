@@ -326,6 +326,57 @@ class Admin extends CI_Controller {
        
     }
 
+    public function fblogin()
+    {
+        $data['settings'] 	= $this->settings_model->get();
+        $data = $this->users_model->get_user_by_fbid();
+
+        if ( $data == null ){
+            header('Content-Type: application/json; charset=utf-8;');
+            echo json_encode( array("action" =>  "failed") );
+            exit;
+        }
+
+        $this->session->set_userdata('admin', $data);
+
+        header('Content-Type: application/json; charset=utf-8;');
+        echo json_encode( array("action" =>  "success", "data" => $data) );
+        exit;
+
+    }
+
+    public function fbconnect()
+    {
+        $data = $this->users_model->fbconnect();
+
+        if ( $data == null ){
+            header('Content-Type: application/json; charset=utf-8;');
+            echo json_encode( array("action" =>  "failed") );
+            exit;
+        }
+
+        header('Content-Type: application/json; charset=utf-8;');
+        echo json_encode( array("action" =>  "success", "data" => $data) );
+        exit;
+
+    }
+
+    public function fbpost()
+    {
+        $data = $this->posts_model->fbpost();
+
+        if ( $data == null ){
+            header('Content-Type: application/json; charset=utf-8;');
+            echo json_encode( array("action" =>  "failed") );
+            exit;
+        }
+
+        header('Content-Type: application/json; charset=utf-8;');
+        echo json_encode( array("action" =>  "success", "data" => $data) );
+        exit;
+
+    }
+
     public function users($username = FALSE){
 
         $this->auth->is_logged_in();

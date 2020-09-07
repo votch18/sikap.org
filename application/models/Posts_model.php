@@ -55,6 +55,7 @@ class Posts_model extends CI_Model{
                 a.date,
                 a.photo as featured_img, 
                 a.status,
+                a.fbpostid,
                 b.id as userid,
                 b.username,
                 b.photo,              
@@ -118,12 +119,44 @@ class Posts_model extends CI_Model{
             INNER JOIN t_users b ON a.userid = b.id
             LEFT JOIN t_programs_category c ON a.program_category = c.id
             WHERE a.isactive = 1 AND a.status = 1 AND a.type = ?
-            ORDER BY c.id ASC, a.date  DESC
+            ORDER BY a.date  DESC
         ";
         
         $query = $this->db->query($sql, array($type));    
         return $query->result_array();
     }
+
+
+    public function get_programs_order_by_category(){
+        $sql = "SELECT 
+            a.id,
+            a.postid,
+            a.title,
+            a.description,
+            a.post,
+            a.slug,
+            a.date,
+            a.photo as featured_img, 
+            a.status,
+            b.id as userid,
+            b.username,
+            b.photo,              
+            CONCAT(b.fname, ' ', b.lname) as name,
+            TIME_TO_SEC(TIMEDIFF(NOW(), a.date)) as seconds,
+            c.description as program_category,
+            c.url as category_url,
+            c.style as category_style
+            FROM t_posts a
+            INNER JOIN t_users b ON a.userid = b.id
+            LEFT JOIN t_programs_category c ON a.program_category = c.id
+            WHERE a.isactive = 1 AND a.status = 1 AND a.type = 5
+            ORDER BY c.id ASC, a.date  DESC
+        ";
+
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
 
 
     public function get_published_programs($category){
@@ -192,6 +225,18 @@ class Posts_model extends CI_Model{
 
         return true;
     }
+
+    public function fbpost(){
+        $postid = $this->input->post('postid');
+        $fbpostid = $this->input->post('fbpostid');
+
+        $this->db->set('fbpostid', $fbpostid);
+        $this->db->where('postid', $postid);
+        $this->db->update('posts');
+
+        return true;
+    }
+
 
     public function get_posts_by_id($id){
         $sql = "SELECT 

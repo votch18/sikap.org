@@ -83,7 +83,10 @@ $route['admin/users']                   = 'admin/users';
 $route['admin/dashboard']               = 'admin/dashboard';
 $route['admin/logout']                  = 'admin/logout';
 $route['admin/login']                   = 'admin/login';
+$route['admin/fblogin']                 = 'admin/fblogin';
+$route['admin/fbconnect']               = 'admin/fbconnect';
 $route['admin/profile']                 = 'admin/profile';
+$route['admin/fbpost']                  = 'admin/fbpost';
 $route['admin/update_info']             = 'admin/update_info';
 $route['admin/do_upload']               = 'admin/do_upload';
 

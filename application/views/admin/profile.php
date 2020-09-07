@@ -21,6 +21,7 @@
                     <sub>Note: Your changes will take effect after next login.</sub>
                     </div>
                     <br/>
+                    <button class="btn btn-primary btn-block" onclick="checkLoginState();">Connect with Facebook</button>
                 </div>
             </div>
         </div>

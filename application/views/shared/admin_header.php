@@ -34,6 +34,7 @@
             border: 1px solid #0099ff;
             border-width: 0 0 0 5px!important;
         }
+       
     </style>
 
     <script src="<?=base_url()?>assets/admin/assets/plugins/jquery/jquery.min.js"></script>
@@ -59,8 +60,75 @@
 </head>
 
 <body class="fix-header fix-sidebar card-no-border" >
-    
-    <!-- Main wrapper - style you can find in pages.scss style="zoom: 80%!important;"-->
+
+
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId            : '2872356789536829',
+            autoLogAppEvents : true,
+            xfbml            : true,
+            version          : 'v8.0'
+        });
+
+    };
+
+    function FBLogin(){
+        FB.login(function(response) {
+            if (response.authResponse) {
+                console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function(response) {
+                    console.log(response);
+                    console.log('Good to see you, ' + response.name + '.');
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        });
+    }
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                accessToken = response.authResponse.accessToken
+                getUserData(accessToken)
+            }
+            else {
+                FBLogin();
+            }
+        });
+    }
+
+    function getUserData(accessToken){
+        FB.api(
+            '/me',
+            {
+                fields: 'id,email,first_name,last_name,middle_name',
+                access_token: accessToken,
+            },
+            function(data) {
+                var fbUser = {
+                    userid: '<?=$admin["id"]?>',
+                    fbid: data.id,
+                }
+
+                $.post('<?=base_url()?>admin/fbconnect', fbUser).done(function(res){
+                    if (res.action == "success"){
+                        swal.fire("Success!", "Your account has been linked!", "success");
+                    }else{
+                        swal.fire("Error!", "An error occured while linking your account with facebook!", "error");
+                    }
+                })
+                //console.log(data);
+            }
+        )
+    }
+
+
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+<!-- Main wrapper - style you can find in pages.scss style="zoom: 80%!important;"-->
     
     <div id="main-wrapper">
         
@@ -222,6 +290,10 @@
             <!-- Container fluid  -->
             
             <div class="container-fluid" id="main">
+
+            <div style="position: absolute;">
+                <div class="fb-root"></div>
+            </div>
 
 
             

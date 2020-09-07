@@ -166,6 +166,37 @@ class Users_model extends CI_Model{
         return $query->row_array();
     }
 
+
+    public function get_user_by_fbid(){
+
+        $id = $this->input->post('fbid');
+
+        $sql = "SELECT 
+                a.*,
+                b.photo
+                FROM t_users a
+                LEFT JOIN t_avatar b ON a.id = b.userid
+                WHERE a.FBID = ?
+                LIMIT 1
+            ";
+
+        $query = $this->db->query($sql, array($id));
+        return $query->row_array();
+    }
+
+    public function fbconnect(){
+
+        $fbid = $this->input->post('fbid');
+        $userid = $this->input->post('userid');
+        $data = array (
+            'FBID' =>  $fbid
+        );
+
+        $this->db->where('id', $userid);
+        $this->db->update('users', $data);
+        return true;
+    }
+
     public function validate($key, $value){
         $query = $this->db->get_where('users', array($key => $value));
         return $query->num_rows();
@@ -190,8 +221,6 @@ class Users_model extends CI_Model{
 
         $this->db->where('id', $id);
         return ($this->db->delete('users')) ? "success" : "An error occured while deleting your record.";
-
-        
     }
 
     public function upload(){

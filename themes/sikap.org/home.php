@@ -32,7 +32,7 @@
                                 foreach($slider as $row) {
                                     ?>
                                     <div class="swiper-slide hero-content-wrap">
-                                        <img src="<?=$row['featured_img']?>" alt="">
+                                        <img <?=$count == 1 ? '':'data-'?>src="<?=$row['featured_img']?>" alt="" class="<?=$count == 1 ? '':'lazyload'?>">
 
                                         <div class="hero-content-overlay position-absolute w-100">
                                             <div class="container">
@@ -91,6 +91,7 @@
 										
 											<ul>
 												<li>Holistic and Sustainable Development</li>
+												<li>Sexual Reproductive Health and Rights</li>
 												<li>Climate and Disaster Resiliency</li>
 												<li>Gender and Culture Sensitivity</li>
 												<li>Good Governance</li>                                            
@@ -122,7 +123,7 @@
 					
                     <div class="featured-cause">
                         <div class="section-heading">
-                            <h2 class="entry-title" style="height: 85px; vertical-align: text-bottom;">Featured Programs </h2>
+                            <h2 class="entry-title" style="height: 85px; vertical-align: text-bottom;">Featured Projects </h2>
                         </div>
 						<?php
                         $count = 0;
@@ -152,7 +153,7 @@
                                         </header>
 
                                         <div class="entry-content">
-                                            <p class="m-0"><?=substr(strip_tags($featured_program['post']), 0, 300)?>...</p>
+                                            <p class="m-0"><?=trim(str_replace("&nbsp;", " ", substr(strip_tags($featured_program['post']), 0, 300)))?>...</p>
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +211,7 @@
                                         </header>
 
                                         <div class="entry-content">
-                                            <p class="m-0"><?=substr(strip_tags($featured_news['post']), 0, 300)?>...</p>
+                                            <p class="m-0"><?=trim(str_replace("&nbsp;", " ", substr(strip_tags($featured_news['post']), 0, 300)))?>...</p>
                                         </div>
                                     </div>
                                 </div>
