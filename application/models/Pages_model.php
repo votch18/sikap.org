@@ -37,7 +37,7 @@ class Pages_model extends CI_Model{
         if ($this->validateid($id)){
 
             $this->db->where('id', $id);
-            return $this->db->update('pages', $data) ? "success" : "An error occured while saving your page!";
+            return $this->db->update('pages', $data) ? "success" : "An error occurred while saving your page!";
            
         }
 
@@ -48,7 +48,7 @@ class Pages_model extends CI_Model{
         if ($this->validate($url) > 0) return "This page already exists!";
 
            
-        return $this->db->insert('pages', $data) ? "success" : "An error occured while saving your page!";
+        return $this->db->insert('pages', $data) ? "success" : "An error occurred while saving your page!";
     }
 
     public function get(){
@@ -152,7 +152,7 @@ class Pages_model extends CI_Model{
         $id = $this->input->post('id');
 
         $this->db->where('id', $id);
-        return ($this->db->delete('pages')) ? "success" : "An error occured while deleting your record.";
+        return ($this->db->delete('pages')) ? "success" : "An error occurred while deleting your record.";
     }
 
     public function getBanner(){
@@ -172,16 +172,39 @@ class Pages_model extends CI_Model{
             'slug' => $slug,
         );
 
-        return $this->db->insert('views', $data) ? "success" : "An error occured while saving your page!";
+        return $this->db->insert('views', $data) ? "success" : "An error occurred while saving your page!";
     }
 
     public function get_views(){
+        $this->db->select('DATE_FORMAT(date, "%M %d %Y") as date');
         $this->db->select('ip_address');
         $this->db->select('browser');
         $this->db->from('views');
         $this->db->group_by('ip_address');
         $this->db->group_by('browser');
+        $this->db->group_by('DATE_FORMAT(date, "%M %d %Y")');
         return $this->db->get()->result_array();
+    }
+
+    public function get_daily_views(){
+        $month = empty($this->input->post('month')) ? date('F')." ".date('Y') : $this->input->post('month');
+        $query = $this->db->query('select 
+                                a.date as period, 
+                                count(*) as views 
+                                from 
+                                (SELECT DATE_FORMAT(date, "%M %d") as date, ip_address, browser FROM t_views WHERE DATE_FORMAT(date, "%M %Y") = ?  GROUP BY DATE_FORMAT(date, "%M-%d-%Y"), ip_address, browser) a
+                                group by a.date', array($month));
+        return $query->result_array();
+    }
+
+    public function get_monthly_views(){
+        $year = empty($this->input->post('year')) ? date('Y') : $this->input->post('year');
+        $query = $this->db->query('select a.month as period, 
+                                count(*) as views 
+                                from 
+                                (SELECT date, DATE_FORMAT(date, "%M %Y") as month, ip_address, browser FROM t_views WHERE year(date) = ? GROUP BY DATE_FORMAT(date, "%M-%d-%Y"), ip_address, browser) a 
+                                group by a.month', array($year));
+        return $query->result_array();
     }
   
 }

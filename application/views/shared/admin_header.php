@@ -26,7 +26,6 @@
     <link href="<?=base_url()?>assets/admin/main/css/colors/default-dark.css" id="theme" rel="stylesheet">
     
     <link href="<?=base_url()?>assets/admin/main/css/switch.css" id="theme" rel="stylesheet">
-
     <link href="<?=base_url()?>assets/admin/vendor/cropper/cropper.css" rel="stylesheet">
 
     <style>
@@ -51,7 +50,7 @@
     <script src="<?=base_url()?>assets/admin/main/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="<?=base_url()?>assets/admin/main/js/custom.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="<?=base_url()?>assets/admin/vendor/cropper/cropper.js"></script>
 
     <script>
@@ -252,14 +251,11 @@
                                 <li><a href="<?=base_url()?>admin/settings">Site Settings</a></li>
                                 <?php
                                     if ($admin['id'] == '1'){
-
                                     ?>
                                         <li><a href="<?=base_url()?>admin/users">Users</a></li>
                                         <?php
-
                                     }
                                 ?>
-
                             </ul>
                         </li>
                        
@@ -269,12 +265,9 @@
             </div>
             <!-- End Sidebar scroll-->
         </aside>
-        
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        
-        
+
         <!-- Page wrapper  -->
-        
         <div class="page-wrapper">
             <div class="modal fade" id="dialogFilemanager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <button id="modal-close" class="btn btn-danger" data-dismiss="modal" style="position: absolute;top:10px;right:10px;z-index:1"><span style="font-size: 18px;">&times;</span></button>
@@ -286,7 +279,6 @@
                     </div>       
                 </div>
             </div>
-            
             <!-- Container fluid  -->
             
             <div class="container-fluid" id="main">

@@ -87,6 +87,7 @@ $route['admin/fblogin']                 = 'admin/fblogin';
 $route['admin/fbconnect']               = 'admin/fbconnect';
 $route['admin/profile']                 = 'admin/profile';
 $route['admin/fbpost']                  = 'admin/fbpost';
+$route['admin/get_daily_views']         = 'admin/get_daily_views';
 $route['admin/update_info']             = 'admin/update_info';
 $route['admin/do_upload']               = 'admin/do_upload';
 

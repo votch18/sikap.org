@@ -31,6 +31,8 @@ class Admin extends CI_Controller {
             $data['slider'] 	= $this->posts_model->get_posts(7);
             $data['users'] 	= $this->users_model->get_users();
             $data['views'] 	= $this->pages_model->get_views();
+            $data['daily_views'] 	= $this->pages_model->get_daily_views();
+            $data['monthly_views'] 	= $this->pages_model->get_monthly_views();
 
             $this->load->view('shared/admin_header', $data);       
             $this->load->view('admin/dashboard', $data);
@@ -57,6 +59,8 @@ class Admin extends CI_Controller {
         $data['slider'] 	= $this->posts_model->get_posts(7);
         $data['users'] 	= $this->users_model->get_users();
         $data['views'] 	= $this->pages_model->get_views();
+        $data['daily_views'] 	= $this->pages_model->get_daily_views();
+        $data['monthly_views'] 	= $this->pages_model->get_monthly_views();
 
         $this->load->view('shared/admin_header', $data);       
         $this->load->view('admin/dashboard');
@@ -443,4 +447,10 @@ class Admin extends CI_Controller {
 		$this->session->unset_userdata('admin', null);
 		redirect(base_url().'admin');
 	}
+
+	public function get_daily_views(){
+        header('Content-Type: application/json; charset=utf-8;');
+        echo json_encode( $this->pages_model->get_daily_views() );
+        exit;
+    }
 }
