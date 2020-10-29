@@ -30,6 +30,7 @@ class Admin extends CI_Controller {
             $data['gallery'] 	= $this->posts_model->get_posts(6);
             $data['slider'] 	= $this->posts_model->get_posts(7);
             $data['users'] 	= $this->users_model->get_users();
+            $data['views'] 	= $this->pages_model->get_views();
 
             $this->load->view('shared/admin_header', $data);       
             $this->load->view('admin/dashboard', $data);
@@ -55,6 +56,7 @@ class Admin extends CI_Controller {
         $data['gallery'] 	= $this->posts_model->get_posts(6);
         $data['slider'] 	= $this->posts_model->get_posts(7);
         $data['users'] 	= $this->users_model->get_users();
+        $data['views'] 	= $this->pages_model->get_views();
 
         $this->load->view('shared/admin_header', $data);       
         $this->load->view('admin/dashboard');

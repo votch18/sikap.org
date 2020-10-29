@@ -31,6 +31,8 @@ class Home extends CI_Controller {
 
 		$data['template'] = 'home.php';
 
+        $this->pages_model->add_view($this->util->getIpAddress(), $this->util->getBrowserName(), 'home', null);
+
 		$this->theme->initialize($data);
     }
 
@@ -60,7 +62,9 @@ class Home extends CI_Controller {
         $data['slider'] 	= $this->posts_model->get_published_post(7);
         $data['category'] = $category;
 
-		$data['template'] 	= $this->pages_model->get_template($url);        
+		$data['template'] 	= $this->pages_model->get_template($url);
+
+        $this->pages_model->add_view($this->util->getIpAddress(), $this->util->getBrowserName(), $url, null);
 
         $this->theme->initialize($data);
 	}
@@ -98,7 +102,9 @@ class Home extends CI_Controller {
        		redirect(base_url());
        	}
 
-		$data['template'] 	= 'view_post.php';        
+		$data['template'] 	= 'view_post.php';
+
+        $this->pages_model->add_view($this->util->getIpAddress(), $this->util->getBrowserName(), $url,  $slug);
 
         $this->theme->initialize($data);
 	}
@@ -115,6 +121,8 @@ class Home extends CI_Controller {
         $data['programs'] 	= $this->posts_model->get_published_programs($category);
 
         $data['template'] 	= $this->pages_model->get_template($url);
+
+        $this->pages_model->add_view($this->util->getIpAddress(), $this->util->getBrowserName(), $url,  null);
 
         $this->theme->initialize($data);
     }

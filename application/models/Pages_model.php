@@ -163,5 +163,25 @@ class Pages_model extends CI_Model{
 
         return $this->db->get()->row_array()["html"];
     }
+
+    public function add_view($ip_address, $browser, $type, $slug = ""){
+        $data = array(
+            'ip_address' => $ip_address,
+            'browser' => $browser,
+            'type' => $type,
+            'slug' => $slug,
+        );
+
+        return $this->db->insert('views', $data) ? "success" : "An error occured while saving your page!";
+    }
+
+    public function get_views(){
+        $this->db->select('ip_address');
+        $this->db->select('browser');
+        $this->db->from('views');
+        $this->db->group_by('ip_address');
+        $this->db->group_by('browser');
+        return $this->db->get()->result_array();
+    }
   
 }

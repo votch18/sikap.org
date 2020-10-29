@@ -79,4 +79,17 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="m-r-20 align-self-center">
+                        <i class="mdi mdi-eye fa-3x text-info"></i></div>
+                    <div class="align-self-center">
+                        <h6 class="text-muted m-t-10 m-b-0">Page Views</h6>
+                        <h2 class="m-t-0"><?=count($views)?></h2></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

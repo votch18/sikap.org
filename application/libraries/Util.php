@@ -146,16 +146,18 @@ class util
         $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
         
         //add space to so that strpos won't return 0
-        $user_agent = " ".$user_agent;
-
+        //$array = explode(" ", $user_agent);
+        //$array[count($array) - 1]. " ".
+        /*
         if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
         elseif (strpos($user_agent, 'Edge')) return 'Microsoft Edge';
         elseif (strpos($user_agent, 'Chrome')) return 'Google Chrome';
         elseif (strpos($user_agent, 'Safari')) return 'Safari';
-        elseif (strpos($user_agent, 'Firefox')) return 'Mozilla Firefox';
+        elseif (strpos($user_agent, 'firefox')) return 'Mozilla Firefox';
         elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
-        
-        return 'Other';
+        */
+
+        return  $user_agent ;
     }
 
 	
